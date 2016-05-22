@@ -1,0 +1,16 @@
+{
+	".source.uiflow": {
+		"Insert page": {
+			"prefix": "page",
+			"body": "[${1:page}]\n${2:see}\n--\n${3:action}"
+		},
+		"Insert action with no api": {
+			"prefix": "action with no api",
+			"body": "${1:action}\n===> ${2:page}"
+		},
+		"Insert action with api": {
+			"prefix": "action with api",
+			"body": "${1:action}\n=={${2:api}}=> ${3:page}"
+		}
+	}
+}

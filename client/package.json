@@ -1,0 +1,100 @@
+{
+  "name": "vscode-uiflow",
+  "displayName": "UiFlow",
+  "description": "UiFlow support For Visual Studio Code.",
+  "author": "Kei Nakayama",
+  "license": "MIT",
+  "version": "0.0.1",
+  "publisher": "kexi",
+  "engines": {
+    "vscode": "^0.10.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kexi/vscode-uiflow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kexi/vscode-uiflow/issues"
+  },
+  "categories": [
+    "Other"
+  ],
+  "homepage": "https://github.com/kexi/vscode-uiflow",
+  "activationEvents": [
+    "onLanguage:uiflow",
+    "onCommand:uiflow.openPreview",
+    "onCommand:uiflow.exportSVG",
+    "onCommand:uiflow.exportPNG"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "uiflow.openPreview",
+        "title": "UiFlow: Open Preview to the Side"
+      },
+      {
+        "command": "uiflow.exportSVG",
+        "title": "UiFlow: Export SVG"
+      },
+      {
+        "command": "uiflow.exportPNG",
+        "title": "UiFlow: Export PNG"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "uiflow",
+        "path": "./snippets/uiflow.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "uiflow",
+        "extensions": [
+          ".uif",
+          ".uif.md",
+          ".uif.text",
+          ".uif.txt"
+        ],
+        "aliases": [
+          "UiFlow"
+        ]
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "uiflow.openPreview",
+        "key": "alt+u p"
+      },
+      {
+        "command": "uiflow.exportSVG",
+        "key": "alt+u s"
+      },
+      {
+        "command": "uiflow.exportPNG",
+        "key": "alt+u n"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "compile": "node ./node_modules/vscode/bin/compile -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "tslint": "^3.3.0",
+    "typescript": "^1.8.9",
+    "vscode": "^0.11.0"
+  },
+  "dependencies": {
+    "fs-extra": "^0.30.0",
+    "svg2png": "^3.0.0",
+    "through2": "^2.0.1",
+    "uiflow": "1.1.8",
+    "vscode-languageclient": "^1.4.2"
+  }
+}
