@@ -17,7 +17,7 @@
     "url": "https://github.com/kexi/vscode-uiflow/issues"
   },
   "categories": [
-    "Other"
+    "Languages", "Other", "Snippets"
   ],
   "homepage": "https://github.com/kexi/vscode-uiflow",
   "activationEvents": [
