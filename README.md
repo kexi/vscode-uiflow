@@ -4,4 +4,4 @@ This extension add support for the [uiflow](https://github.com/hirokidaichi/uifl
 
 ![preview](./client/img/preview.png)
 
-[see more information](./client/README.md)
+[see more information](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow)
