@@ -10,3 +10,4 @@ __test/**
 tsconfig.json
 tslint.json
 vsc-extension-quickstart.md
+*.vsix
