@@ -1,11 +1,11 @@
 'use strict';
 
-import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
+import vscode = require('vscode');
+import fs = require('fs');
+import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
 import { workspace, Disposable, ExtensionContext} from 'vscode';
-import { languageId } from './extension';
+import { MODE } from './mode';
 
 const svg2png = require('svg2png');
 
@@ -93,7 +93,7 @@ export function setResovleExportPath(resolver: ResolveExportPath) {
 }
 
 function checkLanguage(editor: vscode.TextEditor): boolean {
-	if (editor.document.languageId === languageId) {
+	if (editor.document.languageId === MODE.language) {
 		return true;
 	}
 	vscode.window.showErrorMessage('Editor doesn\'t show a Uiflow Document.');

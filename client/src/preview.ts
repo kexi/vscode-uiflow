@@ -1,10 +1,10 @@
 'use strict';
 
-import * as path from 'path';
-import * as vscode from 'vscode';
-import { languageId } from './extension';
+import path = require('path');
+import vscode = require('vscode');
 import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri, TextDocumentChangeEvent, window, workspace } from 'vscode';
 import { CompileFormat, Compiler } from './compiler';
+import { MODE } from './mode';
 
 const command = 'uiflow.openPreview';
 const previewUri = 'uiflow-preview://authority/uiflow-preview';
@@ -15,7 +15,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 
 	public provideTextDocumentContent(uri: Uri): string | Thenable<string> {
 		let editor = window.activeTextEditor;
-		if (editor.document.languageId !== languageId) {
+		if (editor.document.languageId !== MODE.language) {
 			return 'Active window does not show a Uiflow document - No properties to preview.';
 		}
 		return this.createPreview();
