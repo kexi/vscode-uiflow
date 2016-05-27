@@ -3,8 +3,8 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fs from 'fs-extra';
 import * as outline from '../src/outline';
-let fs = require('fs-extra');
 
 suite('UiFlow Outline Tests', () => {
 
@@ -24,13 +24,13 @@ suite('UiFlow Outline Tests', () => {
 	];
 
 	test('codeToSegments', done => {
-		let code = fs.readFileSync(path.join(fixturePath, 'outline.uif', 'utf8'));
+		let code = fs.readFileSync(path.join(fixturePath, 'outline.uif'), 'utf8');
 		outline.codeToSegments(code).then(actual => {
 			assert.equal(actual.length, expected.length, `Segment length must be ${expected.length}.`);
 			actual.forEach((act, i) => {
 				let ex = expected[i];
 				assert.equal(act.name, ex.name, `Segment name must be ${ex.name}.`);
-				assert.equal(act.lines, ex.lines, `Segment lines must be ${ex.lines}`);
+				assert.equal(act.lines, ex.lines, `Segment lines must be ${ex.lines}.`);
 			});
 			done();
 		}).catch(reason => done(reason));

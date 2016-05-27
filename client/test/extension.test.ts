@@ -4,8 +4,8 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import * as extension from '../src/extension';
+import * as fs from 'fs-extra';
 import { setResovleExportPath } from '../src/export';
-let fs = require('fs-extra');
 
 suite('UiFlow Extension Tests', () => {
 	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
