@@ -11,7 +11,7 @@
 		"node_modules",
 		"server",
 		"typings/browser.d.ts",
-		"typings/browser/",
+		"typings/browser",
 		".vscode-test"
 	]
 }
