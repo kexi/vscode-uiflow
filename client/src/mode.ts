@@ -1,5 +1,5 @@
 'use strict';
 
-import vscode = require('vscode');
+import * as vscode from 'vscode';
 
 export const MODE: vscode.DocumentFilter = {language: 'uiflow', scheme: 'file'};

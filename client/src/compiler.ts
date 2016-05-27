@@ -5,7 +5,8 @@ const through2 = require('through2');
 
 export enum CompileFormat {
 	SVG,
-	PNG
+	PNG,
+	JSON
 }
 
 export class Compiler {
@@ -40,6 +41,8 @@ function formatToString(format: CompileFormat): string {
 			return 'svg';
 		case CompileFormat.PNG:
 			return 'png';
+		case CompileFormat.JSON:
+			return 'json';
 		default:
 			throw new Error('Unknown Format');
 	}
