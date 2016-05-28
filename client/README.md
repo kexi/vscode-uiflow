@@ -4,6 +4,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 * Diagram Preview
 * Export PNG
 * Export SVG
+* Auto Completion
 
 ## What's uiflow?
 [uiflow](https://github.com/hirokidaichi/uiflow) is the simplest way to write down your ui-flow diagram like markdown.
