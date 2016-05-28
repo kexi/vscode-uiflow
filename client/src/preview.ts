@@ -64,7 +64,7 @@ export function activate(context: ExtensionContext) {
 
 function fixFont(svg: string): string {
 	let m = svg.match(/\s<text.*\s*font-family="([^"]*)"\s*font-size="([^"]*)"/);
-	if (m.length < 3) {
+	if (!m || m.length < 3) {
 		return svg;
 	}
 	let family = m[1];
