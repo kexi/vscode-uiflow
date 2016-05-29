@@ -1,21 +1,16 @@
 'use strict';
 
-import { Compiler, CompileFormat } from './compiler';
+import { Compiler, CompileFormat, Meta, Segment } from './compiler';
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
 import { MODE } from './mode';
-
-export interface Segment {
-	name: string;
-	lines: number;
-}
 
 export function codeToSegments(code: string): Promise<Segment[]> {
 	let promise = new Promise<Segment[]>((ok, ng) => {
 		Compiler.compile('', code, CompileFormat.JSON).then(buffer => {
-			let json = JSON.parse(String(buffer));
+			let json: Meta = JSON.parse(String(buffer));
 			let segs: Segment[] = [];
 			Object.keys(json).forEach(key => {
-				segs.push(<Segment>json[key]);
+				segs.push(json[key]);
 			});
 			ok(segs);
 		});
