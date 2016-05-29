@@ -47,3 +47,12 @@ function formatToString(format: CompileFormat): string {
 			throw new Error('Unknown Format');
 	}
 }
+
+export interface Segment extends Object {
+	name: string;
+	lines?: number;
+}
+
+export interface Meta extends Object {
+	[key: string]: Segment;
+}

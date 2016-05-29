@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 import { CancellationToken, CompletionList, CompletionItemKind, CompletionItem, CompletionItemProvider, ExtensionContext, TextDocument, Position} from 'vscode';
-import { Compiler, CompileFormat } from './compiler';
+import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
 
 export function activate(context: ExtensionContext) {
@@ -17,10 +17,10 @@ export class UiflowCompletionItemProvider implements CompletionItemProvider {
 			return Promise.resolve([]);
 		}
 		return Compiler.compile('', document.getText(), CompileFormat.JSON).then(buffer => {
-			let json = JSON.parse(String(buffer));
+			let json: Meta = JSON.parse(String(buffer));
 			let list: CompletionItem[] = [];
 			Object.keys(json).forEach(key => {
-				let segment: {name: string} = json[key];
+				let segment = json[key];
 				let item = new CompletionItem(segment.name);
 				item.kind = CompletionItemKind.Class;
 				list.push(item);
