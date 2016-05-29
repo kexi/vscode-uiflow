@@ -4,7 +4,7 @@
   "description": "UiFlow support For Visual Studio Code.",
   "author": "Kei Nakayama",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "kexi",
   "engines": {
     "vscode": "^0.10.10"
