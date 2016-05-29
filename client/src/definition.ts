@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 import { CancellationToken, CompletionList, Definition, DefinitionProvider, ExtensionContext, Location, TextDocument, Position } from 'vscode';
-import { Compiler, CompileFormat } from './compiler';
+import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
 
 export function activate(context: ExtensionContext) {
@@ -23,11 +23,11 @@ export class UiflowDefinitionProvider implements DefinitionProvider {
 		let name = match[1];
 		return Compiler.compile('', document.getText(), CompileFormat.JSON)
 		.then(buffer => {
-			let json: Object = JSON.parse(String(buffer));
-			if (Object.keys(json).indexOf(name) < 0) {
+			let json: Meta = JSON.parse(String(buffer));
+			let segment = json[name];
+			if (!segment) {
 				return null;
-			};
-			let segment: {lines: number} = json[name];
+			}
 			let position = new Position(segment.lines, 0);
 			let location = new Location(document.uri, position);
 			return location;
