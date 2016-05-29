@@ -1,0 +1,27 @@
+[Home]
+What user sees
+News
+--
+Click Sign In
+==> Sign In
+Click Sign Up
+==> Sign Up
+
+[Sign Up]
+Terms Of Use
+--
+Submit User Information
+==> Dashboard
+Click Sign In
+==> Sign In
+
+[Sign In]
+Some messages
+--
+Submit valid
+==> Dashboard
+Submit invalid
+==> Sign In
+
+Click Sign Up
+==> Sign Up
