@@ -23,7 +23,7 @@ suite('UiFlow Outline Tests', () => {
 		{name: 'seg3', lines: 9}
 	];
 
-	test('codeToSegments', done => {
+	test('Test codeToSegments', done => {
 		let code = fs.readFileSync(path.join(fixturePath, 'outline.uif'), 'utf8');
 		outline.codeToSegments(code).then(actual => {
 			assert.equal(actual.length, expected.length, `Segment length must be ${expected.length}.`);
