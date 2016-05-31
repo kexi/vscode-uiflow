@@ -17,7 +17,7 @@ suite('UiFlow Suggest Tests', () => {
 		fs.copySync(path.join(fixtureSourcePath, 'suggest.uif'), path.join(fixturePath, 'suggest.uif'));
 	});
 
-	test('provideCompletionItems#UiflowCompletionItemProvider', done => {
+	test('Test provideCompletionItems#UiflowCompletionItemProvider', done => {
 		vscode.workspace.openTextDocument(path.join(fixturePath, 'suggest.uif'))
 			.then(doc => {
 				let testCases: [vscode.Position, string[]][] = [
