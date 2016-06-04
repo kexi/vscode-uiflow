@@ -1,7 +1,30 @@
-# vscode-uiflow [![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow)
-This is an extension for Visual Studio Code.
-This extension add support for the [uiflow](https://github.com/hirokidaichi/uiflow) to Visual Studio Code (vscode).
+# UiFlow for Visual Studio Code [![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow)
+This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
 
-![preview](./client/img/preview.png)
+* Diagram Preview
+* Export PNG
+* Export SVG
+* Auto Completion
 
-[see more information](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow)
+## What's uiflow?
+[uiflow](https://github.com/hirokidaichi/uiflow) is the simplest way to write down your ui-flow diagram like markdown.
+
+### See also
+* [uiflow](https://github.com/hirokidaichi/uiflow) (Japanese)
+* [A shorthand for designing UI flows](https://signalvnoise.com/posts/1926-a-shorthand-for-designing-ui-flows)
+
+## Screenshot
+![preview](img/preview.png)
+
+## Using
+Click Select Langage Mode at the right bottom of the window and choose UiFlow.
+
+### Shotcuts
+* Show preview `Alt+U P`
+* Export PNG `Alt+U N`
+* Export SVG `Alt+U S`
+
+### Text Editor Commands
+* Open Preview
+* Export PNG
+* Export SVG
