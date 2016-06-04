@@ -94,7 +94,6 @@
     "fs-extra": "^0.30.0",
     "svg2png": "^3.0.0",
     "through2": "^2.0.1",
-    "uiflow": "1.1.8",
-    "vscode-languageclient": "^1.4.2"
+    "uiflow": "1.1.8"
   }
 }
