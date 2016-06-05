@@ -15,11 +15,10 @@ export function activate() {
 	});
 }
 
-function validateTextDocument(textDocument: TextDocument): void {
-	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
+export function createDiagnostics(document: TextDocument): Diagnostic[] {
 	let diagnostics: Diagnostic[] = [];
 	try {
-		uiflow.parser.parse(textDocument.getText().replace(/\r\n/g, '\n'), textDocument.uri);
+		uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), document.uri);
 	} catch (e) {
 		let info = e.message.split(/:/g);
 		let start = new Position(e.lineNumber, 0);
@@ -29,5 +28,11 @@ function validateTextDocument(textDocument: TextDocument): void {
 		let diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error);
 		diagnostics.push(diagnostic);
 	}
-	errors.set(textDocument.uri, diagnostics);
+	return diagnostics;
+}
+
+function validateTextDocument(document: TextDocument): void {
+	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
+	let diagnostics = createDiagnostics(document);
+	errors.set(document.uri, diagnostics);
 }
