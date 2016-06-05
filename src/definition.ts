@@ -1,8 +1,8 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as uiflow from 'uiflow';
 import { CancellationToken, CompletionList, Definition, DefinitionProvider, ExtensionContext, Location, TextDocument, Position } from 'vscode';
-import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
 
 export function activate(context: ExtensionContext) {
@@ -21,16 +21,13 @@ export class UiflowDefinitionProvider implements DefinitionProvider {
 			return Promise.resolve(null);
 		}
 		let name = match[1];
-		return Compiler.compile('', document.getText(), CompileFormat.JSON)
-		.then(buffer => {
-			let json: Meta = JSON.parse(String(buffer));
-			let segment = json[name];
-			if (!segment) {
-				return null;
-			}
-			let position = new Position(segment.lines, 0);
-			let location = new Location(document.uri, position);
-			return location;
-		});
+		let json = uiflow.parser.parse(document.getText(), '');
+		let segment = json[name];
+		if (!segment) {
+				return Promise.resolve(null);
+		}
+		let pos = new Position(segment.lines, 0);
+		let location = new Location(document.uri, pos);
+		return Promise.resolve(location);
 	}
 }

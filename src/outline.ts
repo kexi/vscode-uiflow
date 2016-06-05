@@ -1,21 +1,17 @@
 'use strict';
 
-import { Compiler, CompileFormat, Meta, Segment } from './compiler';
+import * as uiflow from 'uiflow';
+import { Segment } from 'uiflow';
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
 import { MODE } from './mode';
 
-export function codeToSegments(code: string): Promise<Segment[]> {
-	let promise = new Promise<Segment[]>((ok, ng) => {
-		Compiler.compile('', code, CompileFormat.JSON).then(buffer => {
-			let json: Meta = JSON.parse(String(buffer));
-			let segs: Segment[] = [];
-			Object.keys(json).forEach(key => {
-				segs.push(json[key]);
-			});
-			ok(segs);
-		});
+export function codeToSegments(code: string): Thenable<Segment[]> {
+	let json = uiflow.parser.parse(code, '');
+	let segs: Segment[] = [];
+	Object.keys(json).forEach(key => {
+		segs.push(json[key]);
 	});
-	return promise;
+	return Promise.resolve(segs);
 }
 
 export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {

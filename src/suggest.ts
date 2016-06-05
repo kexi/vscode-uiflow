@@ -1,8 +1,8 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as uiflow from 'uiflow';
 import { CancellationToken, CompletionList, CompletionItemKind, CompletionItem, CompletionItemProvider, ExtensionContext, TextDocument, Position} from 'vscode';
-import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
 
 export function activate(context: ExtensionContext) {
@@ -16,16 +16,14 @@ export class UiflowCompletionItemProvider implements CompletionItemProvider {
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
 			return Promise.resolve([]);
 		}
-		return Compiler.compile('', document.getText(), CompileFormat.JSON).then(buffer => {
-			let json: Meta = JSON.parse(String(buffer));
-			let list: CompletionItem[] = [];
-			Object.keys(json).forEach(key => {
-				let segment = json[key];
-				let item = new CompletionItem(segment.name);
-				item.kind = CompletionItemKind.Class;
-				list.push(item);
-			});
-			return list;
+		let json = uiflow.parser.parse(document.getText(), '');
+		let list: CompletionItem[] = [];
+		Object.keys(json).forEach(key => {
+			let segment = json[key];
+			let item = new CompletionItem(segment.name);
+			item.kind = CompletionItemKind.Class;
+			list.push(item);
 		});
+		return Promise.resolve(list);
 	}
 }

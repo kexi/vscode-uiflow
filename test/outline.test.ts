@@ -32,8 +32,7 @@ suite('UiFlow Outline Tests', () => {
 				assert.equal(act.name, ex.name, `Segment name must be ${ex.name}.`);
 				assert.equal(act.lines, ex.lines, `Segment lines must be ${ex.lines}.`);
 			});
-			done();
-		}).catch(reason => done(reason));
+		}).then(() => done(), reason => done(reason));
 	});
 
 	test('provideDocumentSymbols#UiflowDocumentSymbolProvider', done => {

@@ -1,10 +1,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as uiflow from 'uiflow';
 import { CancellationToken, Diagnostic, DiagnosticSeverity, ExtensionContext, Range, Position, TextDocument, TextDocumentChangeEvent } from 'vscode';
-import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
-const uiflow = require('uiflow');
+
 
 export function activate() {
 	vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
@@ -18,7 +18,7 @@ export function activate() {
 export function createDiagnostics(document: TextDocument): Diagnostic[] {
 	let diagnostics: Diagnostic[] = [];
 	try {
-		uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), document.uri);
+		uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), '');
 	} catch (e) {
 		let info = e.message.split(/:/g);
 		let start = new Position(e.lineNumber, 0);

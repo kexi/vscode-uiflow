@@ -1,7 +1,7 @@
 'use strict';
 
-const uiflow = require('uiflow');
-const through2 = require('through2');
+import * as uiflow from 'uiflow';
+import * as through2 from 'through2';
 
 export enum CompileFormat {
 	SVG,
