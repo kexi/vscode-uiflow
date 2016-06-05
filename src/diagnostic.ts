@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 import { CancellationToken, Diagnostic, DiagnosticSeverity, ExtensionContext, Range, Position, TextDocument, TextDocumentChangeEvent } from 'vscode';
 import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
-const uiflow = require('uiflow');
+import * as uiflow from 'uiflow';
 
 export function activate() {
 	vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
@@ -19,7 +19,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
 	let diagnostics: Diagnostic[] = [];
 	try {
-		uiflow.parser.parse(textDocument.getText().replace(/\r\n/g, '\n'), textDocument.uri);
+		uiflow.parser.parse(textDocument.getText().replace(/\r\n/g, '\n'), '');
 	} catch (e) {
 		let info = e.message.split(/:/g);
 		let start = new Position(e.lineNumber, 0);
