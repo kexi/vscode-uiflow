@@ -3,7 +3,6 @@
 import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
 import { CancellationToken, CompletionList, CompletionItemKind, CompletionItem, CompletionItemProvider, ExtensionContext, TextDocument, Position} from 'vscode';
-import { Compiler, CompileFormat, Meta } from './compiler';
 import { MODE } from './mode';
 
 export function activate(context: ExtensionContext) {
