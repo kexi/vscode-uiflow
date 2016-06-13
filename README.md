@@ -1,4 +1,6 @@
-# UiFlow for Visual Studio Code [![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow)
+# UiFlow for Visual Studio Code
+[![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow)
+
 This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
 
 * Diagram Preview
@@ -17,7 +19,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 ![preview](img/preview.png)
 
 ## Using
-Click Select Langage Mode at the right bottom of the window and choose UiFlow.
+Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 
 ### Shotcuts
 * Show preview `Alt+U P`
