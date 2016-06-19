@@ -21,7 +21,9 @@
     "url": "https://github.com/kexi/vscode-uiflow/issues"
   },
   "categories": [
-    "Languages", "Other", "Snippets"
+    "Languages",
+    "Other",
+    "Snippets"
   ],
   "homepage": "https://github.com/kexi/vscode-uiflow/blob/master/README.md",
   "activationEvents": [
@@ -96,6 +98,7 @@
   },
   "dependencies": {
     "fs-extra": "^0.30.0",
+    "parsimmon": "^0.7.1",
     "svg2png": "^3.0.0",
     "through2": "^2.0.1",
     "uiflow": "1.1.8"
