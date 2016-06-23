@@ -21,7 +21,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 ## Using
 Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 
-### Shotcuts
+### Shortcuts
 * Show preview `Alt+U P`
 * Export PNG `Alt+U N`
 * Export SVG `Alt+U S`
