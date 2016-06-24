@@ -15,7 +15,7 @@ export class UiflowRenameProvider implements RenameProvider {
 		}
 		let text = filtered[0].text;
 		let edit = new WorkspaceEdit();
-		filtered.forEach(n => {
+		filtered.filter(n => n.text === text).forEach(n => {
 			let start = new Position(n.start.line - 1, n.start.column - 1);
 			let end = new Position(n.end.line - 1, n.end.column - 1);
 			let range = new Range(start, end);
