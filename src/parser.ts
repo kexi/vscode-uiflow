@@ -29,7 +29,7 @@ let equal = regex(/=+/);
 let lapi = string('{');
 let rapi = string('}');
 let api = regex(/[^}]+/).map(text => {return {label: 'api', text: text}; }).mark();
-let directionText = regex(/.*/i).map(text => {return {label: 'direction', text: text}; }).mark();
+let directionText = regex(/.*/).map(text => {return {label: 'direction', text: text}; }).mark();
 let lt = string('>');
 let directionWithoutApi = seqMap(equal, lt, directionText, (...params) => params[2]);
 let directionWithApi = seqMap(equal, lapi, api, rapi, equal, lt, directionText, (...params) => [params[2], params[6]]);
