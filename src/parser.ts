@@ -9,7 +9,7 @@ export interface Position {
 	line: number;
 }
 
-interface Declarelation {
+export interface Declarelation {
 	label: string;
 	text: string;
 }
@@ -19,62 +19,32 @@ export interface Node extends Declarelation {
 	end: Position;
 }
 
-enum State {
-	section,
-	endOfSee,
-	endOfAction
-}
+let lsec = regex(/.*\[/);
+let rsec = regex(/\].*/);
+let sectionText = regex(/[^#\]]+/).map(text => {return {label: 'section', text: text}; }).mark();
+let rank = regex(/#*/);
+let section = seqMap(lsec, sectionText, rsec, (...params) => params[1]);
 
-let state = null;
+let equal = regex(/=+/);
+let lapi = string('{');
+let rapi = string('}');
+let api = regex(/[^}]+/).map(text => {return {label: 'api', text: text}; }).mark();
+let directionText = regex(/.*/i).map(text => {return {label: 'direction', text: text}; }).mark();
+let lt = string('>');
+let directionWithoutApi = seqMap(equal, lt, directionText, (...params) => params[2]);
+let directionWithApi = seqMap(equal, lapi, api, rapi, equal, lt, directionText, (...params) => [params[2], params[6]]);
+let direction = alt(directionWithoutApi, directionWithApi);
 
-function lexeme(p: Parsimmon.Parser<string>) {
-	return p.skip(optWhitespace);
-}
+let text = regex(/.*/).mark().map(text => {
+	return {label: 'text', text: text};
+});
 
-let eol = regex(/\n/);
+let line = optWhitespace.then(alt(section, direction, text));
 
-namespace section {
-	let lsec = string('[');
-	let rsec = string(']');
-	let name = regex(/[^#\]]*/).map(text => {
-		state = State.section;
-		return {label: 'section', text: text};
-	}).mark();
-	let rank = string('#').many();
-	export let parser = lsec.then(name).skip(rank).skip(rsec);
-}
+let eol = string('\n');
+let parser = sepBy<any>(line, eol);
 
-namespace direction {
-	let lapi = string('{');
-	let rapi = string('}');
-	let equal = string('=');
-	let eoe = string('>').skip(regex(/[ \f\n\r\t\v]*/));
-	let api = lapi.then(regex(/[^}]*/)).map<Declarelation>(text => {return {label: 'api', text: text}; }).mark().skip(rapi);
-	let directionName = regex(/[^\n]+/).map<Declarelation>(text => {return {label: 'direction', text: text}; }).mark();
-	let directionLine = seqMap(equal.atLeast(1), api.atMost(1), equal.atLeast(1), eoe, directionName, (_, api, __, ___, dr) => {return [api, dr]; });
-	export let parser = directionLine;
-}
-
-namespace text {
-	let textLine = regex(/.*/).map<Declarelation>(text => {
-		let l: string = state === State.section ? 'see' : 'action';
-		return {label: l, text: text};
-	});
-	export let parser = textLine.mark();
-}
-
-namespace endOfSee {
-	let endOfSee = regex(/-+/).mark().map(text => {
-		state = State.endOfSee;
-		return {label: 'endOfSee', text: text};
-	});
-	export let parser = endOfSee.mark();
-}
-
-let lineParser = alt(section.parser, direction.parser, endOfSee.parser, text.parser);
-let parser = sepBy(lineParser, eol);
-
-function walk(nodes: Node[], val: any) {
+export function walk(nodes: Node[], val: any) {
 	if (val instanceof Array) {
 		val.forEach(v => walk(nodes, v));
 	}
@@ -89,15 +59,13 @@ function walk(nodes: Node[], val: any) {
 	}
 }
 
-export class Parser {
-	parse(code: string): Node[] {
-		state = null;
-		let ast: Parsimmon.Result<string> = parser.parse(code);
-		if (!ast.status) {
-			throw new Error(ast.expected);
-		}
-		let nodes: Node[] = [];
-		walk(nodes, ast.value);
-		return nodes;
+export function parse(code: string): Node[] {
+	let ast: Parsimmon.Result<string> = parser.parse(code);
+	if (!ast.status) {
+		console.error(ast);
+		throw new Error(ast.expected);
 	}
+	let nodes: Node[] = [];
+	walk(nodes, ast.value);
+	return nodes;
 }
