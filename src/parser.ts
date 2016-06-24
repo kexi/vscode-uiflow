@@ -62,7 +62,6 @@ export function walk(nodes: Node[], val: any) {
 export function parse(code: string): Node[] {
 	let ast: Parsimmon.Result<string> = parser.parse(code);
 	if (!ast.status) {
-		console.error(ast);
 		throw new Error(ast.expected);
 	}
 	let nodes: Node[] = [];
