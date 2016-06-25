@@ -6,6 +6,10 @@
   "license": "MIT",
   "version": "0.0.4",
   "publisher": "kexi",
+  "galleryBanner": {
+    "color": "#79b74a",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^0.10.10"
   },
@@ -19,7 +23,7 @@
   "categories": [
     "Languages", "Other", "Snippets"
   ],
-  "homepage": "https://github.com/kexi/vscode-uiflow",
+  "homepage": "https://github.com/kexi/vscode-uiflow/blob/master/README.md",
   "activationEvents": [
     "onLanguage:uiflow",
     "onCommand:uiflow.openPreview",
