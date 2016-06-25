@@ -1,0 +1,11 @@
+[sec one]
+see1
+--
+act1
+==> sec one
+
+[sec2]
+see2
+--
+act2
+==> sec one

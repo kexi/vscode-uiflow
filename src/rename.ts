@@ -10,12 +10,12 @@ export class UiflowRenameProvider implements RenameProvider {
 	provideRenameEdits(document: TextDocument, position: Position, newName: string, token: CancellationToken): Thenable<WorkspaceEdit> {
 		let nodes = parse(document.getText());
 		let filtered = nodes.filter(n => ['section', 'direction'].indexOf(n.label) >= 0);
-		if (!atSectionName(position, filtered)) {
+		let target = atSectionName(position, filtered);
+		if (!target) {
 			return Promise.resolve(null);
 		}
-		let text = filtered[0].text;
 		let edit = new WorkspaceEdit();
-		filtered.filter(n => n.text === text).forEach(n => {
+		filtered.filter(n => n.text === target.text).forEach(n => {
 			let start = new Position(n.start.line - 1, n.start.column - 1);
 			let end = new Position(n.end.line - 1, n.end.column - 1);
 			let range = new Range(start, end);
@@ -25,7 +25,7 @@ export class UiflowRenameProvider implements RenameProvider {
 	}
 }
 
-function atSectionName(position: Position, filtered: Node[]): boolean {
+function atSectionName(position: Position, filtered: Node[]): Node {
 	let column = position.character + 1;
 	let line = position.line + 1;
 	let result = filtered.find((e: Node) => {
@@ -37,7 +37,7 @@ function atSectionName(position: Position, filtered: Node[]): boolean {
 		}
 		return true;
 	});
-	return result ? true : false;
+	return result;
 }
 
 export function activate(context: ExtensionContext) {
