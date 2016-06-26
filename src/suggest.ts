@@ -19,8 +19,8 @@ export class UiflowCompletionItemProvider implements CompletionItemProvider {
 		let json = uiflow.parser.parse(document.getText(), '');
 		let list: CompletionItem[] = [];
 		Object.keys(json).forEach(key => {
-			let segment = json[key];
-			let item = new CompletionItem(segment.name);
+			let section = json[key];
+			let item = new CompletionItem(section.name);
 			item.kind = CompletionItemKind.Class;
 			list.push(item);
 		});

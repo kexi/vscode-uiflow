@@ -23,14 +23,14 @@ suite('UiFlow Outline Tests', () => {
 		{name: 'seg3', lines: 9}
 	];
 
-	test('Test codeToSegments', done => {
+	test('Test codeToSections', done => {
 		let code = fs.readFileSync(path.join(fixturePath, 'outline.uif'), 'utf8');
-		outline.codeToSegments(code).then(actual => {
-			assert.equal(actual.length, expected.length, `Segment length must be ${expected.length}.`);
+		outline.codeToSections(code).then(actual => {
+			assert.equal(actual.length, expected.length, `Section length must be ${expected.length}.`);
 			actual.forEach((act, i) => {
 				let ex = expected[i];
-				assert.equal(act.name, ex.name, `Segment name must be ${ex.name}.`);
-				assert.equal(act.lines, ex.lines, `Segment lines must be ${ex.lines}.`);
+				assert.equal(act.name, ex.name, `Section name must be ${ex.name}.`);
+				assert.equal(act.lines, ex.lines, `Section lines must be ${ex.lines}.`);
 			});
 		}).then(() => done(), reason => done(reason));
 	});

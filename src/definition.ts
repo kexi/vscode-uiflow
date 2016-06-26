@@ -22,11 +22,11 @@ export class UiflowDefinitionProvider implements DefinitionProvider {
 		}
 		let name = match[1];
 		let json = uiflow.parser.parse(document.getText(), '');
-		let segment = json[name];
-		if (!segment) {
+		let section = json[name];
+		if (!section) {
 				return Promise.resolve(null);
 		}
-		let pos = new Position(segment.lines, 0);
+		let pos = new Position(section.lines, 0);
 		let location = new Location(document.uri, pos);
 		return Promise.resolve(location);
 	}
