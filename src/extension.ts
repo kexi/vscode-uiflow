@@ -8,6 +8,7 @@ import { activate as activateCompletionItemProvider } from './suggest';
 import { activate as activateDefinitionProvider } from './definition';
 import { activate as activateDiagnostic } from './diagnostic';
 import { activate as activateRenameProvider } from './rename';
+import { activate as activateReferenceProvider } from './reference';
 import { MODE } from './mode';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -17,6 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 	activateCompletionItemProvider(context);
 	activateDefinitionProvider(context);
 	activateRenameProvider(context);
+	activateReferenceProvider(context);
 	activateDiagnostic();
 }
 

@@ -1,0 +1,17 @@
+[sec1]
+see1
+--
+act1
+==> sec1
+
+[sec2]
+see2
+--
+act2
+==> sec2
+
+[sec3]
+see3
+--
+act3
+==> sec2
