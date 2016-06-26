@@ -48,11 +48,11 @@ function formatToString(format: CompileFormat): string {
 	}
 }
 
-export interface Segment extends Object {
+export interface Section extends Object {
 	name: string;
 	lines?: number;
 }
 
 export interface Meta extends Object {
-	[key: string]: Segment;
+	[key: string]: Section;
 }

@@ -5,11 +5,11 @@ declare module "uiflow" {
 	}
 	export function buildWithCode(fileName: string, code: string, format: string, errorHandler: Function): NodeJS.ReadableStream;
 	export let parser: Parser;
-	export interface Segment extends Object {
+	export interface Section extends Object {
 		name: string;
 		lines?: number;
 	}
 	export interface Meta extends Object {
-		[key: string]: Segment;
+		[key: string]: Section;
 	}
 }
