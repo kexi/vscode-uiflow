@@ -39,14 +39,14 @@ suite('UiFlow Outline Tests', () => {
 		let uri = vscode.Uri.file(path.join(fixturePath, 'outline.uif'));
 		vscode.workspace.openTextDocument(uri).then(doc => {
 			let instance = new outline.UiflowDocumentSymbolProvider();
-			instance.provideDocumentSymbols(doc, null).then(info => {
+			return instance.provideDocumentSymbols(doc, null).then(info => {
 				assert.equal(info.length, expected.length, `SymbolInformation length must be ${expected.length}.`);
 				info.forEach((inf, i) => {
 					let ex = expected[i];
 					assert.equal(inf.name, ex.name, `SymbolInformation name must be ${ex.name}.`);
 					assert.equal(inf.location.range.start.line, ex.lines, 'SymbolInformation location.range.start.line must be ${ex.lines}.');
 				});
-			});
+			}, reason => assert.ok(false, `Error in openTextDocument ${reason}.`));
 		}).then(() => done(), reason => done(reason));
 	});
 });
