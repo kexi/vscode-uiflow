@@ -41,7 +41,7 @@ let text = regex(/.*/).mark().map(text => {
 
 let line = optWhitespace.then(alt(section, direction, text));
 
-let eol = string('\n');
+let eol = regex(/\r?\n/);
 let parser = sepBy<any>(line, eol);
 
 export function walk(nodes: Node[], val: any) {
