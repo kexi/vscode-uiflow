@@ -37,7 +37,11 @@
     "commands": [
       {
         "command": "uiflow.openPreview",
-        "title": "UiFlow: Open Preview to the Side"
+        "title": "UiFlow: Open Preview to the Side",
+        "icon": {
+          "light": "./media/Preview.svg",
+          "dark": "./media/Preview_inverse.svg"
+        }
       },
       {
         "command": "uiflow.exportSVG",
@@ -48,6 +52,15 @@
         "title": "UiFlow: Export PNG"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openPreview",
+          "group": "navigation"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "uiflow",
