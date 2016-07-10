@@ -37,21 +37,23 @@
     "commands": [
       {
         "command": "uiflow.openPreview",
-        "title": "UiFlow: Open Preview to the Side",
-        "category": "uiflow"
+        "title": "Open Preview to the Side",
+        "category": "UiFlow"
       },
       {
         "command": "uiflow.openSource",
-        "title": "UiFlow: Open Source",
-        "category": "uiflow"
+        "title": "Open Source",
+        "category": "UiFlow"
       },
       {
         "command": "uiflow.exportSVG",
-        "title": "UiFlow: Export SVG"
+        "title": "Export SVG",
+        "category": "UiFlow"
       },
       {
         "command": "uiflow.exportPNG",
-        "title": "UiFlow: Export PNG"
+        "title": "Export PNG",
+        "category": "UiFlow"
       }
     ],
     "menus": {
