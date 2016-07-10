@@ -37,11 +37,7 @@
     "commands": [
       {
         "command": "uiflow.openPreview",
-        "title": "UiFlow: Open Preview to the Side",
-        "icon": {
-          "light": "./media/Preview.svg",
-          "dark": "./media/Preview_inverse.svg"
-        }
+        "title": "UiFlow: Open Preview to the Side"
       },
       {
         "command": "uiflow.exportSVG",
