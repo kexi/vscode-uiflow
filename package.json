@@ -48,6 +48,22 @@
         "title": "UiFlow: Export PNG"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openPreview",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openPreview",
+          "group": "navigation"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "uiflow",
