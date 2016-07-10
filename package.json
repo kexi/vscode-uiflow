@@ -37,7 +37,13 @@
     "commands": [
       {
         "command": "uiflow.openPreview",
-        "title": "UiFlow: Open Preview to the Side"
+        "title": "UiFlow: Open Preview to the Side",
+        "category": "uiflow"
+      },
+      {
+        "command": "uiflow.openSource",
+        "title": "UiFlow: Open Source",
+        "category": "uiflow"
       },
       {
         "command": "uiflow.exportSVG",
@@ -53,6 +59,18 @@
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openPreview",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceScheme == uiflow",
+          "command": "uiflow.openSource",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceScheme == uiflow",
+          "command": "uiflow.openSource",
           "group": "navigation"
         }
       ],
