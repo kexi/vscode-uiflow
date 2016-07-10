@@ -39,3 +39,4 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Open Preview
 * Export PNG
 * Export SVG
+* Open Source
