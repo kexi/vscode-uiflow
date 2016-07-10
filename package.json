@@ -37,15 +37,23 @@
     "commands": [
       {
         "command": "uiflow.openPreview",
-        "title": "UiFlow: Open Preview to the Side"
+        "title": "Open Preview to the Side",
+        "category": "UiFlow"
+      },
+      {
+        "command": "uiflow.openSource",
+        "title": "Open Source",
+        "category": "UiFlow"
       },
       {
         "command": "uiflow.exportSVG",
-        "title": "UiFlow: Export SVG"
+        "title": "Export SVG",
+        "category": "UiFlow"
       },
       {
         "command": "uiflow.exportPNG",
-        "title": "UiFlow: Export PNG"
+        "title": "Export PNG",
+        "category": "UiFlow"
       }
     ],
     "menus": {
@@ -53,6 +61,18 @@
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openPreview",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceScheme == uiflow",
+          "command": "uiflow.openSource",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceScheme == uiflow",
+          "command": "uiflow.openSource",
           "group": "navigation"
         }
       ],

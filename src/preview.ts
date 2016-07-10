@@ -6,7 +6,9 @@ import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri
 import { CompileFormat, Compiler } from './compiler';
 import { MODE } from './mode';
 
-const command = 'uiflow.openPreview';
+const commandOpenPreview = 'uiflow.openPreview';
+const commandOpenSource = 'uiflow.openSource';
+
 const scheme = 'uiflow';
 
 class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
@@ -46,18 +48,44 @@ export function activate(context: ExtensionContext) {
 		}
 	});
 	let registration = workspace.registerTextDocumentContentProvider(scheme, provider);
-	let openDiagram = vscode.commands.registerCommand(
-		command, uri => showPreview(uri), vscode.ViewColumn.Two);
-	context.subscriptions.push(openDiagram, registration);
+	let d1 = vscode.commands.registerCommand(
+		commandOpenPreview, uri => openPreview(uri), vscode.ViewColumn.Two);
+	let d2 = vscode.commands.registerCommand(commandOpenSource, openSource);
+	context.subscriptions.push(d1, d2, registration);
 }
 
-function showPreview(uri: Uri) {
+function openPreview(uri: Uri) {
 	if (!(uri instanceof Uri)) {
 		if (vscode.window.activeTextEditor) {
 			uri = vscode.window.activeTextEditor.document.uri;
 		}
 	}
+
+	if (!(uri instanceof Uri)) {
+		if (!vscode.window.activeTextEditor) {
+			return vscode.commands.executeCommand(commandOpenSource);
+		}
+		return;
+	}
 	return vscode.commands.executeCommand('vscode.previewHtml', getUiflowUri(uri), vscode.ViewColumn.Two);
+}
+
+function openSource(uiflowUri: Uri) {
+	if (!uiflowUri) {
+		return vscode.commands.executeCommand('workbench.action.navigateBack');
+	}
+
+	const docUri = Uri.parse(uiflowUri.query);
+
+	for (let editor of vscode.window.visibleTextEditors) {
+		if (editor.document.uri.toString() === docUri.toString()) {
+			return vscode.window.showTextDocument(editor.document, editor.viewColumn);
+		}
+	}
+
+	return vscode.workspace.openTextDocument(docUri).then(doc => {
+		return vscode.window.showTextDocument(doc);
+	});
 }
 
 function fixFont(svg: string): string {
