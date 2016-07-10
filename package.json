@@ -59,6 +59,13 @@
           "command": "uiflow.openPreview",
           "group": "navigation"
         }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openPreview",
+          "group": "navigation"
+        }
       ]
     },
     "snippets": [
