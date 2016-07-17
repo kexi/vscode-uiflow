@@ -67,6 +67,16 @@
           "when": "resourceScheme == uiflow",
           "command": "uiflow.openSource",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportSVG",
+          "group": "export"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportPNG",
+          "group": "export"
         }
       ],
       "editor/context": [
@@ -74,6 +84,16 @@
           "when": "resourceScheme == uiflow",
           "command": "uiflow.openSource",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportSVG",
+          "group": "export"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportPNG",
+          "group": "export"
         }
       ],
       "explorer/context": [
@@ -81,6 +101,16 @@
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openPreview",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportSVG",
+          "group": "export"
+        },
+        {
+          "when": "resourceLangId == 'uiflow'",
+          "command": "uiflow.exportPNG",
+          "group": "export"
         }
       ]
     },

@@ -3,25 +3,25 @@
 import * as uiflow from 'uiflow';
 import * as through2 from 'through2';
 
-export enum CompileFormat {
-	SVG,
-	PNG,
-	JSON
+export class CompileFormat {
+	public static SVG = 'svg';
+	public static PNG = 'png';
+	public static JSON = 'json';
 }
 
 export class Compiler {
-	static buildWithCode(fileName: string, code: string, format: CompileFormat, errorHandler: Function): NodeJS.ReadableStream {
-		return uiflow.buildWithCode(fileName, code.replace(/\r\n/g, '\n'), formatToString(format), errorHandler);
+	static buildWithCode(fileName: string, code: string, format: string, errorHandler: Function): NodeJS.ReadableStream {
+		return uiflow.buildWithCode(fileName, code.replace(/\r\n/g, '\n'), format, errorHandler);
 	}
 
-	static compile(fileName: string, code: string, format: CompileFormat): Promise<Buffer> {
+	static compile(fileName: string, code: string, format: string): Promise<Buffer> {
 		let promise = new Promise<Buffer>((resolve, rejected) => {
 			let buff = [];
 			let output = through2((chunk: any, enc: string, callback: Function) => {
 				buff.push(chunk);
 				callback();
 			});
-			let stream = this.buildWithCode(fileName, code, format, (e) => {
+			let stream = this.buildWithCode(fileName, code, format, e => {
 				rejected(e);
 			});
 			stream.pipe(output);
@@ -32,19 +32,6 @@ export class Compiler {
 			});
 		});
 		return promise;
-	}
-}
-
-function formatToString(format: CompileFormat): string {
-	switch (format) {
-		case CompileFormat.SVG:
-			return 'svg';
-		case CompileFormat.PNG:
-			return 'png';
-		case CompileFormat.JSON:
-			return 'json';
-		default:
-			throw new Error('Unknown Format');
 	}
 }
 

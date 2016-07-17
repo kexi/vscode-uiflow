@@ -4,7 +4,7 @@ import vscode = require('vscode');
 import fs = require('fs');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
-import { workspace, Disposable, ExtensionContext} from 'vscode';
+import { workspace, Disposable, ExtensionContext, Uri} from 'vscode';
 import { MODE } from './mode';
 
 const svg2png = require('svg2png');
@@ -15,13 +15,18 @@ interface ExportType {
 }
 
 interface Callback {
-	(editor: vscode.TextEditor): void;
+	(editor: Uri): void;
+}
+
+interface Converter {
+	(buffer: Buffer): Buffer;
 }
 
 interface CallbackOption {
-	converter?: (input: Buffer) => Buffer;
+	command: string;
+	converter?: Converter;
 	extension: string;
-	format: CompileFormat;
+	format: string;
 	name: string;
 }
 
@@ -31,61 +36,58 @@ interface ResolveExportPath {
 
 let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
 
-export function activate(context: ExtensionContext) {
-	let cmds: Array<{command: string, callback: Callback}> = [
-		{
-			command: 'uiflow.exportPNG',
-			callback: createCallback({
-				name: 'PNG',
-				extension: '.png',
-				converter: (buffer) => svg2png.sync(buffer),
-				format: CompileFormat.PNG
-			})
-		},
-		{
-			command: 'uiflow.exportSVG',
-			callback: createCallback({
-				name: 'SVG',
-				extension: '.svg',
-				format: CompileFormat.SVG
-			})
-		}
-	];
-	cmds.forEach(cmd => {
-		let disposable = vscode.commands.registerTextEditorCommand(cmd.command, cmd.callback);
-		context.subscriptions.push(disposable);
-	});
+let cmds: {[key: string]: CallbackOption; } = {
+	'svg':	{
+		command: 'uiflow.exportSVG',
+		name: 'SVG',
+		extension: '.svg',
+		format: CompileFormat.SVG
+	},
+	'png':	{
+		command: 'uiflow.exportPNG',
+		name: 'PNG',
+		extension: '.png',
+		format: CompileFormat.PNG,
+		converter: buffer => svg2png.sync(buffer)
+	},
 };
 
-function createCallback(option: CallbackOption): Callback {
-	let callback = (editor: vscode.TextEditor) => {
-		if (!checkLanguage(editor)) {
-			return;
+export function activate(context: ExtensionContext) {
+	for (let id in cmds) {
+		let disposable = vscode.commands.registerCommand(cmds[id].command, uri => exportAs(uri, cmds[id].format));
+		context.subscriptions.push(disposable);
+	}
+};
+
+function exportAs(uri: Uri, format: string): Thenable<any> {
+	if (!(uri instanceof Uri)) {
+		if (vscode.window.activeTextEditor) {
+			uri = vscode.window.activeTextEditor.document.uri;
+		} else {
+			vscode.window.showWarningMessage('Open UiFlow document before export.');
+			return Promise.reject('Open UiFlow document before export.');
 		}
-		let inputDialogOptions: vscode.InputBoxOptions = {
-			prompt: `Enter Path to Export a ${option.name} File`,
-			value: getUserHome() + path.sep
-		};
-		let exportPath: string;
-		return resolveExportPath(inputDialogOptions)
-			.then(expPath => {
-				exportPath = expPath;
-				return Compiler.compile(
-					editor.document.uri.toString(),
-					editor.document.getText(),
-					CompileFormat.SVG
-				);
-			})
-			.then(buffer => {
-				if (option.converter) {
-					buffer = option.converter(buffer);
-				}
-				fs.writeFileSync(exportPath, buffer);
-				return vscode.window.showInformationMessage(`Successfully Exported ${option.name} to '${exportPath}'`);
-			})
-			.then(() => {}, reason => vscode.window.showErrorMessage(reason));
+	}
+	let cmd = cmds[format];
+
+	let thenable = vscode.workspace.openTextDocument(uri)
+	.then(doc => Compiler.compile(uri.path.toString(), doc.getText(), CompileFormat.SVG))
+	.then(buffer => save(buffer, cmd.name, cmd.converter))
+	.then(() => vscode.window.showInformationMessage(`Successfully Exported ${cmd.name}.`));
+	return thenable;
+}
+
+function save(buffer: Buffer, name: string, converter: Converter): Thenable<void> {
+	if (converter) {
+		buffer = converter(buffer);
+	}
+	let options: vscode.InputBoxOptions = {
+		prompt: `Enter Path to Export a ${name} File`,
+		value: getUserHome() + path.sep
 	};
-	return callback;
+	return resolveExportPath(options).then(exportPath => {
+		return fs.writeFileSync(exportPath, buffer);
+	});
 }
 
 export function setResovleExportPath(resolver: ResolveExportPath) {
