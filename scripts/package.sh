@@ -2,4 +2,4 @@
 
 BRANCH="release/v0.0.9"
 npm install -g vsce
-cd client && vsce package --baseImagesUrl https://github.com/kexi/vscode-uiflow/raw/$BRANCH/
+vsce package --baseImagesUrl https://github.com/kexi/vscode-uiflow/raw/$BRANCH/

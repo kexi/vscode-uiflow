@@ -13,3 +13,4 @@ tslint.json
 vsc-extension-quickstart.md
 *.vsix
 img/**
+*.zip
