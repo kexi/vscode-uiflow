@@ -8,7 +8,7 @@ import { MODE } from './mode';
 
 export function activate() {
 	vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
-		return validateTextDocument(event.document);
+		validateTextDocument(event.document);
 	});
 	vscode.workspace.onDidOpenTextDocument(document => {
 		validateTextDocument(document);
