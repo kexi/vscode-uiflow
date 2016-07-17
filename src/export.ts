@@ -13,7 +13,7 @@ interface Converter {
 	(buffer: Buffer): Buffer;
 }
 
-interface CallbackOption {
+interface CmdOptions {
 	command: string;
 	converter?: Converter;
 	extension: string;
@@ -27,7 +27,7 @@ interface ResolveExportPath {
 
 let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
 
-let cmds: {[key: string]: CallbackOption; } = {
+let cmds: {[key: string]: CmdOptions; } = {
 	'svg':	{
 		command: 'uiflow.exportSVG',
 		name: 'SVG',
@@ -83,14 +83,6 @@ function save(buffer: Buffer, name: string, converter: Converter): Thenable<void
 
 export function setResovleExportPath(resolver: ResolveExportPath) {
 	resolveExportPath = resolver;
-}
-
-function checkLanguage(editor: vscode.TextEditor): boolean {
-	if (editor.document.languageId === MODE.language) {
-		return true;
-	}
-	vscode.window.showErrorMessage('Editor doesn\'t show a Uiflow Document.');
-	return false;
 }
 
 function getUserHome() {
