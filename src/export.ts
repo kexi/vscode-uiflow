@@ -9,15 +9,6 @@ import { MODE } from './mode';
 
 const svg2png = require('svg2png');
 
-interface ExportType {
-	command: string;
-	callback: Callback;
-}
-
-interface Callback {
-	(editor: Uri): void;
-}
-
 interface Converter {
 	(buffer: Buffer): Buffer;
 }
