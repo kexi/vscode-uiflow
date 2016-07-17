@@ -7,8 +7,10 @@ src/**
 **/*.map
 __test/**
 .gitignore
+scripts/**
 tsconfig.json
 tslint.json
 vsc-extension-quickstart.md
 *.vsix
 img/**
+*.zip
