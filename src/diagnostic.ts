@@ -32,6 +32,9 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
 }
 
 function validateTextDocument(document: TextDocument): void {
+	if (document.uri.scheme === 'uiflow') {
+		return;
+	}
 	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
 	let diagnostics = createDiagnostics(document);
 	errors.set(document.uri, diagnostics);
