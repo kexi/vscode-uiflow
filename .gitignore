@@ -3,4 +3,3 @@ node_modules
 .vscode-test
 *.vsix
 __test
-*.zip
