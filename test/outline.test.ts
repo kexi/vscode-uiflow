@@ -5,15 +5,17 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import * as outline from '../src/outline';
+import * as tmp from 'tmp';
 
 suite('UiFlow Outline Tests', () => {
 
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
+		let dir = tmp.dirSync();
+		fixturePath = dir.name;
+		fs.ensureDirSync(dir.name);
 		fs.copySync(path.join(fixtureSourcePath, 'outline.uif'), path.join(fixturePath, 'outline.uif'));
 	});
 
@@ -37,7 +39,8 @@ suite('UiFlow Outline Tests', () => {
 
 	test('provideDocumentSymbols#UiflowDocumentSymbolProvider', done => {
 		let uri = vscode.Uri.file(path.join(fixturePath, 'outline.uif'));
-		vscode.workspace.openTextDocument(uri).then(doc => {
+		vscode.workspace.openTextDocument(uri)
+		.then(doc => {
 			let instance = new outline.UiflowDocumentSymbolProvider();
 			return instance.provideDocumentSymbols(doc, null).then(info => {
 				assert.equal(info.length, expected.length, `SymbolInformation length must be ${expected.length}.`);

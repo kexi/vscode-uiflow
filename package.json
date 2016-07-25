@@ -166,8 +166,9 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "parsimmon": "^0.7.1",
-    "svg2png": "^3.0.0",
+    "svgexport": "^0.3.2",
     "through2": "^2.0.1",
+    "tmp": "0.0.28",
     "uiflow": "1.1.8"
   }
 }
