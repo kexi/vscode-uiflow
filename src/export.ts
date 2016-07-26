@@ -8,9 +8,9 @@ import { workspace, Disposable, ExtensionContext, Uri} from 'vscode';
 import { MODE } from './mode';
 import tmp = require('tmp');
 
-const exec = require('child_process').exec;
 const phantomjs = require('phantomjs-prebuilt');
 const svgexport = require('svgexport');
+const exec = require('sync-exec');
 
 interface Processor {
 	(tmpobj: tmp.SynchrounousResult, path: string): Thenable<void>;
@@ -113,13 +113,11 @@ function getUserHome() {
 }
 
 function rebuild(context: ExtensionContext): Thenable<void> {
-	let thenable = new Promise<void>((ok, ng) => {
-		exec('npm rebuild phantomjs-prebuilt', {cwd: context.extensionPath}, (err) => {
-			if (err) {
-				return ng(err);
-			}
-			ok();
-		});
-	});
-	return thenable;
+	let result = exec('npm rebuild phantomjs-prebuilt', {cwd: context.extensionPath});
+	process.env.PHANTOMJS_PLATFORM = process.platform;
+	process.env.PHANTOMJS_ARCH = process.arch;
+	phantomjs.path = process.platform === 'win32' ?
+		path.join(path.dirname(phantomjs.path), 'phantomjs.exe') :
+		path.join(path.dirname(phantomjs.path), 'phantom', 'bin', 'phantomjs');
+	return Promise.resolve();
 }
