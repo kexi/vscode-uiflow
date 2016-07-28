@@ -34,7 +34,7 @@ function validateTextDocument(document: TextDocument): void {
 	if (document.uri.scheme === 'uiflow') {
 		return;
 	}
-	if (document.languageId !== 'uiflow') {
+	if (document.languageId !== MODE.language) {
 		return;
 	}
 	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
