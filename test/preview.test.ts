@@ -6,14 +6,16 @@ import * as vscode from 'vscode';
 import * as extension from '../src/extension';
 import * as fs from 'fs-extra';
 import { setResovleExportPath } from '../src/export';
+import * as tmp from 'tmp';
 
 suite('UiFlow Extension Tests', () => {
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
+		let dir = tmp.dirSync();
+		fixturePath = dir.name;
+		fs.ensureDirSync(dir.name);
 		fs.copySync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
 	});
 

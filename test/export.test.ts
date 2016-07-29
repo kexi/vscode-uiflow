@@ -63,15 +63,11 @@ suite('UiFlow Export Tests', () => {
 				assert.equal(doc.languageId, 'uiflow');
 				return vscode.window.showTextDocument(doc);
 			})
-			.then(editor => {
-				vscode.commands.executeCommand(testCase.command);
-				setTimeout(() => {
-					let buffer = fs.readFileSync(testCase.outputPath);
-					testCase.fileCheck(buffer).then(() => done(), reason => {
-						assert.ok(false, `Error: ${reason}`);
-						done();
-					});
-				}, 500);
+			.then(editor => vscode.commands.executeCommand(testCase.command))
+			.then(() => {
+				let buffer = fs.readFileSync(testCase.outputPath);
+				testCase.fileCheck(buffer)
+				.then(() => done(), reason => done(reason));
 			});
 		});
 	});
