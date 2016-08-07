@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-BRANCH="release/v0.0.11"
+BRANCH="release/v0.0.12"
 npm install -g vsce
 vsce package --baseImagesUrl https://github.com/kexi/vscode-uiflow/raw/$BRANCH/
