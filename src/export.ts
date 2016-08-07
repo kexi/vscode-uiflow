@@ -65,7 +65,9 @@ function png(tmpobj: tmp.SynchrounousResult, newPath: string): Thenable<void> {
 }
 
 export function activate(context: ExtensionContext) {
-	rebuild(context);
+	if (fs.existsSync(phantomjs.path)) {
+		rebuild(context);
+	}
 	for (let id in cmds) {
 		let disposable = vscode.commands.registerCommand(cmds[id].command, uri => exportAs(uri, cmds[id].format));
 		context.subscriptions.push(disposable);
@@ -113,8 +115,11 @@ function getUserHome() {
 }
 
 function rebuild(context: ExtensionContext): Thenable<void> {
-	let result = exec('npm rebuild phantomjs-prebuilt', {cwd: context.extensionPath});
+	let result = exec('npm rebuild', {cwd: context.extensionPath});
 	process.env.PHANTOMJS_PLATFORM = process.platform;
 	process.env.PHANTOMJS_ARCH = process.arch;
+	phantomjs.path = process.platform === 'win32' ?
+		path.join(path.dirname(phantomjs.path), 'phantomjs.exe') :
+		path.join(path.dirname(phantomjs.path), 'phantom', 'bin', 'phantomjs');
 	return Promise.resolve();
 }
