@@ -65,7 +65,7 @@ function png(tmpobj: tmp.SynchrounousResult, newPath: string): Thenable<void> {
 }
 
 export function activate(context: ExtensionContext) {
-	if (fs.existsSync(phantomjs.path)) {
+	if (!fs.existsSync(phantomjs.path)) {
 		rebuild(context);
 	}
 	for (let id in cmds) {
