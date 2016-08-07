@@ -5,7 +5,6 @@ import * as uiflow from 'uiflow';
 import { CancellationToken, Diagnostic, DiagnosticSeverity, ExtensionContext, Range, Position, TextDocument, TextDocumentChangeEvent } from 'vscode';
 import { MODE } from './mode';
 
-
 export function activate() {
 	vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
 		validateTextDocument(event.document);
@@ -33,6 +32,9 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
 
 function validateTextDocument(document: TextDocument): void {
 	if (document.uri.scheme === 'uiflow') {
+		return;
+	}
+	if (document.languageId !== MODE.language) {
 		return;
 	}
 	let errors = vscode.languages.createDiagnosticCollection(MODE.language);
