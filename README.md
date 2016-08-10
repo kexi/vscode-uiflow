@@ -35,8 +35,8 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Export PNG `Alt+U N`
 * Export SVG `Alt+U S`
 
-### Text Editor Commands
+### Features
 * Open Preview
 * Export PNG
 * Export SVG
-* Open Source
+* Open Source from Preview
