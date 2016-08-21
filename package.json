@@ -57,7 +57,7 @@
         "category": "UiFlow"
       },
       {
-        "command": "uiflow.exportPNG2",
+        "command": "uiflow.openExport",
         "title": "Export PNG (Experimental)",
         "category": "UiFlow"
       }
@@ -86,7 +86,7 @@
         },
         {
           "when": "resourceLangId == uiflow",
-          "command": "uiflow.exportPNG2",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ],
@@ -108,7 +108,7 @@
         },
         {
           "when": "resourceLangId == uiflow",
-          "command": "uiflow.exportPNG2",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ],
@@ -130,7 +130,7 @@
         },
         {
           "when": "resourceLangId == uiflow",
-          "command": "uiflow.exportPNG2",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ]

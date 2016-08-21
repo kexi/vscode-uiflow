@@ -7,7 +7,7 @@ import { Compiler, CompileFormat } from './compiler';
 import { workspace, Disposable, ExtensionContext, Uri, EventEmitter} from 'vscode';
 import { MODE } from './mode';
 
-const commandOpenExport = 'uiflow.exportPNG2';
+const commandOpenExport = 'uiflow.openExport';
 const commandOpenSource = 'uiflow.openSource';
 const commandSaveImage = 'uiflow.saveImage';
 const scheme = 'uiflow';
