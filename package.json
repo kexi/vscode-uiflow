@@ -55,6 +55,11 @@
         "command": "uiflow.exportPNG",
         "title": "Export PNG",
         "category": "UiFlow"
+      },
+      {
+        "command": "uiflow.exportPNG2",
+        "title": "Export PNG (Experimental)",
+        "category": "UiFlow"
       }
     ],
     "menus": {
@@ -78,6 +83,11 @@
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportPNG",
           "group": "export"
+        },
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.exportPNG2",
+          "group": "export"
         }
       ],
       "editor/context": [
@@ -95,6 +105,11 @@
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportPNG",
           "group": "export"
+        },
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.exportPNG2",
+          "group": "export"
         }
       ],
       "explorer/context": [
@@ -111,6 +126,11 @@
         {
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportPNG",
+          "group": "export"
+        },
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.exportPNG2",
           "group": "export"
         }
       ]
@@ -153,6 +173,7 @@
   "scripts": {
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
     "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "bower": "bower install",
     "compile": "node ./node_modules/vscode/bin/compile -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
@@ -164,6 +185,7 @@
     "vscode": "^0.11.0"
   },
   "dependencies": {
+    "bower": "^1.7.9",
     "fs-extra": "^0.30.0",
     "parsimmon": "^0.7.1",
     "svgexport": "^0.3.2",

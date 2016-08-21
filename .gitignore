@@ -1,5 +1,6 @@
 out
 node_modules
+bower_components
 .vscode-test
 *.vsix
 __test
