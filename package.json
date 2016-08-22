@@ -179,12 +179,12 @@
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
+    "bower": "^1.7.9",
     "tslint": "^3.3.0",
     "typescript": "^1.8.9",
     "vscode": "^0.11.0"
   },
   "dependencies": {
-    "bower": "^1.7.9",
     "fs-extra": "^0.30.0",
     "parsimmon": "^0.7.1",
     "svgexport": "^0.3.2",
