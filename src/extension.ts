@@ -9,13 +9,11 @@ import { activate as activateDefinitionProvider } from './definition';
 import { activate as activateDiagnostic } from './diagnostic';
 import { activate as activateRenameProvider } from './rename';
 import { activate as activateReferenceProvider } from './reference';
-import { activate as activateExportPNG } from './export2';
 import { MODE } from './mode';
 
 export function activate(context: vscode.ExtensionContext) {
 	activatePreview(context);
 	activateExport(context);
-	activateExportPNG(context);
 	activateDocumentSymbolProvider(context);
 	activateCompletionItemProvider(context);
 	activateDefinitionProvider(context);
