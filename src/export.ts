@@ -76,11 +76,11 @@ export function activate(context: ExtensionContext) {
 		context.subscriptions.push(disposable);
 	}
 	let provider = new UiflowExportPngTextDocumentProvider(context);
-	let registration = workspace.registerTextDocumentContentProvider(scheme, provider);
-	let d1 = vscode.commands.registerCommand(
-		commandOpenExport, uri => openPreview(uri), vscode.ViewColumn.Two);
-		let d2 = vscode.commands.registerCommand(commandSaveImage, saveData);
-	context.subscriptions.push(d1, d2, registration);
+	let d1 = workspace.registerTextDocumentContentProvider(scheme, provider);
+	let d2 = vscode.commands.registerCommand(
+		commandOpenExport, uri => openExport(uri), vscode.ViewColumn.Two);
+	let d3 = vscode.commands.registerCommand(commandSaveImage, saveData);
+	context.subscriptions.push(d1, d2, d3);
 };
 
 function exportAs(uri: Uri, format: string): Thenable<any> {
@@ -131,6 +131,25 @@ function rebuild(context: ExtensionContext): Thenable<void> {
 		path.join(path.dirname(phantomjs.path), 'phantomjs.exe') :
 		path.join(path.dirname(phantomjs.path), 'phantom', 'bin', 'phantomjs');
 	return Promise.resolve();
+}
+
+function getUiflowUri(uri: any): Uri {
+	return uri.with({
+		scheme: scheme,
+		path: uri.path + '.rendered',
+		query: uri.toString()
+	});
+}
+
+export async function saveData(url: string) {
+	let b = url.split(',')[1];
+	let options: vscode.InputBoxOptions = {
+		prompt: `Enter Path to Export a PNG File`,
+		value: getUserHome() + path.sep
+	};
+	let fp = await resolveExportPath(options);
+	fs.writeFileSync(fp, new Buffer(b, 'base64'));
+	vscode.window.showInformationMessage('Successfully Exported PNG.');
 }
 
 export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentContentProvider {
@@ -185,7 +204,7 @@ ${svg}
 	}
 }
 
-function openPreview(uri: Uri) {
+function openExport(uri: Uri) {
 	if (!(uri instanceof Uri)) {
 		if (vscode.window.activeTextEditor) {
 			uri = vscode.window.activeTextEditor.document.uri;
@@ -195,20 +214,5 @@ function openPreview(uri: Uri) {
 	if (!(uri instanceof Uri)) {
 		return;
 	}
-	return vscode.commands.executeCommand('vscode.previewHtml', getUiflowUri(uri), vscode.ViewColumn.Two);
-}
-
-function getUiflowUri(uri: any): Uri {
-	return uri.with({
-		scheme: scheme,
-		path: uri.path + '.rendered',
-		query: uri.toString()
-	});
-}
-
-export async function saveData(url: string) {
-	let b = url.split(',')[1];
-	let fp = '/temp/hoge.png';
-	fs.writeFileSync(fp, new Buffer(b, 'base64'));
-	vscode.window.showInformationMessage('exported');
+	return vscode.commands.executeCommand('vscode.previewHtml', getUiflowUri(uri));
 }
