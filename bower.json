@@ -1,0 +1,20 @@
+{
+  "name": "uiflow",
+  "description": "UiFlow support For Visual Studio Code.",
+  "main": "./media/index.js",
+  "authors": [
+    "Kei Nakayama"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kexi/vscode-uiflow",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}

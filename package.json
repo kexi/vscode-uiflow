@@ -4,7 +4,7 @@
   "description": "UiFlow support For Visual Studio Code.",
   "author": "Kei Nakayama",
   "license": "MIT",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "publisher": "kexi",
   "galleryBanner": {
     "color": "#79b74a",
@@ -31,7 +31,7 @@
     "onLanguage:uiflow",
     "onCommand:uiflow.openPreview",
     "onCommand:uiflow.exportSVG",
-    "onCommand:uiflow.exportPNG"
+    "onCommand:uiflow.openExport"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -52,7 +52,7 @@
         "category": "UiFlow"
       },
       {
-        "command": "uiflow.exportPNG",
+        "command": "uiflow.openExport",
         "title": "Export PNG",
         "category": "UiFlow"
       }
@@ -75,8 +75,8 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ],
@@ -92,8 +92,8 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ],
@@ -109,8 +109,8 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openExport",
           "group": "export"
         }
       ]
@@ -145,8 +145,12 @@
         "key": "alt+u s"
       },
       {
-        "command": "uiflow.exportPNG",
+        "command": "uiflow.openExport",
         "key": "alt+u n"
+      },
+      {
+        "command": "uiflow.openExport",
+        "key": "alt+u e"
       }
     ]
   },
@@ -154,11 +158,12 @@
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
     "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
     "compile": "node ./node_modules/vscode/bin/compile -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
+    "postinstall": "node ./node_modules/vscode/bin/install && bower install",
     "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
+    "bower": "^1.7.9",
     "tslint": "^3.3.0",
     "typescript": "^1.8.9",
     "vscode": "^0.11.0"
@@ -166,8 +171,6 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "parsimmon": "^0.7.1",
-    "svgexport": "^0.3.2",
-    "sync-exec": "^0.6.2",
     "through2": "^2.0.1",
     "tmp": "0.0.28",
     "uiflow": "1.1.8"
