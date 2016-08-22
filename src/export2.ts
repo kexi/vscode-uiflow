@@ -10,7 +10,7 @@ import { MODE } from './mode';
 const commandOpenExport = 'uiflow.openExport';
 const commandOpenSource = 'uiflow.openSource';
 const commandSaveImage = 'uiflow.saveImage';
-const scheme = 'uiflow';
+const scheme = 'uiflow-export';
 
 export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentContentProvider {
 	private _onDidChange = new EventEmitter<Uri>();
