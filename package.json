@@ -173,9 +173,8 @@
   "scripts": {
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
     "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "bower": "bower install",
     "compile": "node ./node_modules/vscode/bin/compile -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
+    "postinstall": "node ./node_modules/vscode/bin/install && bower install",
     "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
     "test": "node ./node_modules/vscode/bin/test"
   },
