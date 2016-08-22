@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-npm install && npm run bower && npm run vscode:prepublish
+npm install && npm run vscode:prepublish
