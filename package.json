@@ -31,7 +31,7 @@
     "onLanguage:uiflow",
     "onCommand:uiflow.openPreview",
     "onCommand:uiflow.exportSVG",
-    "onCommand:uiflow.exportPNG"
+    "onCommand:uiflow.openExport"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -52,13 +52,8 @@
         "category": "UiFlow"
       },
       {
-        "command": "uiflow.exportPNG",
-        "title": "Export PNG",
-        "category": "UiFlow"
-      },
-      {
         "command": "uiflow.openExport",
-        "title": "Export PNG (Experimental)",
+        "title": "Export PNG",
         "category": "UiFlow"
       }
     ],
@@ -80,11 +75,6 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
-          "group": "export"
-        },
-        {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openExport",
           "group": "export"
@@ -102,11 +92,6 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
-          "group": "export"
-        },
-        {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openExport",
           "group": "export"
@@ -121,11 +106,6 @@
         {
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportSVG",
-          "group": "export"
-        },
-        {
-          "when": "resourceLangId == 'uiflow'",
-          "command": "uiflow.exportPNG",
           "group": "export"
         },
         {
@@ -165,8 +145,12 @@
         "key": "alt+u s"
       },
       {
-        "command": "uiflow.exportPNG",
+        "command": "uiflow.openExport",
         "key": "alt+u n"
+      },
+      {
+        "command": "uiflow.openExport",
+        "key": "alt+u e"
       }
     ]
   },
