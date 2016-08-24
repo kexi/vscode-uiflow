@@ -111,7 +111,7 @@ export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentC
 <head>
 <link href="${this.getPath('media/core.css')}" rel="stylesheet" type="text/css" media="all">
 <link href="${this.getPath('media/button.css')}" rel="stylesheet" type="text/css" media="all">
-<script src="${this.getPath('bower_components/jquery/dist/jquery.js')}"></script>
+<script src="${this.getPath('node_modules/jquery/dist/jquery.js')}"></script>
 <script src="${this.getPath('media/index.js')}"></script>
 </head>
 <body>
