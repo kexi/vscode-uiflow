@@ -4,7 +4,7 @@ import vscode = require('vscode');
 import fs = require('fs-extra');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
-import { workspace, Disposable, ExtensionContext, EventEmitter, Uri} from 'vscode';
+import { workspace, Disposable, ExtensionContext, EventEmitter, Uri, Event} from 'vscode';
 import { MODE } from './mode';
 
 const scheme = 'uiflow-export';
@@ -20,6 +20,9 @@ let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
 
 export function activate(context: ExtensionContext) {
 	let provider = new UiflowExportPngTextDocumentProvider(context);
+	vscode.workspace.onDidChangeTextDocument(e => {
+		provider.update(getExportUri(e.document.uri));
+	});
 	let d1 = workspace.registerTextDocumentContentProvider(scheme, provider);
 	let d2 = vscode.commands.registerCommand(
 		commandOpenExport, uri => openExport(uri));
@@ -99,9 +102,18 @@ export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentC
 		});
 	}
 
+	public update(uri: Uri) {
+		this._onDidChange.fire(uri);
+	}
+
+	get onDidChange(): Event<Uri> {
+		return this._onDidChange.event;
+	}
+
 	private getPath(basename: string): string {
 		return this.context.extensionPath + '/' + basename;
 	}
+
 
 	private render(document: vscode.TextDocument): string | Thenable<string> {
 		return Compiler.compile(document.uri.fsPath, document.getText(), CompileFormat.SVG)
