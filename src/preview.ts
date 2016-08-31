@@ -33,7 +33,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 		let promise = new Promise((resolve, rejected) => {
 			Compiler.compile(document.uri.path, code, CompileFormat.SVG)
 				.then(
-					buffer => resolve(fixFont(String(buffer))),
+					buffer => resolve(String(buffer)),
 					reason => rejected(reason));
 		});
 		return promise;
@@ -86,17 +86,6 @@ function openSource(uiflowUri: Uri) {
 	return vscode.workspace.openTextDocument(docUri).then(doc => {
 		return vscode.window.showTextDocument(doc);
 	});
-}
-
-function fixFont(svg: string): string {
-	let m = svg.match(/\s<text.*\s*font-family="([^"]*)"\s*font-size="([^"]*)"/);
-	if (!m || m.length < 3) {
-		return svg;
-	}
-	let family = m[1];
-	let size = m[2];
-	let style = `<style>text { font-size: ${size}; font-famiy: ${family}; }</style>`;
-	return svg.replace('<svg', style + '<svg');
 }
 
 function getUiflowUri(uri: any): Uri {
