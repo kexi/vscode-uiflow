@@ -4,16 +4,18 @@ import vscode = require('vscode');
 import fs = require('fs-extra');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
-import { workspace, Disposable, ExtensionContext, EventEmitter, Uri, Event} from 'vscode';
+import { workspace, Disposable, ExtensionContext, EventEmitter, InputBoxOptions, Event, TextDocument, TextDocumentContentProvider, Uri} from 'vscode';
 import { MODE } from './mode';
 
 const scheme = 'uiflow-export';
 const commandOpenExport = 'uiflow.openExport';
 const commandSaveImage = 'uiflow.saveImage';
 const commandExportSVG = 'uiflow.exportSVG';
+const commandExportJSON = 'uiflow.exportJSON';
+const commandExportDOT = 'uiflow.exportDOT';
 
 interface ResolveExportPath {
-	(options?: vscode.InputBoxOptions): Thenable<any>;
+	(options?: InputBoxOptions): Thenable<any>;
 }
 
 let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
@@ -27,28 +29,40 @@ export function activate(context: ExtensionContext) {
 	let d2 = vscode.commands.registerCommand(
 		commandOpenExport, uri => openExport(uri));
 	let d3 = vscode.commands.registerCommand(commandSaveImage, saveData);
-	let d4 = vscode.commands.registerCommand(commandExportSVG, uri => exportSVG(uri));
-	context.subscriptions.push(d1, d2, d3, d4);
+	let d4 = vscode.commands.registerCommand(commandExportSVG, uri => exportAs(uri, CompileFormat.SVG));
+	let d5 = vscode.commands.registerCommand(commandExportJSON, uri => exportAs(uri, CompileFormat.JSON));
+	let d6 = vscode.commands.registerCommand(commandExportDOT, uri => exportAs(uri, CompileFormat.DOT));
+	context.subscriptions.push(d1, d2, d3, d4, d5, d6);
 };
 
-async function exportSVG(uri: Uri): Promise<any> {
+export async function exportAs(uri: Uri, format: string): Promise<any> {
+	let document: TextDocument;
+	try {
+		document = await resolveDocument(uri);
+	} catch (_) {
+		return;
+	}
+	let data = await Compiler.compile(document.uri.fsPath, document.getText(), format);
+	let options: InputBoxOptions = {
+		prompt: `Enter Path to Export a ${format.toUpperCase()} File`,
+		value: getUserHome() + path.sep
+	};
+	let outputPath = await resolveExportPath(options);
+	fs.writeFileSync(outputPath, data);
+	vscode.window.showInformationMessage(`Successfully Exported ${format.toUpperCase()}.`);
+}
+
+export async function resolveDocument(uri): Promise<TextDocument> {
 	if (!(uri instanceof Uri)) {
 		if (vscode.window.activeTextEditor) {
 			uri = vscode.window.activeTextEditor.document.uri;
 		} else {
 			vscode.window.showWarningMessage('Open UiFlow document before export.');
-			return Promise.reject('Open UiFlow document before export.');
+			throw Error('Open UiFlow document before export.');
 		}
 	}
 	let doc = await vscode.workspace.openTextDocument(uri);
-	let svg = await Compiler.compile(uri.path.toString(), doc.getText(), CompileFormat.SVG);
-	let options: vscode.InputBoxOptions = {
-		prompt: `Enter Path to Export a SVG File`,
-		value: getUserHome() + path.sep
-	};
-	let outputPath = await resolveExportPath(options);
-	fs.writeFileSync(outputPath, svg);
-	vscode.window.showInformationMessage(`Successfully Exported SVG.`);
+	return doc;
 }
 
 export function setResovleExportPath(resolver: ResolveExportPath) {
@@ -69,7 +83,7 @@ function getExportUri(uri: any): Uri {
 
 export async function saveData(url: string) {
 	let b = url.split(',')[1];
-	let options: vscode.InputBoxOptions = {
+	let options: InputBoxOptions = {
 		prompt: `Enter Path to Export a PNG File`,
 		value: getUserHome() + path.sep
 	};
@@ -91,7 +105,7 @@ function openExport(uri: Uri) {
 	return vscode.commands.executeCommand('vscode.previewHtml', getExportUri(uri));
 }
 
-export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentContentProvider {
+export class UiflowExportPngTextDocumentProvider implements TextDocumentContentProvider {
 	private _onDidChange = new EventEmitter<Uri>();
 	public constructor(private context: ExtensionContext) {
 	}
@@ -115,7 +129,7 @@ export class UiflowExportPngTextDocumentProvider implements vscode.TextDocumentC
 	}
 
 
-	private render(document: vscode.TextDocument): string | Thenable<string> {
+	private render(document: TextDocument): string | Thenable<string> {
 		return Compiler.compile(document.uri.fsPath, document.getText(), CompileFormat.SVG)
 		.then(svg => {
 			return `<!DOCTYPE html>

@@ -7,6 +7,7 @@ export class CompileFormat {
 	public static SVG = 'svg';
 	public static PNG = 'png';
 	public static JSON = 'json';
+	public static DOT = 'dot';
 }
 
 export class Compiler {
