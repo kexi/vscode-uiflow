@@ -17,22 +17,47 @@ suite('UiFlow Export Tests', () => {
 		fs.copySync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
 	});
 
-	test('Export SVG', done => {
+	test('Export SVG', async () => {
 		let inputPath = path.join(fixturePath, 'ok.uif');
 		let outputPath = path.join(fixturePath, 'ok.uif.svg');
 		setResovleExportPath(() => {return Promise.resolve(outputPath); });
-		vscode.workspace.openTextDocument(inputPath)
-		.then(doc => vscode.window.showTextDocument(doc))
-		.then(() => vscode.commands.executeCommand('uiflow.exportSVG'))
-		.then(() => {
-			let buffer = fs.readFileSync(outputPath);
-			let svg = String(buffer);
-			if (svg.includes('</svg>')) {
-				return Promise.resolve();
-			}
+		let doc = await vscode.workspace.openTextDocument(inputPath);
+		await vscode.window.showTextDocument(doc);
+		await vscode.commands.executeCommand('uiflow.exportSVG');
+		let buffer = fs.readFileSync(outputPath);
+		let svg = String(buffer);
+		if (!svg.includes('</svg>')) {
 			return Promise.reject('SVG file doesn\'t contain </svg>');
-		})
-		.then(() => done(), reason => done(reason));
+		}
+	});
+
+	test('Export JSON', async () => {
+		let inputPath = path.join(fixturePath, 'ok.uif');
+		let outputPath = path.join(fixturePath, 'ok.uif.json');
+		setResovleExportPath(() => {return Promise.resolve(outputPath); });
+		let doc = await vscode.workspace.openTextDocument(inputPath);
+		await vscode.window.showTextDocument(doc);
+		await vscode.commands.executeCommand('uiflow.exportJSON');
+		let buffer = fs.readFileSync(outputPath);
+		let json = String(buffer);
+		JSON.parse(json);
+	});
+
+	test('Export DOT', async () => {
+		let inputPath = path.join(fixturePath, 'ok.uif');
+		let outputPath = path.join(fixturePath, 'ok.uif.dot');
+		setResovleExportPath(() => {return Promise.resolve(outputPath); });
+		let doc = await vscode.workspace.openTextDocument(inputPath);
+		await vscode.window.showTextDocument(doc);
+		await vscode.commands.executeCommand('uiflow.exportDOT');
+		let buffer = fs.readFileSync(outputPath);
+		let dot = String(buffer);
+		if (!dot.match(/^digraph/)) {
+			return Promise.reject(`DOT file doesn't start width 'digraph'.`);
+		}
+		if (!dot.match(/\}$/m)) {
+			return Promise.reject(`DOT file doesn't end width '}'.`);
+		}
 	});
 
 	test('Open Export', done => {
