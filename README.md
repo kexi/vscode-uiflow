@@ -35,6 +35,5 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 
 ### Features
 * Open Preview
-* Export PNG
-* Export SVG
+* Export PNG/SVG/JSON/DOT
 * Open Source from Preview
