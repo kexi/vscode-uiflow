@@ -35,12 +35,3 @@ export class Compiler {
 		return promise;
 	}
 }
-
-export interface Section extends Object {
-	name: string;
-	lines?: number;
-}
-
-export interface Meta extends Object {
-	[key: string]: Section;
-}
