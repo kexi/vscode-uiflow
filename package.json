@@ -29,7 +29,8 @@
   "homepage": "https://github.com/kexi/vscode-uiflow/blob/master/README.md",
   "activationEvents": [
     "onLanguage:uiflow",
-    "onCommand:uiflow.openPreview",
+    "onCommand:uiflow.openPreviewSideBySide",
+    "onCommand:uiflow.openPreviewInPlace",
     "onCommand:uiflow.exportSVG",
     "onCommand:uiflow.exportDOT",
     "onCommand:uiflow.exportJSON",
@@ -39,8 +40,13 @@
   "contributes": {
     "commands": [
       {
-        "command": "uiflow.openPreview",
+        "command": "uiflow.openPreviewSideBySide",
         "title": "Open Preview to the Side",
+        "category": "UiFlow"
+      },
+      {
+        "command": "uiflow.openPreviewInPlace",
+        "title": "Open Preview",
         "category": "UiFlow"
       },
       {
@@ -73,7 +79,12 @@
       "editor/title": [
         {
           "when": "resourceLangId == uiflow",
-          "command": "uiflow.openPreview",
+          "command": "uiflow.openPreviewSideBySide",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == uiflow",
+          "command": "uiflow.openPreviewInPlace",
           "group": "navigation"
         },
         {
@@ -109,7 +120,7 @@
           "group": "navigation"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportSVG",
           "group": "export"
         },
@@ -119,12 +130,12 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportJSON",
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportDOT",
           "group": "export"
         }
@@ -132,11 +143,11 @@
       "explorer/context": [
         {
           "when": "resourceLangId == uiflow",
-          "command": "uiflow.openPreview",
+          "command": "uiflow.openPreviewInPlace",
           "group": "navigation"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportSVG",
           "group": "export"
         },
@@ -146,12 +157,12 @@
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportJSON",
           "group": "export"
         },
         {
-          "when": "resourceLangId == 'uiflow'",
+          "when": "resourceLangId == uiflow",
           "command": "uiflow.exportDOT",
           "group": "export"
         }
@@ -179,7 +190,7 @@
     ],
     "keybindings": [
       {
-        "command": "uiflow.openPreview",
+        "command": "uiflow.openPreviewSideBySide",
         "key": "alt+u p"
       },
       {
