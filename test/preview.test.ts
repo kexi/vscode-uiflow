@@ -3,9 +3,7 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import * as extension from '../src/extension';
 import * as fs from 'fs-extra';
-import { setResovleExportPath } from '../src/export';
 import * as tmp from 'tmp';
 
 suite('UiFlow Extension Tests', () => {
