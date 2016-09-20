@@ -19,13 +19,17 @@ suite('UiFlow Extension Tests', () => {
 		fs.copySync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
 	});
 
-	test('Open Preview', done => {
+	test('Open Preview Side By Side', async () => {
 		let uri = vscode.Uri.file(path.join(fixturePath, 'ok.uif'));
-		vscode.workspace.openTextDocument(uri).then(
-			doc =>  vscode.window.showTextDocument(doc)
-		)
-		.then(() => vscode.commands.executeCommand('uiflow.openPreview'))
-		.then(() => done(), reason => done);
+		let doc = await vscode.workspace.openTextDocument(uri);
+		await vscode.window.showTextDocument(doc);
+		assert.ok(await vscode.commands.executeCommand('uiflow.openPreviewSideBySide'));
 	});
 
+	test('Open Preview Side By Side', async () => {
+		let uri = vscode.Uri.file(path.join(fixturePath, 'ok.uif'));
+		let doc = await vscode.workspace.openTextDocument(uri);
+		await vscode.window.showTextDocument(doc);
+		assert.ok(await vscode.commands.executeCommand('uiflow.openPreviewInPlace'));
+	});
 });

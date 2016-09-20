@@ -2,11 +2,12 @@
 
 import path = require('path');
 import vscode = require('vscode');
-import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri, TextDocumentChangeEvent, window, workspace } from 'vscode';
+import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri, TextDocumentChangeEvent, ViewColumn, window, workspace } from 'vscode';
 import { CompileFormat, Compiler } from './compiler';
 import { MODE } from './mode';
 
-const commandOpenPreview = 'uiflow.openPreview';
+const commandOpenPreview = 'uiflow.openPreviewSideBySide';
+const commandOpenPreviewInPlace = 'uiflow.openPreviewInPlace';
 const commandOpenSource = 'uiflow.openSource';
 
 const scheme = 'uiflow';
@@ -49,12 +50,14 @@ export function activate(context: ExtensionContext) {
 	});
 	let registration = workspace.registerTextDocumentContentProvider(scheme, provider);
 	let d1 = vscode.commands.registerCommand(
-		commandOpenPreview, uri => openPreview(uri), vscode.ViewColumn.Two);
-	let d2 = vscode.commands.registerCommand(commandOpenSource, openSource);
-	context.subscriptions.push(d1, d2, registration);
+		commandOpenPreview, uri => openPreview(uri, true));
+	let d2 = vscode.commands.registerCommand(
+		commandOpenPreviewInPlace, uri => openPreview(uri, false));
+	let d3 = vscode.commands.registerCommand(commandOpenSource, openSource);
+	context.subscriptions.push(d1, d2, d3, registration);
 }
 
-function openPreview(uri: Uri) {
+function openPreview(uri: Uri, sideBySide: boolean) {
 	if (!(uri instanceof Uri)) {
 		if (vscode.window.activeTextEditor) {
 			uri = vscode.window.activeTextEditor.document.uri;
@@ -67,7 +70,7 @@ function openPreview(uri: Uri) {
 		}
 		return;
 	}
-	return vscode.commands.executeCommand('vscode.previewHtml', getUiflowUri(uri), vscode.ViewColumn.Two);
+	return vscode.commands.executeCommand('vscode.previewHtml', getUiflowUri(uri), getViewColumn(sideBySide));
 }
 
 function openSource(uiflowUri: Uri) {
@@ -94,4 +97,24 @@ function getUiflowUri(uri: any): Uri {
 		path: uri.path + '.rendered',
 		query: uri.toString()
 	});
+}
+
+function getViewColumn(sideBySide: boolean): ViewColumn {
+	let active = vscode.window.activeTextEditor;
+	if (!active) {
+		return ViewColumn.One;
+	}
+
+	if (!sideBySide) {
+		return active.viewColumn;
+	}
+
+	switch (active.viewColumn) {
+		case ViewColumn.One:
+			return ViewColumn.Two;
+		case ViewColumn.Two:
+			return ViewColumn.Three;
+	}
+
+	return active.viewColumn;
 }
