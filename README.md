@@ -4,11 +4,12 @@
 This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
 
 * Diagram Preview
-* Export PNG
-* Export SVG
+* Export PNG, SVG, JSON, DOT
 * Auto Completion
 * Rename Section and Direction
 * Find References
+* Open the Source from Preview
+
 
 ## What's uiflow?
 [uiflow](https://github.com/hirokidaichi/uiflow) is the simplest way to write down your ui-flow diagram like markdown.
@@ -32,8 +33,3 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Show preview `Alt+U P`
 * Export PNG `Alt+U E` (also `Alt+U N`)
 * Export SVG `Alt+U S`
-
-### Features
-* Open Preview
-* Export PNG/SVG/JSON/DOT
-* Open Source from Preview
