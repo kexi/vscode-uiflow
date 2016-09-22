@@ -42,17 +42,20 @@
       {
         "command": "uiflow.openPreviewSideBySide",
         "title": "Open Preview to the Side",
-        "category": "UiFlow"
+        "category": "UiFlow",
+        "icon": "media/preview-side-by-side.svg"
       },
       {
         "command": "uiflow.openPreviewInPlace",
         "title": "Open Preview",
-        "category": "UiFlow"
+        "category": "UiFlow",
+        "icon": "media/preview-in-place.svg"
       },
       {
         "command": "uiflow.openSource",
         "title": "Open Source",
-        "category": "UiFlow"
+        "category": "UiFlow",
+        "icon": "media/open-source.svg"
       },
       {
         "command": "uiflow.exportSVG",
