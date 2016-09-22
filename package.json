@@ -98,22 +98,22 @@
         {
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportSVG",
-          "group": "export"
+          "group": "export@2"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openExport",
-          "group": "export"
+          "group": "export@1"
         },
         {
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportJSON",
-          "group": "export"
+          "group": "export@3"
         },
         {
           "when": "resourceLangId == 'uiflow'",
           "command": "uiflow.exportDOT",
-          "group": "export"
+          "group": "export@3"
         }
       ],
       "editor/context": [
@@ -125,22 +125,22 @@
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportSVG",
-          "group": "export"
+          "group": "export@2"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openExport",
-          "group": "export"
+          "group": "export@1"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportJSON",
-          "group": "export"
+          "group": "export@3"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportDOT",
-          "group": "export"
+          "group": "export@3"
         }
       ],
       "explorer/context": [
@@ -152,22 +152,22 @@
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportSVG",
-          "group": "export"
+          "group": "export@1"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.openExport",
-          "group": "export"
+          "group": "export@2"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportJSON",
-          "group": "export"
+          "group": "export@3"
         },
         {
           "when": "resourceLangId == uiflow",
           "command": "uiflow.exportDOT",
-          "group": "export"
+          "group": "export@3"
         }
       ]
     },
