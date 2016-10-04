@@ -221,7 +221,6 @@
   "devDependencies": {
     "@types/fs-extra": "0.0.32",
     "@types/mocha": "^2.2.32",
-    "@types/parsimmon": "^0.5.29",
     "@types/through2": "^2.0.29",
     "@types/tmp": "0.0.31",
     "bower": "^1.7.9",
@@ -232,6 +231,7 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "jquery": "^3.1.0",
+    "parsimmon": "^0.9.2",
     "through2": "^2.0.1",
     "tmp": "0.0.28",
     "uiflow": "https://github.com/kexi/uiflow.git#vscode-uiflow-0.4.1"
