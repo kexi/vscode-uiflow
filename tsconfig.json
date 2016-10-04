@@ -9,11 +9,7 @@
 			"es2015.promise"
 		],
 		"types": [
-			"node",
-			"vscode",
-			"mocha",
-			"fs-extra",
-			"tmp"
+			"mocha"
 		],
 		"sourceMap": true
 	},
