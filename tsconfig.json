@@ -1,23 +1,16 @@
 {
-	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"outDir": "out",
-		"lib": [
-			"es2015",
-			"es2015.promise"
-		],
-		"types": [
-			"mocha"
-		],
-		"sourceMap": true
-	},
-	"exclude": [
-		"node_modules",
-		"server",
-		"typings/browser.d.ts",
-		"typings/browser",
-		".vscode-test"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "outDir": "out",
+        "lib": [
+            "es6"
+        ],
+        "sourceMap": true,
+        "rootDir": "."
+    },
+    "exclude": [
+        "node_modules",
+        ".vscode-test"
+    ]
 }
