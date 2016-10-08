@@ -211,18 +211,22 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "compile": "node ./node_modules/vscode/bin/compile -p ./",
+    "vscode:prepublish": "tsc",
+    "watch": "tsc -watch -p ./",
+    "compile": "tsc",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
+    "@types/fs-extra": "0.0.32",
+    "@types/mocha": "^2.2.32",
+    "@types/through2": "^2.0.29",
+    "@types/tmp": "0.0.31",
     "bower": "^1.7.9",
     "tslint": "^3.3.0",
-    "typescript": "^1.8.9",
-    "vscode": "^0.11.0"
+    "typescript": "^2.0.0",
+    "vscode": "^1.0.0"
   },
   "dependencies": {
     "fs-extra": "^0.30.0",
