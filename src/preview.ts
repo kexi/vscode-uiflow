@@ -14,6 +14,11 @@ const scheme = 'uiflow';
 
 class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 	private _onDidChange = new EventEmitter<Uri>();
+	private _waiting: boolean;
+
+	public constructor() {
+		this._waiting = false;
+	}
 
 	public provideTextDocumentContent(uri: Uri): string | Thenable<string> {
 		return vscode.workspace.openTextDocument(Uri.parse(uri.query)).then(doc => {
@@ -26,7 +31,13 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 	}
 
 	public update(uri: Uri) {
-		this._onDidChange.fire(uri);
+		if (!this._waiting) {
+			this._waiting = true;
+			setTimeout(() => {
+				this._waiting = false;
+				this._onDidChange.fire(uri);
+			}, 300);
+		}
 	}
 
 	private render(document: vscode.TextDocument): string | Thenable<string> {
