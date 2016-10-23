@@ -107,7 +107,10 @@ function openExport(uri: Uri) {
 
 export class UiflowExportPngTextDocumentProvider implements TextDocumentContentProvider {
 	private _onDidChange = new EventEmitter<Uri>();
+	private _waiting: boolean;
+
 	public constructor(private context: ExtensionContext) {
+		this._waiting = false;
 	}
 
 	public provideTextDocumentContent(uri: Uri): string | Thenable<string> {
@@ -117,7 +120,13 @@ export class UiflowExportPngTextDocumentProvider implements TextDocumentContentP
 	}
 
 	public update(uri: Uri) {
-		this._onDidChange.fire(uri);
+		if (!this._waiting) {
+			this._waiting = true;
+			setTimeout(() => {
+				this._waiting = false;
+				this._onDidChange.fire(uri);
+			}, 300);
+		}
 	}
 
 	get onDidChange(): Event<Uri> {
