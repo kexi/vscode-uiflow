@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow) [![Version](https://vsmarketplacebadge.apphb.com/version/kexi.uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/kexi.uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow)
+[![Build Status](https://travis-ci.org/kexi/vscode-uiflow.svg?branch=master)](https://travis-ci.org/kexi/vscode-uiflow) [![Version](https://vsmarketplacebadge.apphb.com/version/kexi.uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/kexi.uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.uiflow) [![devDependency](https://david-dm.org/kexi/vscode-uiflow.svg)](https://david-dm.org/kexi/vscode-uiflow.svg)
 
 # UiFlow for Visual Studio Code
 This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
