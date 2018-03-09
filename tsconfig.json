@@ -1,16 +1,15 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "es6",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"outDir": "out",
-		"noLib": true,
+		"lib": [
+			"es6"
+		],
 		"sourceMap": true
 	},
 	"exclude": [
-		"node_modules",
-		"typings/browser.d.ts",
-		"typings/browser",
-		".vscode-test"
+		"node_modules"
 	]
 }

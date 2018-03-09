@@ -42,7 +42,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 
 	private render(document: vscode.TextDocument): string | Thenable<string> {
 		let code = document.getText();
-		let promise = new Promise((resolve, rejected) => {
+		let promise = new Promise<string>((resolve, rejected) => {
 			Compiler.compile(document.uri.path, code, CompileFormat.SVG)
 				.then(
 					buffer => resolve(String(buffer)),
