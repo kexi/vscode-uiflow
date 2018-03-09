@@ -211,19 +211,20 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "vscode:prepublish": "tsc -p ./",
     "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "compile": "node ./node_modules/vscode/bin/compile -p ./",
+    "compile": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./test/*.ts",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
     "bower": "^1.7.9",
-    "@types/mocha": "2.2.39",
-    "@types/node": "^7.0.5",
-    "typescript": "^2.2.1",
-    "vscode": "^1.0.4"
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.0",
+    "mocha": "^2.3.3",
+    "@types/node": "^6.0.40",
+    "@types/mocha": "^2.2.32"
   },
   "dependencies": {
     "fs-extra": "^0.30.0",
