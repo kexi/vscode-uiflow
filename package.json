@@ -231,7 +231,7 @@
     "jquery": "^3.1.0",
     "parsimmon": "^1.6.4",
     "through2": "^2.0.1",
-    "tmp": "0.0.28",
+    "tmp": "0.0.33",
     "uiflow": "https://github.com/kexi/uiflow.git#vscode-uiflow-0.4.1"
   }
 }
