@@ -33,7 +33,7 @@ export function activate(context: ExtensionContext) {
 	let d5 = vscode.commands.registerCommand(commandExportJSON, uri => exportAs(uri, CompileFormat.JSON));
 	let d6 = vscode.commands.registerCommand(commandExportDOT, uri => exportAs(uri, CompileFormat.DOT));
 	context.subscriptions.push(d1, d2, d3, d4, d5, d6);
-};
+}
 
 export async function exportAs(uri: Uri, format: string): Promise<any> {
 	let document: TextDocument;
