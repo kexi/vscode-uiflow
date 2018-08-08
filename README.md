@@ -24,7 +24,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 ## Installation
 Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
 
-`ext install uiflow`
+`ext install vscode-uiflow`
 
 ## Using
 Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
