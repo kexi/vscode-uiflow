@@ -130,12 +130,5 @@ function getViewColumn(sideBySide: boolean): ViewColumn {
 		return active.viewColumn;
 	}
 
-	switch (active.viewColumn) {
-		case ViewColumn.One:
-			return ViewColumn.Two;
-		case ViewColumn.Two:
-			return ViewColumn.Three;
-	}
-
-	return active.viewColumn;
+	return active.viewColumn + 1;
 }
