@@ -208,6 +208,18 @@
         "command": "uiflow.openExport",
         "key": "alt+u e"
       }
+    ],
+    "configuration":[
+      {
+        "title": "VsCode UiFlow configuration",
+        "properties": {
+          "uiflow.enableAutoPreview": {
+            "type": "boolean",
+            "default": false,
+            "description": "Automatically open preview window."
+          }
+        }
+      }
     ]
   },
   "scripts": {
