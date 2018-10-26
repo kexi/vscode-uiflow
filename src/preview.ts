@@ -60,7 +60,7 @@ export function activate(context: ExtensionContext) {
 			provider.update(getUiflowUri(event.document.uri));
 		}
 	});
-	vscode.window.onDidChangeActiveTextEditor(async (editor: vscode.TextEditor) => {
+	vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor) => {
 		if (!checkUiFlow(editor.document)) return;
 		if (!vscode.workspace.getConfiguration('uiflow').get('enableAutoPreview')) return;
 		if (vscode.window.activeTextEditor) {
