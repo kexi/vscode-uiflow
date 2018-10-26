@@ -4,7 +4,7 @@ import path = require('path');
 import vscode = require('vscode');
 import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri, TextDocumentChangeEvent, ViewColumn, window, workspace } from 'vscode';
 import { CompileFormat, Compiler } from './compiler';
-import { MODE } from './mode';
+import { checkUiFlow } from './util';
 
 const commandOpenPreview = 'uiflow.openPreviewSideBySide';
 const commandOpenPreviewInPlace = 'uiflow.openPreviewInPlace';
@@ -46,7 +46,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 			Compiler.compile(document.uri.path, code, CompileFormat.SVG)
 				.then(
 					buffer => resolve(String(buffer)),
-					reason => rejected(reason));
+					reason => resolve(''));
 		});
 		return promise;
 	}
@@ -55,8 +55,18 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 export function activate(context: ExtensionContext) {
 	let provider = new UiflowTextDocumentContentProvider();
 	vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
+		if (!checkUiFlow(event.document)) return;
 		if (event.document === vscode.window.activeTextEditor.document) {
 			provider.update(getUiflowUri(event.document.uri));
+		}
+	});
+	vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor) => {
+		if (!checkUiFlow(editor.document)) return;
+		if (!vscode.workspace.getConfiguration('uiflow').get('enableAutoPreview')) return;
+		if (vscode.window.activeTextEditor) {
+			if (editor.document === vscode.window.activeTextEditor.document) {
+				openPreview(editor.document.uri, true);
+			}
 		}
 	});
 	let registration = workspace.registerTextDocumentContentProvider(scheme, provider);
@@ -120,12 +130,5 @@ function getViewColumn(sideBySide: boolean): ViewColumn {
 		return active.viewColumn;
 	}
 
-	switch (active.viewColumn) {
-		case ViewColumn.One:
-			return ViewColumn.Two;
-		case ViewColumn.Two:
-			return ViewColumn.Three;
-	}
-
-	return active.viewColumn;
+	return active.viewColumn + 1;
 }

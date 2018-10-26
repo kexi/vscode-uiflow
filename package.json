@@ -208,6 +208,18 @@
         "command": "uiflow.openExport",
         "key": "alt+u e"
       }
+    ],
+    "configuration": [
+      {
+        "title": "VsCode UiFlow configuration",
+        "properties": {
+          "uiflow.enableAutoPreview": {
+            "type": "boolean",
+            "default": false,
+            "description": "Automatically open preview window."
+          }
+        }
+      }
     ]
   },
   "scripts": {
@@ -227,7 +239,7 @@
     "vscode": "^1.0.0"
   },
   "dependencies": {
-    "fs-extra": "^6.0.0",
+    "fs-extra": "^7.0.0",
     "jquery": "^3.1.0",
     "parsimmon": "^1.7.3",
     "through2": "^2.0.1",
