@@ -9,7 +9,6 @@ import { activate as activateDefinitionProvider } from './definition';
 import { activate as activateDiagnostic } from './diagnostic';
 import { activate as activateRenameProvider } from './rename';
 import { activate as activateReferenceProvider } from './reference';
-import { MODE } from './mode';
 
 export function activate(context: vscode.ExtensionContext) {
 	activatePreview(context);

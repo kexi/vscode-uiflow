@@ -3,11 +3,14 @@
 import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
 import { CancellationToken, CompletionList, CompletionItemKind, CompletionItem, CompletionItemProvider, ExtensionContext, TextDocument, Position} from 'vscode';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export function activate(context: ExtensionContext) {
-	let registration = vscode.languages.registerCompletionItemProvider(MODE, new UiflowCompletionItemProvider());
-	context.subscriptions.push(registration);
+	const provider = new UiflowCompletionItemProvider();
+	selector.forEach(s => {
+		const registration = vscode.languages.registerCompletionItemProvider(s, provider);
+		context.subscriptions.push(registration);
+	});
 }
 
 export class UiflowCompletionItemProvider implements CompletionItemProvider {

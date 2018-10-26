@@ -5,7 +5,6 @@ import fs = require('fs-extra');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
 import { workspace, Disposable, ExtensionContext, EventEmitter, InputBoxOptions, Event, TextDocument, TextDocumentContentProvider, Uri} from 'vscode';
-import { MODE } from './mode';
 
 const scheme = 'uiflow-export';
 const commandOpenExport = 'uiflow.openExport';

@@ -4,7 +4,7 @@ import * as uiflow from 'uiflow';
 import * as vscode from 'vscode';
 import { languages, Position, RenameProvider, TextDocument, CancellationToken, Range, ExtensionContext, WorkspaceEdit } from 'vscode';
 import { parse, Node } from './parser';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export class UiflowRenameProvider implements RenameProvider {
 	provideRenameEdits(document: TextDocument, position: Position, newName: string, token: CancellationToken): Thenable<WorkspaceEdit> {
@@ -41,6 +41,9 @@ function atSectionName(position: Position, filtered: Node[]): Node {
 }
 
 export function activate(context: ExtensionContext) {
-	let registration = languages.registerRenameProvider(MODE, new UiflowRenameProvider());
-	context.subscriptions.push(registration);
+	const provider = new UiflowRenameProvider();
+	selector.forEach(s => {
+		let registration = languages.registerRenameProvider(s, provider);
+		context.subscriptions.push(registration);
+	});
 }

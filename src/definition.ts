@@ -3,11 +3,14 @@
 import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
 import { CancellationToken, CompletionList, Definition, DefinitionProvider, ExtensionContext, Location, TextDocument, Position } from 'vscode';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export function activate(context: ExtensionContext) {
-	let registration = vscode.languages.registerDefinitionProvider(MODE, new UiflowDefinitionProvider());
-	context.subscriptions.push(registration);
+	const provider = new UiflowDefinitionProvider();
+	selector.forEach(s => {
+		const registration = vscode.languages.registerDefinitionProvider(s, provider);
+		context.subscriptions.push(registration);
+	});
 }
 
 export class UiflowDefinitionProvider implements DefinitionProvider {

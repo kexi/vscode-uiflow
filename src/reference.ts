@@ -4,7 +4,7 @@ import * as uiflow from 'uiflow';
 import * as vscode from 'vscode';
 import { languages, Location, Position, ReferenceContext, ReferenceProvider, TextDocument, CancellationToken, Range, ExtensionContext, WorkspaceEdit } from 'vscode';
 import { parse, Node } from './parser';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export class UiflowReferenceProvider implements ReferenceProvider {
 	provideReferences(document: TextDocument, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<Location[]> {
@@ -44,6 +44,9 @@ function atSection(position: Position, nodes: Node[]) {
 }
 
 export function activate(context: ExtensionContext) {
-	let registration = languages.registerReferenceProvider(MODE, new UiflowReferenceProvider());
-	context.subscriptions.push(registration);
+	const provider = new UiflowReferenceProvider();
+	selector.forEach(s => {
+		const registration = languages.registerReferenceProvider(s, provider);
+		context.subscriptions.push(registration);
+	});
 }

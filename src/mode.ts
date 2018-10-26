@@ -2,4 +2,7 @@
 
 import * as vscode from 'vscode';
 
-export const MODE: vscode.DocumentFilter = {language: 'uiflow'};
+export const selector: vscode.DocumentFilter[] = [
+	{scheme: 'file', language: 'uiflow'},
+	{scheme: 'untitled', language: 'uiflow'}
+];

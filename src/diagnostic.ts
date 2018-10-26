@@ -3,8 +3,7 @@
 import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
 import { CancellationToken, Diagnostic, DiagnosticSeverity, ExtensionContext, Range, Position, TextDocument, TextDocumentChangeEvent } from 'vscode';
-import { MODE } from './mode';
-
+import { checkUiFlow } from './util';
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('uiflow');
 
 export function activate() {
@@ -33,12 +32,7 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
 }
 
 function validateTextDocument(document: TextDocument): void {
-	if (document.uri.scheme === 'uiflow') {
-		return;
-	}
-	if (document.languageId !== MODE.language) {
-		return;
-	}
+	if (!checkUiFlow(document)) return;
 	let diagnostics = createDiagnostics(document);
 	diagnosticCollection.set(document.uri, diagnostics);
 }

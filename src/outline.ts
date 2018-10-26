@@ -3,7 +3,7 @@
 import * as uiflow from 'uiflow';
 import { Section } from 'uiflow';
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export function codeToSections(code: string): Thenable<Section[]> {
 	let json = uiflow.parser.parse(code, '');
@@ -33,6 +33,9 @@ export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
 }
 
 export function activate(context: ExtensionContext) {
-	let registration = languages.registerDocumentSymbolProvider(MODE, new UiflowDocumentSymbolProvider());
-	context.subscriptions.push(registration);
+	const providor = new UiflowDocumentSymbolProvider();
+	selector.forEach(s => {
+		const registration = languages.registerDocumentSymbolProvider(s, providor);
+		context.subscriptions.push(registration);
+	});
 }
