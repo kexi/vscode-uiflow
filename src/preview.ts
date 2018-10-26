@@ -46,7 +46,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 			Compiler.compile(document.uri.path, code, CompileFormat.SVG)
 				.then(
 					buffer => resolve(String(buffer)),
-					reason => rejected(reason));
+					reason => resolve(''));
 		});
 		return promise;
 	}
