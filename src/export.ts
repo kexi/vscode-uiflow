@@ -20,35 +20,34 @@ interface ResolveExportPath {
 let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
 
 export function activate(context: ExtensionContext) {
-	let provider = new UiflowExportPngTextDocumentProvider(context);
+	const provider = new UiflowExportPngTextDocumentProvider(context);
 	vscode.workspace.onDidChangeTextDocument(e => {
 		provider.update(getExportUri(e.document.uri));
 	});
-	let d1 = workspace.registerTextDocumentContentProvider(scheme, provider);
-	let d2 = vscode.commands.registerCommand(
+	const d1 = workspace.registerTextDocumentContentProvider(scheme, provider);
+	const d2 = vscode.commands.registerCommand(
 		commandOpenExport, uri => openExport(uri));
-	let d3 = vscode.commands.registerCommand(commandSaveImage, saveData);
-	let d4 = vscode.commands.registerCommand(commandExportSVG, uri => exportAs(uri, CompileFormat.SVG));
-	let d5 = vscode.commands.registerCommand(commandExportJSON, uri => exportAs(uri, CompileFormat.JSON));
-	let d6 = vscode.commands.registerCommand(commandExportDOT, uri => exportAs(uri, CompileFormat.DOT));
+	const d3 = vscode.commands.registerCommand(commandSaveImage, saveData);
+	const d4 = vscode.commands.registerCommand(commandExportSVG, uri => exportAs(uri, CompileFormat.SVG));
+	const d5 = vscode.commands.registerCommand(commandExportJSON, uri => exportAs(uri, CompileFormat.JSON));
+	const d6 = vscode.commands.registerCommand(commandExportDOT, uri => exportAs(uri, CompileFormat.DOT));
 	context.subscriptions.push(d1, d2, d3, d4, d5, d6);
 }
 
 export async function exportAs(uri: Uri, format: string): Promise<any> {
-	let document: TextDocument;
 	try {
-		document = await resolveDocument(uri);
-	} catch (_) {
-		return;
-	}
-	let data = await Compiler.compile(document.uri.fsPath, document.getText(), format);
-	let options: InputBoxOptions = {
+		const document: TextDocument = await resolveDocument(uri);
+		const data = await Compiler.compile(document.uri.fsPath, document.getText(), format);
+	const options: InputBoxOptions = {
 		prompt: `Enter Path to Export a ${format.toUpperCase()} File`,
 		value: getUserHome() + path.sep
 	};
-	let outputPath = await resolveExportPath(options);
+	const outputPath = await resolveExportPath(options);
 	fs.writeFileSync(outputPath, data);
 	vscode.window.showInformationMessage(`Successfully Exported ${format.toUpperCase()}.`);
+	} catch (_) {
+		return;
+	}
 }
 
 export async function resolveDocument(uri): Promise<TextDocument> {
@@ -60,7 +59,7 @@ export async function resolveDocument(uri): Promise<TextDocument> {
 			throw Error('Open UiFlow document before export.');
 		}
 	}
-	let doc = await vscode.workspace.openTextDocument(uri);
+	const doc = await vscode.workspace.openTextDocument(uri);
 	return doc;
 }
 
@@ -81,12 +80,12 @@ function getExportUri(uri: any): Uri {
 }
 
 export async function saveData(url: string) {
-	let b = url.split(',')[1];
-	let options: InputBoxOptions = {
+	const b = url.split(',')[1];
+	const options: InputBoxOptions = {
 		prompt: `Enter Path to Export a PNG File`,
 		value: getUserHome() + path.sep
 	};
-	let outputPath = await resolveExportPath(options);
+	const outputPath = await resolveExportPath(options);
 	fs.writeFileSync(outputPath, new Buffer(b, 'base64'));
 	vscode.window.showInformationMessage('Successfully Exported PNG.');
 }

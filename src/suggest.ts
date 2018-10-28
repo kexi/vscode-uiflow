@@ -15,15 +15,15 @@ export function activate(context: ExtensionContext) {
 
 export class UiflowCompletionItemProvider implements CompletionItemProvider {
 	public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): Thenable<CompletionItem[]> {
-		let lineText = document.lineAt(position.line);
+		const lineText = document.lineAt(position.line);
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
 			return Promise.resolve([]);
 		}
-		let json = uiflow.parser.parse(document.getText(), '');
-		let list: CompletionItem[] = [];
+		const json = uiflow.parser.parse(document.getText(), '');
+		const list: CompletionItem[] = [];
 		Object.keys(json).forEach(key => {
-			let section = json[key];
-			let item = new CompletionItem(section.name);
+			const section = json[key];
+			const item = new CompletionItem(section.name);
 			item.kind = CompletionItemKind.Class;
 			list.push(item);
 		});

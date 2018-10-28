@@ -8,21 +8,21 @@ import { selector } from './mode';
 
 export class UiflowReferenceProvider implements ReferenceProvider {
 	provideReferences(document: TextDocument, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<Location[]> {
-		let nodes = parse(document.getText());
-		let sectionNode = atSection(position, nodes);
+		const nodes = parse(document.getText());
+		const sectionNode = atSection(position, nodes);
 		if (!sectionNode) {
 			return Promise.resolve(null);
 		}
-		let locations: Location[] = nodes.filter(n => {
+		const locations: Location[] = nodes.filter(n => {
 			if (n.label === 'direction' && n.text === sectionNode.text) {
 				return true;
 			}
 			return false;
 		}).map(directionNode => {
-			let start = new Position(directionNode.start.line - 1, directionNode.start.column - 1);
-			let end = new Position(directionNode.end.line - 1, directionNode.end.column - 1);
-			let range = new Range(start, end);
-			let location = new Location(document.uri, range);
+			const start = new Position(directionNode.start.line - 1, directionNode.start.column - 1);
+			const end = new Position(directionNode.end.line - 1, directionNode.end.column - 1);
+			const range = new Range(start, end);
+			const location = new Location(document.uri, range);
 			return location;
 		});
 		return Promise.resolve(locations);
