@@ -41,8 +41,8 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 	}
 
 	private render(document: vscode.TextDocument): string | Thenable<string> {
-		let code = document.getText();
-		let promise = new Promise<string>((resolve, rejected) => {
+		const code = document.getText();
+		const promise = new Promise<string>((resolve, rejected) => {
 			Compiler.compile(document.uri.path, code, CompileFormat.SVG)
 				.then(
 					buffer => resolve(String(buffer)),
@@ -53,7 +53,7 @@ class UiflowTextDocumentContentProvider implements TextDocumentContentProvider {
 }
 
 export function activate(context: ExtensionContext) {
-	let provider = new UiflowTextDocumentContentProvider();
+	const provider = new UiflowTextDocumentContentProvider();
 	vscode.workspace.onDidChangeTextDocument((event: vscode.TextDocumentChangeEvent) => {
 		if (!checkUiFlow(event.document)) return;
 		if (event.document === vscode.window.activeTextEditor.document) {
@@ -69,12 +69,12 @@ export function activate(context: ExtensionContext) {
 			}
 		}
 	});
-	let registration = workspace.registerTextDocumentContentProvider(scheme, provider);
-	let d1 = vscode.commands.registerCommand(
+	const registration = workspace.registerTextDocumentContentProvider(scheme, provider);
+	const d1 = vscode.commands.registerCommand(
 		commandOpenPreview, uri => openPreview(uri, true));
-	let d2 = vscode.commands.registerCommand(
+	const d2 = vscode.commands.registerCommand(
 		commandOpenPreviewInPlace, uri => openPreview(uri, false));
-	let d3 = vscode.commands.registerCommand(commandOpenSource, openSource);
+	const d3 = vscode.commands.registerCommand(commandOpenSource, openSource);
 	context.subscriptions.push(d1, d2, d3, registration);
 }
 
@@ -101,7 +101,7 @@ function openSource(uiflowUri: Uri) {
 
 	const docUri = Uri.parse(uiflowUri.query);
 
-	for (let editor of vscode.window.visibleTextEditors) {
+	for (const editor of vscode.window.visibleTextEditors) {
 		if (editor.document.uri.toString() === docUri.toString()) {
 			return vscode.window.showTextDocument(editor.document, editor.viewColumn);
 		}
@@ -121,7 +121,7 @@ function getUiflowUri(uri: any): Uri {
 }
 
 function getViewColumn(sideBySide: boolean): ViewColumn {
-	let active = vscode.window.activeTextEditor;
+	const active = vscode.window.activeTextEditor;
 	if (!active) {
 		return ViewColumn.One;
 	}

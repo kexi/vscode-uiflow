@@ -3,11 +3,11 @@
 import * as uiflow from 'uiflow';
 import { Section } from 'uiflow';
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
-import { MODE } from './mode';
+import { selector } from './mode';
 
 export function codeToSections(code: string): Thenable<Section[]> {
-	let json = uiflow.parser.parse(code, '');
-	let segs: Section[] = [];
+	const json = uiflow.parser.parse(code, '');
+	const segs: Section[] = [];
 	Object.keys(json).forEach(key => {
 		segs.push(json[key]);
 	});
@@ -16,13 +16,13 @@ export function codeToSections(code: string): Thenable<Section[]> {
 
 export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
 	public provideDocumentSymbols(document: TextDocument, token: CancellationToken): Thenable<SymbolInformation[]> {
-		let promise = new Promise<SymbolInformation[]>((ok, ng) => {
+		const promise = new Promise<SymbolInformation[]>((ok, ng) => {
 			codeToSections(document.getText()).then(sections => {
-				let info: SymbolInformation[] = [];
+				const info: SymbolInformation[] = [];
 				sections.forEach(section => {
-					let pos = new Position(section.lines, 0);
-					let range = new Range(pos, pos);
-					let si = new SymbolInformation(section.name, SymbolKind.Class, range, document.uri);
+					const pos = new Position(section.lines, 0);
+					const range = new Range(pos, pos);
+					const si = new SymbolInformation(section.name, SymbolKind.Class, range, document.uri);
 					info.push(si);
 				});
 				ok(info);
@@ -33,6 +33,9 @@ export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
 }
 
 export function activate(context: ExtensionContext) {
-	let registration = languages.registerDocumentSymbolProvider(MODE, new UiflowDocumentSymbolProvider());
-	context.subscriptions.push(registration);
+	const providor = new UiflowDocumentSymbolProvider();
+	selector.forEach(s => {
+		const registration = languages.registerDocumentSymbolProvider(s, providor);
+		context.subscriptions.push(registration);
+	});
 }
