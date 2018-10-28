@@ -19,16 +19,16 @@ export function activate() {
 }
 
 export function createDiagnostics(document: TextDocument): Diagnostic[] {
-	let diagnostics: Diagnostic[] = [];
+	const diagnostics: Diagnostic[] = [];
 	try {
 		uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), '');
 	} catch (e) {
-		let info = e.message.split(/:/g);
-		let start = new Position(e.lineNumber, 0);
-		let end = new Position(e.lineNumber, 1000);
-		let range = new Range(start, end);
-		let message = info[3] + info[4];
-		let diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error);
+		const info = e.message.split(/:/g);
+		const start = new Position(e.lineNumber, 0);
+		const end = new Position(e.lineNumber, 1000);
+		const range = new Range(start, end);
+		const message = info[3] + info[4];
+		const diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error);
 		diagnostics.push(diagnostic);
 	}
 	return diagnostics;
