@@ -4,13 +4,16 @@ import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
 import { CancellationToken, Diagnostic, DiagnosticSeverity, ExtensionContext, Range, Position, TextDocument, TextDocumentChangeEvent } from 'vscode';
 import { checkUiFlow } from './util';
+
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('uiflow');
 
 export function activate() {
 	vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
+		if (!checkUiFlow(event.document)) return;
 		validateTextDocument(event.document);
 	});
 	vscode.workspace.onDidOpenTextDocument(document => {
+		if (!checkUiFlow(document)) return;
 		validateTextDocument(document);
 	});
 }
@@ -32,7 +35,6 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
 }
 
 function validateTextDocument(document: TextDocument): void {
-	if (!checkUiFlow(document)) return;
-	let diagnostics = createDiagnostics(document);
+	const diagnostics = createDiagnostics(document);
 	diagnosticCollection.set(document.uri, diagnostics);
 }
