@@ -5,6 +5,7 @@ import fs = require('fs-extra');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
 import { workspace, Disposable, ExtensionContext, EventEmitter, InputBoxOptions, Event, TextDocument, TextDocumentContentProvider, Uri} from 'vscode';
+import { checkUiFlow } from './util';
 
 const scheme = 'uiflow-export';
 const commandOpenExport = 'uiflow.openExport';
@@ -22,7 +23,12 @@ let resolveExportPath: ResolveExportPath = vscode.window.showInputBox;
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowExportPngTextDocumentProvider(context);
 	vscode.workspace.onDidChangeTextDocument(e => {
-		provider.update(getExportUri(e.document.uri));
+		if (!checkUiFlow(e.document)) return;
+		if (vscode.window.activeTextEditor) {
+			if (e.document === vscode.window.activeTextEditor.document) {
+				provider.update(getExportUri(e.document.uri));
+			}
+		}
 	});
 	const d1 = workspace.registerTextDocumentContentProvider(scheme, provider);
 	const d2 = vscode.commands.registerCommand(
