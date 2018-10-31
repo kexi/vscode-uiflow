@@ -13,7 +13,10 @@ suite('UiFlow Export Tests', () => {
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fixturePath = fs.mkdtempSync(os.tmpdir());
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
 		fs.copyFileSync(
 			path.join(fixtureSourcePath, 'ok.uif'),
 			path.join(fixturePath, 'ok.uif'));
