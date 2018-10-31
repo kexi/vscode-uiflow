@@ -4,17 +4,22 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import * as extension from '../src/extension';
-import * as fs from 'fs-extra';
+import fs = require('fs');
+import os = require('os');
 import { setResovleExportPath } from '../src/export';
 
 suite('UiFlow Export Tests', () => {
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
-		fs.copySync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(
+			path.join(fixtureSourcePath, 'ok.uif'),
+			path.join(fixturePath, 'ok.uif'));
 	});
 
 	test('Export SVG', async () => {

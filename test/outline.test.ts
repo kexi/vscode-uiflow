@@ -3,9 +3,9 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-extra';
 import * as outline from '../src/outline';
-import * as tmp from 'tmp';
+import fs = require('fs');
+import os = require('os');
 
 suite('UiFlow Outline Tests', () => {
 
@@ -13,10 +13,11 @@ suite('UiFlow Outline Tests', () => {
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		let dir = tmp.dirSync();
-		fixturePath = dir.name;
-		fs.ensureDirSync(dir.name);
-		fs.copySync(path.join(fixtureSourcePath, 'outline.uif'), path.join(fixturePath, 'outline.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(path.join(fixtureSourcePath, 'outline.uif'), path.join(fixturePath, 'outline.uif'));
 	});
 
 	let expected: {name: string, lines: number}[] = [

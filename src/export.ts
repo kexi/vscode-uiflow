@@ -1,7 +1,7 @@
 'use strict';
 
 import vscode = require('vscode');
-import fs = require('fs-extra');
+import fs = require('fs');
 import path = require('path');
 import { Compiler, CompileFormat } from './compiler';
 import { workspace, Disposable, ExtensionContext, EventEmitter, InputBoxOptions, Event, TextDocument, TextDocumentContentProvider, Uri} from 'vscode';

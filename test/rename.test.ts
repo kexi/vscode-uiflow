@@ -3,18 +3,21 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-extra';
 import { UiflowRenameProvider } from '../src/rename';
+import fs = require('fs');
+import os = require('os');
 
 suite('UiFlow Rename Tests', () => {
 
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
-		fs.copySync(path.join(fixtureSourcePath, 'rename.uif'), path.join(fixturePath, 'rename.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(path.join(fixtureSourcePath, 'rename.uif'), path.join(fixturePath, 'rename.uif'));
 	});
 
 	test('Test provideRenameEdits#UiflowRenameProvider', done => {

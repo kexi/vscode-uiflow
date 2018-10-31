@@ -3,18 +3,19 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import * as fs from 'fs-extra';
-import * as tmp from 'tmp';
+import fs = require('fs');
+import os = require('os');
 
 suite('UiFlow Extension Tests', () => {
 	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		let dir = tmp.dirSync();
-		fixturePath = dir.name;
-		fs.ensureDirSync(dir.name);
-		fs.copySync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(path.join(fixtureSourcePath, 'ok.uif'), path.join(fixturePath, 'ok.uif'));
 	});
 
 	test('Open Preview Side By Side', async () => {
