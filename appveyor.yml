@@ -1,0 +1,13 @@
+version: 0.5.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: x64
+init:
+- ps: node -v
+- ps: npm -v
+install:
+- ps: npm install
+build_script:
+- ps: npm run compile
+test_script:
+- ps: npm run test
