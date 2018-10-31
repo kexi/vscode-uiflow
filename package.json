@@ -239,11 +239,9 @@
     "vscode": "^1.1.21"
   },
   "dependencies": {
-    "fs-extra": "^7.0.0",
     "jquery": "^3.3.1",
     "parsimmon": "^1.12.0",
     "through2": "^2.0.3",
-    "tmp": "0.0.33",
     "uiflow": "git+https://github.com/kexi/uiflow.git#vscode-uiflow-0.4.1"
   }
 }

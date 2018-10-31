@@ -3,18 +3,21 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-extra';
 import * as suggest from '../src/suggest';
+import fs = require('fs');
+import os = require('os');
 
 suite('UiFlow Suggest Tests', () => {
 
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
-		fs.copySync(path.join(fixtureSourcePath, 'suggest.uif'), path.join(fixturePath, 'suggest.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(path.join(fixtureSourcePath, 'suggest.uif'), path.join(fixturePath, 'suggest.uif'));
 	});
 
 	test('Test provideCompletionItems#UiflowCompletionItemProvider', done => {

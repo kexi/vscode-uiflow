@@ -3,18 +3,24 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-extra';
 import * as definition from '../src/definition';
+import fs = require('fs');
+import os = require('os');
 
 suite('UiFlow Definition Tests', () => {
 
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
-		fs.copySync(path.join(fixtureSourcePath, 'definition.uif'), path.join(fixturePath, 'definition.uif'));
+		fixturePath = fs.mkdtempSync(path.join(
+			os.tmpdir(),
+			'fixtures'
+		));
+		fs.copyFileSync(
+			path.join(fixtureSourcePath, 'definition.uif'),
+			path.join(fixturePath, 'definition.uif')
+		);
 	});
 
 	test('Test provideDefinition#UiflowDefinitionProvider', done => {
