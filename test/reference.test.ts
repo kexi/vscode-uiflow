@@ -3,18 +3,20 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs-extra';
+import fs = require('fs');
+import os = require('os');
 import { UiflowReferenceProvider } from '../src/reference';
 
 suite('UiFlow Reference Tests', () => {
-
-	let fixturePath = path.join(__dirname, '..', '..', '__test', 'fixtures');
+	let fixturePath;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
-		fs.removeSync(fixturePath);
-		fs.mkdirsSync(fixturePath);
-		fs.copySync(path.join(fixtureSourcePath, 'reference.uif'), path.join(fixturePath, 'reference.uif'));
+		fixturePath = fs.mkdtempSync(os.tmpdir());
+		fs.copyFileSync(
+			path.join(fixtureSourcePath, 'reference.uif'),
+			path.join(fixturePath, 'reference.uif')
+		);
 	});
 
 	test('Test provideReferences#UiflowReferenceProvider', done => {
