@@ -9,6 +9,7 @@ import { activate as activateDefinitionProvider } from './definition';
 import { activate as activateDiagnostic } from './diagnostic';
 import { activate as activateRenameProvider } from './rename';
 import { activate as activateReferenceProvider } from './reference';
+import { activate as activateFoldingProvider } from './folding';
 
 export function activate(context: vscode.ExtensionContext) {
 	activatePreview(context);
@@ -18,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	activateDefinitionProvider(context);
 	activateRenameProvider(context);
 	activateReferenceProvider(context);
+	activateFoldingProvider(context);
 	activateDiagnostic();
 }
 
