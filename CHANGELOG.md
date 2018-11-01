@@ -1,4 +1,7 @@
 # Changelog
+## 0.6.0
+- Add: Fold Section
+
 ## 0.5.5
 - Maintenance
 
