@@ -18,6 +18,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 ### See also
 * [uiflow](https://github.com/hirokidaichi/uiflow) (Japanese)
 * [A shorthand for designing UI flows](https://signalvnoise.com/posts/1926-a-shorthand-for-designing-ui-flows)
+* [Qiita](https://qiita.com/kexi/items/f5bd25fd4a7da81e62d4) (Japanese)
 
 ## Screenshot
 ![preview](img/preview.gif)
