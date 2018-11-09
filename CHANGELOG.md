@@ -1,4 +1,9 @@
 # Changelog
+## 0.6.2
+- Fix: Allow starting line with hyphen
+
+Thanks @Foo-x　[PR](https://github.com/kexi/uiflow/pull/3)
+
 ## 0.6.0
 - Add: Fold Section
 
