@@ -23,11 +23,25 @@ export function activate(context: ExtensionContext) {
 	});
 	const d1 = vscode.commands.registerCommand(
 		commandOpenPreview, uri => {
+			if (!(uri instanceof Uri)) {
+				uri = vscode.window.activeTextEditor.document.uri;
+			}
+			if (!uri) {
+				return;
+			}
 			manager.createOrShow(uri);
+			return true;
 		});
 	const d2 = vscode.commands.registerCommand(
 		commandOpenPreviewInPlace, uri => {
+			if (!(uri instanceof Uri)) {
+				uri = vscode.window.activeTextEditor.document.uri;
+			}
+			if (!uri) {
+				return;
+			}
 			manager.createOrShow(uri, false);
+			return true;
 		});
 	const d3 = vscode.commands.registerCommand(commandOpenSource, e => {
 		manager.showDocument();
