@@ -45,8 +45,6 @@ function atSection(position: Position, nodes: Node[]) {
 
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowReferenceProvider();
-	selector.forEach(s => {
-		const registration = languages.registerReferenceProvider(s, provider);
-		context.subscriptions.push(registration);
-	});
+	const registration = languages.registerReferenceProvider(selector, provider);
+	context.subscriptions.push(registration);
 }

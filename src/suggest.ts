@@ -7,10 +7,8 @@ import { selector } from './mode';
 
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowCompletionItemProvider();
-	selector.forEach(s => {
-		const registration = vscode.languages.registerCompletionItemProvider(s, provider);
-		context.subscriptions.push(registration);
-	});
+	const registration = vscode.languages.registerCompletionItemProvider(selector, provider);
+	context.subscriptions.push(registration);
 }
 
 export class UiflowCompletionItemProvider implements CompletionItemProvider {
