@@ -30,7 +30,6 @@ export function activate(context: ExtensionContext) {
 				return;
 			}
 			manager.createOrShow(uri);
-			return true;
 		});
 	const d2 = vscode.commands.registerCommand(
 		commandOpenPreviewInPlace, uri => {
@@ -41,7 +40,6 @@ export function activate(context: ExtensionContext) {
 				return;
 			}
 			manager.createOrShow(uri, false);
-			return true;
 		});
 	const d3 = vscode.commands.registerCommand(commandOpenSource, e => {
 		manager.showDocument();
