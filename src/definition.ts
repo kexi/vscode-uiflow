@@ -7,10 +7,8 @@ import { selector } from './mode';
 
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowDefinitionProvider();
-	selector.forEach(s => {
-		const registration = vscode.languages.registerDefinitionProvider(s, provider);
-		context.subscriptions.push(registration);
-	});
+	const registration = vscode.languages.registerDefinitionProvider(selector, provider);
+	context.subscriptions.push(registration);
 }
 
 export class UiflowDefinitionProvider implements DefinitionProvider {

@@ -8,10 +8,8 @@ import { parse } from './parser';
 
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowFoldingRangeProvider();
-	selector.forEach(s => {
-		const registration = vscode.languages.registerFoldingRangeProvider(s, provider);
-		context.subscriptions.push(registration);
-	});
+	const registration = vscode.languages.registerFoldingRangeProvider(selector, provider);
+	context.subscriptions.push(registration);
 }
 
 export class UiflowFoldingRangeProvider implements FoldingRangeProvider {

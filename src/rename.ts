@@ -42,8 +42,6 @@ function atSectionName(position: Position, filtered: Node[]): Node {
 
 export function activate(context: ExtensionContext) {
 	const provider = new UiflowRenameProvider();
-	selector.forEach(s => {
-		const registration = languages.registerRenameProvider(s, provider);
-		context.subscriptions.push(registration);
-	});
+	const registration = languages.registerRenameProvider(selector, provider);
+	context.subscriptions.push(registration);
 }

@@ -34,8 +34,6 @@ export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
 
 export function activate(context: ExtensionContext) {
 	const providor = new UiflowDocumentSymbolProvider();
-	selector.forEach(s => {
-		const registration = languages.registerDocumentSymbolProvider(s, providor);
-		context.subscriptions.push(registration);
-	});
+	const registration = languages.registerDocumentSymbolProvider(selector, providor);
+	context.subscriptions.push(registration);
 }
