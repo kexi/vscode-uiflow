@@ -5,12 +5,16 @@ import vscode = require('vscode');
 import { TextDocumentContentProvider, Event, EventEmitter, ExtensionContext, Uri, TextDocumentChangeEvent, ViewColumn, window, workspace } from 'vscode';
 import { CompileFormat, Compiler } from './compiler';
 import { checkUiFlow } from './util';
+import * as parser from './parser';
 
 const commandOpenPreview = 'uiflow.openPreviewSideBySide';
 const commandOpenPreviewInPlace = 'uiflow.openPreviewInPlace';
 const commandOpenSource = 'uiflow.openSource';
 
+let ctx: vscode.ExtensionContext;
+
 export function activate(context: ExtensionContext) {
+	ctx = context;
 	const manager = new UiflowPreviewManager();
 	vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor) => {
 		if (!checkUiFlow(editor.document)) return;
@@ -124,6 +128,39 @@ class UiflowPreview {
 		this.panel.onDidDispose(e => {
 			this.onDisposeEmitter.fire();
 		});
+
+		this.panel.webview.onDidReceiveMessage(async (e) => {
+			let editor = vscode.window.activeTextEditor;
+
+			if (!editor) {
+				editor = await vscode.window.showTextDocument(this.resource, {
+					viewColumn: ViewColumn.One
+				});
+			}
+
+			switch (e.command) {
+				case 'page-click':
+					const ast = parser.parse(editor.document.getText());
+					const section = ast.find(v => v.label === 'section' && v.text === e.text);
+					if (!section) {
+						return;
+					}
+					const line = section.start.line;
+					const position: vscode.Position = new vscode.Position(line - 1, 0);
+					editor.selection = new vscode.Selection(position, position);
+					editor.revealRange(new vscode.Range(position, position));
+					break;
+				case 'end-click':
+					editor.edit(edit => {
+						const position: vscode.Position = new vscode.Position(editor.document.lineCount, 0);
+						const eol = editor.document.eol === vscode.EndOfLine.LF ? '\n' : '\r\n';
+						edit.insert(position, [eol, '[', e.text, ']', eol].join(''));
+						editor.selection = new vscode.Selection(position, position);
+						editor.revealRange(new vscode.Range(position, position));
+					});
+					break;
+			}
+		});
 	}
 
 	public static create(resource: vscode.Uri, sideBySide: boolean = true): UiflowPreview {
@@ -133,6 +170,12 @@ class UiflowPreview {
 			{
 				viewColumn: getViewColumn(sideBySide),
 				preserveFocus: false
+			},
+			{
+				enableScripts: true,
+				localResourceRoots: [
+					Uri.file(path.join(ctx.extensionPath, 'media'))
+				]
 			}
 		);
 
@@ -154,7 +197,25 @@ class UiflowPreview {
 			}, 300);
 			const doc = await vscode.workspace.openTextDocument(resource);
 			const svg = String(await Compiler.compile(resource.fsPath, doc.getText(), 'svg'));
-			this.panel.webview.html = svg;
+			this.panel.webview.html = this.createHtml(svg);
 		}
+	}
+
+	private createHtml(svg: string) {
+		return `<!DOCTYPE html>
+			<html>
+				<head>
+					<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
+					<script src="${this.getMediaPath('preview.js')}"></script>
+				</head>
+				<body>
+					${svg}
+				</body>
+			</html>
+		`;
+	}
+
+	private getMediaPath(p: string): string {
+		return Uri.file(path.join(ctx.extensionPath, 'media', p)).with({scheme: 'vscode-resource'}).toString();
 	}
 }
