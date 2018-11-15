@@ -6,7 +6,7 @@ import * as vscode from 'vscode';
 import * as extension from '../src/extension';
 import fs = require('fs');
 import os = require('os');
-import { setResovleExportPath } from '../src/export';
+import { setResovleExportPath, saveData } from '../src/export';
 
 suite('UiFlow Export Tests', () => {
 	let fixturePath;
@@ -72,20 +72,15 @@ suite('UiFlow Export Tests', () => {
 		.then(() => done(), reason => done(reason));
 	});
 
-	test('Save Image', done => {
-		let outputPath = path.join(fixturePath, 'ok.uif.png');
+	test('Save Image', async () => {
+		const outputPath = path.join(fixturePath, 'ok.uif.png');
 		setResovleExportPath(() => {return Promise.resolve(outputPath); });
-		let url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P8////fwAKAAP+j4hsjgAAAABJRU5ErkJggg==';
-		vscode.commands.executeCommand('uiflow.saveImage', url)
-		.then(() => {
-				let buffer = fs.readFileSync(outputPath);
-				let actual = buffer.slice(0, 8);
-				let expected = new Buffer([137, 80, 78, 71, 13, 10, 26, 10]);
-				assert.ok(actual.equals(expected), 'PNG file signature not found.');
-				return Promise.resolve();
-			}
-		)
-		.then(() => done(), reason => done(reason));
+		const url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P8////fwAKAAP+j4hsjgAAAABJRU5ErkJggg==';
+		await saveData(url);
+		const buffer = fs.readFileSync(outputPath);
+		const actual = buffer.slice(0, 8);
+		const expected = new Buffer([137, 80, 78, 71, 13, 10, 26, 10]);
+		assert.ok(actual.equals(expected), 'PNG file signature not found.');
 	});
 
 });
