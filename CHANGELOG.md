@@ -1,4 +1,8 @@
 # Changelog
+
+## 0.8.0
+- Add: Jump to source code when page is clicked.
+
 ## 0.7.0
 - Fix: use webapi #88
 
