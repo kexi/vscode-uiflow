@@ -122,6 +122,7 @@ function createHtml(svg: Buffer): string {
 	const html = `<!DOCTYPE html>
 	<html>
 		<head>
+			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src vscode-resource:; script-src vscode-resource:; img-src data:;">
 			<link href="${mediaPath('core.css')}" rel="stylesheet" type="text/css" media="all">
 			<link href="${mediaPath('button.css')}" rel="stylesheet" type="text/css" media="all">
 			<script src="${mediaPath('jquery-3.3.1.min.js')}"></script>
