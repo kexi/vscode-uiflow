@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1
+- Maintenace
+
 ## 0.8.0
 - Add: Jump to source code when page is clicked.
 
