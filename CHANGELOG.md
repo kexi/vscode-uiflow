@@ -1,4 +1,6 @@
 # Changelog
+## 0.9.0
+- Add: Trigger characters
 
 ## 0.8.1
 - Maintenace
