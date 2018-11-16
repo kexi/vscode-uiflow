@@ -65,11 +65,12 @@ suite('UiFlow Export Tests', () => {
 		}
 	});
 
-	test('Open Export', done => {
+	test('Open Export', async () => {
 		let filePath = path.join(fixturePath, 'ok.uif');
-		vscode.workspace.openTextDocument(filePath)
-		.then(doc => vscode.commands.executeCommand('uiflow.openExport'))
-		.then(() => done(), reason => done(reason));
+		const doc = await vscode.workspace.openTextDocument(filePath);
+		assert.doesNotThrow(async () => {
+			await vscode.commands.executeCommand('uiflow.openExport');
+		});
 	});
 
 	test('Save Image', async () => {
