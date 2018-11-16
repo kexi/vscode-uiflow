@@ -22,22 +22,17 @@ suite('UiFlow Reference Tests', () => {
 		);
 	});
 
-	test('Test provideReferences#UiflowReferenceProvider', done => {
-		vscode.workspace.openTextDocument(path.join(fixturePath, 'reference.uif'))
-		.then(doc => {
-			let provider = new UiflowReferenceProvider();
-			let position = new vscode.Position(6, 1);
-			return provider.provideReferences(doc, position, null, null)
-			.then((locations: vscode.Location[]) => {
-				let expected: vscode.Range[] = [
-					new vscode.Range(10, 4, 10, 8),
-					new vscode.Range(16, 4, 16, 8)
-				];
-				expected.forEach((range, i) => {
-					assert.ok(range.isEqual(locations[i].range), `Range should be equal.`);
-				});
-			});
-		}, reason => assert.ok(false, `Error in openTextDocument ${reason}.`))
-		.then(() => done(), reason => done(reason));
+	test('Test provideReferences#UiflowReferenceProvider', async () => {
+		const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, 'reference.uif'));
+		const provider = new UiflowReferenceProvider();
+		const position = new vscode.Position(6, 1);
+		const locations = await provider.provideReferences(doc, position, null, null);
+		const expected: vscode.Range[] = [
+			new vscode.Range(10, 4, 10, 8),
+			new vscode.Range(16, 4, 16, 8)
+		];
+		expected.forEach((range, i) => {
+			assert.ok(range.isEqual(locations[i].range), `Range should be equal.`);
+		});
 	});
 });
