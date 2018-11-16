@@ -2,29 +2,29 @@
 
 import * as vscode from 'vscode';
 import * as uiflow from 'uiflow';
-import { CancellationToken, CompletionList, CompletionItemKind, CompletionItem, CompletionItemProvider, ExtensionContext, TextDocument, Position} from 'vscode';
 import { selector } from './mode';
 
-export function activate(context: ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
 	const provider = new UiflowCompletionItemProvider();
-	const registration = vscode.languages.registerCompletionItemProvider(selector, provider);
+	const registration = vscode.languages.registerCompletionItemProvider(selector, provider, ...UiflowCompletionItemProvider.triggerCharacters);
 	context.subscriptions.push(registration);
 }
 
-export class UiflowCompletionItemProvider implements CompletionItemProvider {
-	public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): Thenable<CompletionItem[]> {
+export class UiflowCompletionItemProvider implements vscode.CompletionItemProvider {
+	public static readonly triggerCharacters = ['>', ' '];
+	public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.CompletionItem[] {
 		const lineText = document.lineAt(position.line);
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
-			return Promise.resolve([]);
+			return [];
 		}
 		const json = uiflow.parser.parse(document.getText(), '');
-		const list: CompletionItem[] = [];
+		const list: vscode.CompletionItem[] = [];
 		Object.keys(json).forEach(key => {
 			const section = json[key];
-			const item = new CompletionItem(section.name);
-			item.kind = CompletionItemKind.Class;
+			const item = new vscode.CompletionItem(section.name);
+			item.kind = vscode.CompletionItemKind.Class;
 			list.push(item);
 		});
-		return Promise.resolve(list);
+		return list;
 	}
 }
