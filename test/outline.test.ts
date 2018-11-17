@@ -26,31 +26,27 @@ suite('UiFlow Outline Tests', () => {
 		{name: 'seg3', lines: 9}
 	];
 
-	test('Test codeToSections', done => {
-		let code = fs.readFileSync(path.join(fixturePath, 'outline.uif'), 'utf8');
-		outline.codeToSections(code).then(actual => {
-			assert.equal(actual.length, expected.length, `Section length must be ${expected.length}.`);
-			actual.forEach((act, i) => {
-				let ex = expected[i];
-				assert.equal(act.name, ex.name, `Section name must be ${ex.name}.`);
-				assert.equal(act.lines, ex.lines, `Section lines must be ${ex.lines}.`);
-			});
-		}).then(() => done(), reason => done(reason));
+	test('Test codeToSections', async () => {
+		const code = fs.readFileSync(path.join(fixturePath, 'outline.uif'), 'utf8');
+		const actual = await outline.codeToSections(code);
+		assert.equal(actual.length, expected.length, `Section length must be ${expected.length}.`);
+		actual.forEach((act, i) => {
+			const ex = expected[i];
+			assert.equal(act.name, ex.name, `Section name must be ${ex.name}.`);
+			assert.equal(act.lines, ex.lines, `Section lines must be ${ex.lines}.`);
+		});
 	});
 
-	test('provideDocumentSymbols#UiflowDocumentSymbolProvider', done => {
-		let uri = vscode.Uri.file(path.join(fixturePath, 'outline.uif'));
-		vscode.workspace.openTextDocument(uri)
-		.then(doc => {
-			let instance = new outline.UiflowDocumentSymbolProvider();
-			return instance.provideDocumentSymbols(doc, null).then(info => {
-				assert.equal(info.length, expected.length, `SymbolInformation length must be ${expected.length}.`);
-				info.forEach((inf, i) => {
-					let ex = expected[i];
-					assert.equal(inf.name, ex.name, `SymbolInformation name must be ${ex.name}.`);
-					assert.equal(inf.location.range.start.line, ex.lines, 'SymbolInformation location.range.start.line must be ${ex.lines}.');
-				});
-			}, reason => assert.ok(false, `Error in openTextDocument ${reason}.`));
-		}).then(() => done(), reason => done(reason));
+	test('provideDocumentSymbols#UiflowDocumentSymbolProvider', async () => {
+		const uri = vscode.Uri.file(path.join(fixturePath, 'outline.uif'));
+		const doc = await vscode.workspace.openTextDocument(uri);
+		const instance = new outline.UiflowDocumentSymbolProvider();
+		const info = await instance.provideDocumentSymbols(doc, null);
+		assert.equal(info.length, expected.length, `SymbolInformation length must be ${expected.length}.`);
+		info.forEach((inf, i) => {
+			let ex = expected[i];
+			assert.equal(inf.name, ex.name, `SymbolInformation name must be ${ex.name}.`);
+			assert.equal(inf.location.range.start.line, ex.lines, 'SymbolInformation location.range.start.line must be ${ex.lines}.');
+		});
 	});
 });

@@ -12,23 +12,23 @@ export function activate(context: ExtensionContext) {
 }
 
 export class UiflowDefinitionProvider implements DefinitionProvider {
-	public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Thenable<Definition> {
+	public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition {
 		const lineText = document.lineAt(position.line);
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
-			return Promise.resolve(null);
+			return undefined;
 		}
 		const match = lineText.text.match(/=.*=>+\s*([^:\]]*)/);
 		if (!match) {
-			return Promise.resolve(null);
+			return undefined;
 		}
 		const name = match[1];
 		const json = uiflow.parser.parse(document.getText(), '');
 		const section = json[name];
 		if (!section) {
-				return Promise.resolve(null);
+			return undefined;
 		}
 		const pos = new Position(section.lines, 0);
 		const location = new Location(document.uri, pos);
-		return Promise.resolve(location);
+		return location;
 	}
 }

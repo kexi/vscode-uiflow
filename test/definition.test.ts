@@ -23,23 +23,25 @@ suite('UiFlow Definition Tests', () => {
 		);
 	});
 
-	test('Test provideDefinition#UiflowDefinitionProvider', done => {
-		vscode.workspace.openTextDocument(path.join(fixturePath, 'definition.uif'))
-			.then(doc => {
-				let testCases: [vscode.Position, number][] = [
-					[new vscode.Position(0, 0), null],
-					[new vscode.Position(15, 3), 17],
-					[new vscode.Position(15, 2), null],
-					[new vscode.Position(26, 4), 9],
-					[new vscode.Position(13, 4), null],
-				];
-				let instance = new definition.UiflowDefinitionProvider();
-				let promises = testCases.map(([pos, expected]) => instance.provideDefinition(doc, pos, null)
-				.then((location: vscode.Location) => {
-					assert.equal(location ? location.range.start.line : location, expected, `Definition line must be ${expected}.`);
-				}));
-				return Promise.all(promises);
-			}, reason => assert.ok(false, `Error in openTextDocument ${reason}.`))
-			.then(() => done(), reason => done(reason));
+	test('Test provideDefinition#UiflowDefinitionProvider', async () => {
+		const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, 'definition.uif'));
+		const testCases: [vscode.Position, number][] = [
+			[new vscode.Position(0, 0), undefined],
+			[new vscode.Position(15, 3), 17],
+			[new vscode.Position(15, 2), undefined],
+			[new vscode.Position(26, 4), 9],
+			[new vscode.Position(13, 4), undefined],
+		];
+		const instance = new definition.UiflowDefinitionProvider();
+		testCases.forEach(
+			async ([pos, expected]) => {
+				const location: vscode.Definition = instance.provideDefinition(doc, pos, null);
+				if (location instanceof vscode.Location) {
+					assert.equal(location.range.start.line, expected, `Definition line must be ${expected}.`);
+				} else {
+					assert.deepStrictEqual(location, undefined);
+				}
+			}
+		);
 	});
 });

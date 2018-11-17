@@ -25,18 +25,15 @@ suite('UiFlow Suggest Tests', () => {
 		);
 	});
 
-	test('Test provideCompletionItems#UiflowCompletionItemProvider', done => {
-		let testCases: [string, number][] = [
+	test('Test provideCompletionItems#UiflowCompletionItemProvider', async () => {
+		const testCases: [string, number][] = [
 			['ok.uif', 0],
 			['diagnostic.uif', 1]
 		];
-		let all = testCases.map(([fileName, expected]) => {
-			return vscode.workspace.openTextDocument(path.join(fixturePath, fileName))
-			.then(doc => {
-				let diagnostics = diagnostic.createDiagnostics(doc);
-				assert.equal(diagnostics.length, expected, `Diagnostics length must be ${1} in ${fileName}.`);
-			}, reason => assert.ok(false, `Error in openTextDocument ${reason}.`));
+		testCases.map(async ([fileName, expected]) => {
+			const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, fileName));
+			const diagnostics = diagnostic.createDiagnostics(doc);
+			assert.equal(diagnostics.length, expected, `Diagnostics length must be ${1} in ${fileName}.`);
 		});
-		Promise.all(all).then(() => done(), reason => done(reason));
 	});
 });
