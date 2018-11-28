@@ -1,4 +1,7 @@
 # Changelog
+## 0.9.1
+- Fix: [Event-Stream Package Security Update](https://code.visualstudio.com/blogs/2018/11/26/event-stream)
+
 ## 0.9.0
 - Add: Trigger characters
 
