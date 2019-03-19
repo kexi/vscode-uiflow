@@ -31,7 +31,8 @@ export function activate(context: vscode.ExtensionContext) {
 export async function exportAs(uri: vscode.Uri, format: string): Promise<any> {
 	try {
 		const document: vscode.TextDocument = await resolveDocument(uri);
-		const data = await Compiler.compile(document.uri.fsPath, document.getText(), format);
+		const compiler = new Compiler();
+		const data = await compiler.compile(document.uri.fsPath, document.getText(), format);
 	const options: vscode.InputBoxOptions = {
 		prompt: `Enter Path to Export a ${format.toUpperCase()} File`,
 		value: getUserHome() + path.sep
@@ -107,7 +108,8 @@ async function openExport(uri: vscode.Uri) {
 	});
 
 	const doc = await vscode.workspace.openTextDocument(uri);
-	const svg = await Compiler.compile(path.basename(uri.fsPath), doc.getText(), 'svg');
+	const compiler = new Compiler();
+	const svg = await compiler.compile(path.basename(uri.fsPath), doc.getText(), 'svg');
 
 	panel.webview.html = createHtml(svg);
 

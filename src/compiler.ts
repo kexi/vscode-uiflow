@@ -11,11 +11,11 @@ export class CompileFormat {
 }
 
 export class Compiler {
-	static buildWithCode(fileName: string, code: string, format: string, errorHandler: Function): NodeJS.ReadableStream {
+	public buildWithCode(fileName: string, code: string, format: string, errorHandler: Function): NodeJS.ReadableStream {
 		return uiflow.buildWithCode(fileName, code.replace(/\r\n/g, '\n'), format, errorHandler);
 	}
 
-	static compile(fileName: string, code: string, format: string): Promise<Buffer> {
+	public compile(fileName: string, code: string, format: string): Promise<Buffer> {
 		let promise = new Promise<Buffer>((resolve, rejected) => {
 			let buff = [];
 			let output = through2((chunk: any, enc: string, callback: Function) => {
