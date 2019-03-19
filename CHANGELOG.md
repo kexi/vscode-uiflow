@@ -1,4 +1,7 @@
 # Changelog
+## 0.9.2
+- Maintenance
+
 ## 0.9.1
 - Fix: [Event-Stream Package Security Update](https://code.visualstudio.com/blogs/2018/11/26/event-stream)
 
@@ -6,7 +9,7 @@
 - Add: Trigger characters
 
 ## 0.8.1
-- Maintenace
+- Maintenance
 
 ## 0.8.0
 - Add: Jump to source code when page is clicked.
