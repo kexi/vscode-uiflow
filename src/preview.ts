@@ -177,9 +177,9 @@ class UiflowPreview {
 					Uri.file(path.join(ctx.extensionPath, 'media'))
 				]
 			}
-		);
+			);
 
-		const preview = new UiflowPreview(resource, panel);
+			const preview = new UiflowPreview(resource, panel);
 		preview.update(resource);
 		return preview;
 	}
@@ -196,7 +196,8 @@ class UiflowPreview {
 				this.waiting = false;
 			}, 300);
 			const doc = await vscode.workspace.openTextDocument(resource);
-			const svg = String(await Compiler.compile(resource.fsPath, doc.getText(), 'svg'));
+			const compiler = new Compiler();
+			const svg = String(await compiler.compile(resource.fsPath, doc.getText(), 'svg'));
 			this.panel.webview.html = this.createHtml(svg);
 		}
 	}
@@ -205,7 +206,7 @@ class UiflowPreview {
 		return `<!DOCTYPE html>
 			<html>
 				<head>
-    				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src vscode-resource:;">
+					<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src vscode-resource:;">
 					<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
 					<script src="${this.getMediaPath('preview.js')}"></script>
 				</head>
