@@ -45,7 +45,7 @@ export async function exportAs(uri: vscode.Uri, format: string): Promise<any> {
 	}
 }
 
-export async function resolveDocument(uri): Promise<vscode.TextDocument> {
+export async function resolveDocument(uri: any): Promise<vscode.TextDocument> {
 	if (!(uri instanceof vscode.Uri)) {
 		if (vscode.window.activeTextEditor) {
 			uri = vscode.window.activeTextEditor.document.uri;
@@ -116,7 +116,7 @@ async function openExport(uri: vscode.Uri) {
 	return panel;
 }
 
-function mediaPath(p) {
+function mediaPath(p: any) {
 	return vscode.Uri.file(path.join(ctx.extensionPath, 'media', p)).with({scheme: 'vscode-resource'});
 }
 
