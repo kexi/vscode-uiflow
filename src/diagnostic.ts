@@ -22,7 +22,7 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
 	const diagnostics: Diagnostic[] = [];
 	try {
 		uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), '');
-	} catch (e) {
+	} catch (e: any) {
 		const info = e.message.split(/:/g);
 		const start = new Position(e.lineNumber, 0);
 		const end = new Position(e.lineNumber, 1000);
