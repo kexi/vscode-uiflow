@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as outline from '../src/outline';
+import * as outline from '../outline';
 import fs = require('fs');
 import os = require('os');
 

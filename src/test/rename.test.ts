@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { UiflowRenameProvider } from '../src/rename';
+import { UiflowRenameProvider } from '../rename';
 import fs = require('fs');
 import os = require('os');
 

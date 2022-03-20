@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import fs = require('fs');
 import os = require('os');
-import { UiflowReferenceProvider } from '../src/reference';
+import { UiflowReferenceProvider } from '../reference';
 
 suite('UiFlow Reference Tests', () => {
 	let fixturePath;
