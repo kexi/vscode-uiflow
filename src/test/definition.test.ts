@@ -25,7 +25,7 @@ suite('UiFlow Definition Tests', () => {
 
 	test('Test provideDefinition#UiflowDefinitionProvider', async () => {
 		const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, 'definition.uif'));
-		const testCases: [vscode.Position, number][] = [
+		const testCases: [vscode.Position, number|undefined][] = [
 			[new vscode.Position(0, 0), undefined],
 			[new vscode.Position(15, 3), 17],
 			[new vscode.Position(15, 2), undefined],
