@@ -5,4 +5,5 @@ node_modules
 __test
 .envrc
 dist
+./dist
 
