@@ -12,7 +12,7 @@ export function activate(context: ExtensionContext) {
 }
 
 export class UiflowDefinitionProvider implements DefinitionProvider {
-	public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition {
+	public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition|undefined {
 		const lineText = document.lineAt(position.line);
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
 			return undefined;
