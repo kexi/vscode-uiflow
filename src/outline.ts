@@ -1,9 +1,14 @@
 'use strict';
 
 import * as uiflow from 'uiflow';
-import { Section } from 'uiflow';
+
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
 import { selector } from './mode';
+
+interface  Section {
+    name: String;
+    lines: number;
+}
 
 export function codeToSections(code: string): Thenable<Section[]> {
 	const json = uiflow.parser.parse(code, '');

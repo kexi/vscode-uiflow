@@ -15,7 +15,7 @@ export function activate(context: ExtensionContext) {
 export class UiflowFoldingRangeProvider implements FoldingRangeProvider {
 	provideFoldingRanges(document: TextDocument, context: FoldingContext, token: CancellationToken): ProviderResult<FoldingRange[]> {
 		const tree = parse(document.getText());
-		let last: FoldingRange;
+		let last: FoldingRange|undefined;
 		const results: FoldingRange[] = tree.filter(v => v.label === 'section')
 		.map(
 			(v): FoldingRange => {
@@ -24,7 +24,7 @@ export class UiflowFoldingRangeProvider implements FoldingRangeProvider {
 				}
 				const range: FoldingRange = {
 					start: v.start.line - 1,
-					end: undefined
+					end: v.end.line
 				};
 				last = range;
 				return range;
