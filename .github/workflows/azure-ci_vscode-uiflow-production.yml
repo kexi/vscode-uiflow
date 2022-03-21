@@ -6,6 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - vscode-uiflow-production
 on:
   push:
     branches:
+      - master
       - azure-ci
   workflow_dispatch:
 
