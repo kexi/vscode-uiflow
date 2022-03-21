@@ -36,4 +36,4 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Export SVG `Alt+U S`
 
 ## Sponsor
-* @hirokidaichi
+* [@hirokidaichi]
