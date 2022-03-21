@@ -12,7 +12,7 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 
 
 ## What's uiflow?
-[uiflow](https://github.com/hirokidaichi/uiflow) is the simplest way to write down your ui-flow diagram like markdown.　by @hirokidaichi
+[uiflow](https://github.com/hirokidaichi/uiflow) is the simplest way to write down your ui-flow diagram like markdown.
 
 ### See also
 * [uiflow](https://github.com/hirokidaichi/uiflow) (Japanese)
@@ -35,5 +35,5 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Export PNG `Alt+U E` (also `Alt+U N`)
 * Export SVG `Alt+U S`
 
-## Sponsor
-* [@hirokidaichi]
+## Patreon
+* [@hirokidaichi](https://hirokidaichi.github.io)
