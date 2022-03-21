@@ -9,7 +9,7 @@ import os = require('os');
 import { setResovleExportPath, saveData } from '../export';
 
 suite('UiFlow Export Tests', () => {
-	let fixturePath;
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
