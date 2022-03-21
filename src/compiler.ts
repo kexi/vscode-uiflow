@@ -17,12 +17,12 @@ export class Compiler {
 
 	public compile(fileName: string, code: string, format: string): Promise<Buffer> {
 		let promise = new Promise<Buffer>((resolve, rejected) => {
-			let buff = [];
+			let buff: any = [];
 			let output = through2((chunk: any, enc: string, callback: Function) => {
 				buff.push(chunk);
 				callback();
 			});
-			let stream = this.buildWithCode(fileName, code, format, e => {
+			let stream = this.buildWithCode(fileName, code, format, (e :any) => {
 				rejected(e);
 			});
 			stream.pipe(output);

@@ -1,5 +1,5 @@
  [![Version](https://vsmarketplacebadge.apphb.com/version/kexi.vscode-uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.vscode-uiflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/kexi.vscode-uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.vscode-uiflow)
-[![Build Status on AppVeyor](https://ci.appveyor.com/api/projects/status/github/kexi/vscode-uiflow?branch=master&svg=true)](https://ci.appveyor.com/project/kexi/vscode-uiflow)
+[![Build and deploy Node.js app to Azure Web App - vscode-uiflow-production](https://github.com/kexi/vscode-uiflow/actions/workflows/azure-ci_vscode-uiflow-production.yml/badge.svg?branch=azure-ci)](https://github.com/kexi/vscode-uiflow/actions/workflows/azure-ci_vscode-uiflow-production.yml)
 # UiFlow for Visual Studio Code
 This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
 

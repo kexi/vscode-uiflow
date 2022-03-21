@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as definition from '../src/definition';
+import * as definition from '../definition';
 import fs = require('fs');
 import os = require('os');
 
@@ -25,7 +25,7 @@ suite('UiFlow Definition Tests', () => {
 
 	test('Test provideDefinition#UiflowDefinitionProvider', async () => {
 		const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, 'definition.uif'));
-		const testCases: [vscode.Position, number][] = [
+		const testCases: [vscode.Position, number|undefined][] = [
 			[new vscode.Position(0, 0), undefined],
 			[new vscode.Position(15, 3), 17],
 			[new vscode.Position(15, 2), undefined],

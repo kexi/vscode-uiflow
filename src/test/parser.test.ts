@@ -1,7 +1,7 @@
 'use strict';
 
 import * as assert from 'assert';
-import * as parser from '../src/parser';
+import * as parser from '../parser';
 
 suite('UiFlow Parser Tests', () => {
 	test('Test parse', () => {
