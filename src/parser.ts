@@ -2,7 +2,8 @@
 
 import * as Parsimmon from 'parsimmon';
 import { string, regex, optWhitespace, sepBy, lazy, alt, eof, all, seq, seqMap, succeed } from 'parsimmon';
-import { Position } from 'vscode';
+
+import { Position as Pos } from 'vscode';
 
 export interface Position {
 	column: number;
@@ -50,8 +51,8 @@ export function walk(nodes: Node[], val: any) {
 		val.forEach(v => walk(nodes, v));
 	}
 	if (val instanceof Object) {
-		var start, end: Position;
-		end = new Position(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER) /* @kexi fixme */
+		var start, end: Pos;
+		end = new Pos(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER) /* @kexi fixme */
 		if (val.hasOwnProperty('start')) start = val.start;
 		if (val.hasOwnProperty('end')) end = val.end;
 		if (val.hasOwnProperty('value')) {
