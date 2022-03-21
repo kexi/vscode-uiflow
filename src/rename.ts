@@ -7,7 +7,7 @@ import { parse, Node } from './parser';
 import { selector } from './mode';
 
 export class UiflowRenameProvider implements RenameProvider {
-	provideRenameEdits(document: TextDocument, position: Position, newName: string, token: CancellationToken): Thenable<WorkspaceEdit> {
+	provideRenameEdits(document: TextDocument, position: Position, newName: string, token: CancellationToken): Thenable<WorkspaceEdit|null> {
 		const nodes = parse(document.getText());
 		const filtered = nodes.filter(n => ['section', 'direction'].indexOf(n.label) >= 0);
 		const target = atSectionName(position, filtered);
@@ -25,7 +25,7 @@ export class UiflowRenameProvider implements RenameProvider {
 	}
 }
 
-function atSectionName(position: Position, filtered: Node[]): Node {
+function atSectionName(position: Position, filtered: Node[]): Node|undefined {
 	const column = position.character + 1;
 	const line = position.line + 1;
 	const result = filtered.find((e: Node) => {
