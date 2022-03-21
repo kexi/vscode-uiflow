@@ -7,7 +7,7 @@ import { parse, Node } from './parser';
 import { selector } from './mode';
 
 export class UiflowReferenceProvider implements ReferenceProvider {
-	provideReferences(document: TextDocument, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<Location[]> {
+	provideReferences(document: TextDocument, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<Location[]|null> {
 		const nodes = parse(document.getText());
 		const sectionNode = atSection(position, nodes);
 		if (!sectionNode) {
