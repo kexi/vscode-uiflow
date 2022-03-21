@@ -41,7 +41,7 @@ suite('UiFlow Outline Tests', () => {
 		const uri = vscode.Uri.file(path.join(fixturePath, 'outline.uif'));
 		const doc = await vscode.workspace.openTextDocument(uri);
 		const instance = new outline.UiflowDocumentSymbolProvider();
-		const info = await instance.provideDocumentSymbols(doc, null);
+		const info = await instance.provideDocumentSymbols(doc, outline.documentSymbolCancellationToken);
 		assert.equal(info.length, expected.length, `SymbolInformation length must be ${expected.length}.`);
 		info.forEach((inf, i) => {
 			let ex = expected[i];

@@ -19,8 +19,10 @@ export function codeToSections(code: string): Thenable<Section[]> {
 	return Promise.resolve(segs);
 }
 
+export var documentSymbolCancellationToken: CancellationToken;
 export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
 	public provideDocumentSymbols(document: TextDocument, token: CancellationToken): Thenable<SymbolInformation[]> {
+		documentSymbolCancellationToken = token;
 		const promise = new Promise<SymbolInformation[]>((ok, ng) => {
 			codeToSections(document.getText()).then(sections => {
 				const info: SymbolInformation[] = [];
