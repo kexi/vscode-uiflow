@@ -5,8 +5,8 @@ import * as uiflow from 'uiflow';
 import { languages, Position, DocumentSymbolProvider, SymbolInformation, TextDocument, CancellationToken, SymbolKind, Range, ExtensionContext } from 'vscode';
 import { selector } from './mode';
 
-interface  Section {
-    name: String;
+interface Section {
+    name: string;
     lines: number;
 }
 
