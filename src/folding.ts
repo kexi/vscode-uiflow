@@ -12,8 +12,10 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(registration);
 }
 
+export var foldingRangeCancellationToken: CancellationToken;
 export class UiflowFoldingRangeProvider implements FoldingRangeProvider {
 	provideFoldingRanges(document: TextDocument, context: FoldingContext, token: CancellationToken): ProviderResult<FoldingRange[]> {
+		foldingRangeCancellationToken = token;
 		const tree = parse(document.getText());
 		let last: FoldingRange|undefined;
 		const results: FoldingRange[] = tree.filter(v => v.label === 'section')

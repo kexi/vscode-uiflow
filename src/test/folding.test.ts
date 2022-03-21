@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { UiflowFoldingRangeProvider } from '../folding';
+import { foldingRangeCancellationToken, UiflowFoldingRangeProvider } from '../folding';
 import fs = require('fs');
 import os = require('os');
 
@@ -23,7 +23,8 @@ suite('UiFlow Folding Tests', () => {
 	test('Test provideFoldingRanges#UiflowFoldingRangeProvider', async () => {
 		const doc = await vscode.workspace.openTextDocument(path.join(fixturePath, 'folding.uif'));
 		const provider = new UiflowFoldingRangeProvider();
-		const ranges = await provider.provideFoldingRanges(doc, null, null);
+		const context: vscode.FoldingContext = {};
+		const ranges = await provider.provideFoldingRanges(doc, context, foldingRangeCancellationToken);
 		assert.equal(
 			JSON.stringify(ranges),
 			JSON.stringify([
