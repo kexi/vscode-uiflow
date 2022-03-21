@@ -30,7 +30,7 @@ suite('UiFlow Suggest Tests', () => {
 		];
 		const instance = new suggest.UiflowCompletionItemProvider();
 		testCases.map(([pos, exp]) => {
-			const list = instance.provideCompletionItems(doc, pos, null);
+			const list = instance.provideCompletionItems(doc, pos, suggest.completionItemCancellationToken);
 			assert.equal(list.length, exp.length, `List length must be ${exp.length}`);
 			const items = list.map(l => l.label);
 			for (const i of exp) {
