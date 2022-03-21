@@ -16,7 +16,8 @@ let ctx: vscode.ExtensionContext;
 export function activate(context: ExtensionContext) {
 	ctx = context;
 	const manager = new UiflowPreviewManager();
-	vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor) => {
+	vscode.window.onDidChangeActiveTextEditor((editor: vscode.TextEditor|undefined) => {
+		if (!editor) return
 		if (!checkUiFlow(editor.document)) return;
 		if (!vscode.workspace.getConfiguration('uiflow').get('enableAutoPreview')) return;
 		if (vscode.window.activeTextEditor) {
@@ -28,7 +29,7 @@ export function activate(context: ExtensionContext) {
 	const d1 = vscode.commands.registerCommand(
 		commandOpenPreview, uri => {
 			if (!(uri instanceof Uri)) {
-				uri = vscode.window.activeTextEditor.document.uri;
+				uri = vscode?.window?.activeTextEditor?.document.uri;
 			}
 			if (!uri) {
 				return;
@@ -38,7 +39,7 @@ export function activate(context: ExtensionContext) {
 	const d2 = vscode.commands.registerCommand(
 		commandOpenPreviewInPlace, uri => {
 			if (!(uri instanceof Uri)) {
-				uri = vscode.window.activeTextEditor.document.uri;
+				uri = vscode?.window?.activeTextEditor?.document.uri;
 			}
 			if (!uri) {
 				return;
@@ -99,7 +100,7 @@ class UiflowPreviewManager {
 		vscode.commands.executeCommand('setContext', UiflowPreviewManager.contextKey, value);
 	}
 
-	public async showDocument(): Promise<vscode.TextEditor> {
+	public async showDocument(): Promise<vscode.TextEditor|undefined> {
 		if (!this.activePreview) return;
 		return vscode.window.showTextDocument(
 			this.activePreview.resource,
@@ -130,12 +131,14 @@ class UiflowPreview {
 		});
 
 		this.panel.webview.onDidReceiveMessage(async (e) => {
-			let editor = vscode.window.activeTextEditor;
+			var editor = vscode.window.activeTextEditor;
 
 			if (!editor) {
 				editor = await vscode.window.showTextDocument(this.resource, {
 					viewColumn: ViewColumn.One
 				});
+
+				
 			}
 
 			switch (e.command) {
@@ -152,11 +155,13 @@ class UiflowPreview {
 					break;
 				case 'end-click':
 					editor.edit(edit => {
-						const position: vscode.Position = new vscode.Position(editor.document.lineCount, 0);
-						const eol = editor.document.eol === vscode.EndOfLine.LF ? '\n' : '\r\n';
-						edit.insert(position, [eol, '[', e.text, ']', eol].join(''));
-						editor.selection = new vscode.Selection(position, position);
-						editor.revealRange(new vscode.Range(position, position));
+						if (editor) {
+							const position: vscode.Position = new vscode.Position(editor.document.lineCount, 0);
+							const eol = editor.document.eol === vscode.EndOfLine.LF ? '\n' : '\r\n';
+							edit.insert(position, [eol, '[', e.text, ']', eol].join(''));
+							editor.selection = new vscode.Selection(position, position);
+							editor.revealRange(new vscode.Range(position, position));
+						}
 					});
 					break;
 			}
