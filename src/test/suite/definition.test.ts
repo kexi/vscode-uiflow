@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as definition from '../definition';
+import * as definition from '../../definition';
 import fs = require('fs');
 import os = require('os');
 
