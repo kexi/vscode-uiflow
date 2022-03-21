@@ -169,11 +169,13 @@ class UiflowPreview {
 	}
 
 	public static create(resource: vscode.Uri, sideBySide: boolean = true): UiflowPreview {
+		var viewColumn = getViewColumn(sideBySide)
+		if (!viewColumn) viewColumn = 1;
 		const panel = vscode.window.createWebviewPanel(
 			UiflowPreview.viewType,
 			'Preview: ' + path.basename(resource.fsPath),
 			{
-				viewColumn: getViewColumn(sideBySide),
+				viewColumn: viewColumn,
 				preserveFocus: false
 			},
 			{
