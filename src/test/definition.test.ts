@@ -35,7 +35,7 @@ suite('UiFlow Definition Tests', () => {
 		const instance = new definition.UiflowDefinitionProvider();
 		testCases.forEach(
 			async ([pos, expected]) => {
-				const location: vscode.Definition = instance.provideDefinition(doc, pos, null);
+				const location: vscode.Definition|undefined = instance.provideDefinition(doc, pos, definition.definitionCancellationToken);
 				if (location instanceof vscode.Location) {
 					assert.equal(location.range.start.line, expected, `Definition line must be ${expected}.`);
 				} else {

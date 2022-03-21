@@ -11,8 +11,11 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(registration);
 }
 
+export var definitionCancellationToken: CancellationToken;
+
 export class UiflowDefinitionProvider implements DefinitionProvider {
 	public provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition|undefined {
+		definitionCancellationToken = token;
 		const lineText = document.lineAt(position.line);
 		if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
 			return undefined;
