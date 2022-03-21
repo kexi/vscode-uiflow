@@ -2,6 +2,7 @@
 
 import * as Parsimmon from 'parsimmon';
 import { string, regex, optWhitespace, sepBy, lazy, alt, eof, all, seq, seqMap, succeed } from 'parsimmon';
+import { Position } from 'vscode';
 
 export interface Position {
 	column: number;
@@ -42,14 +43,15 @@ let text = regex(/.*/).mark().map(text => {
 let line = optWhitespace.then(alt(section, direction, text));
 
 let eol = regex(/\r?\n/);
-let parser = sepBy<any>(line, eol);
+let parser = sepBy<any, any>(line, eol);
 
 export function walk(nodes: Node[], val: any) {
 	if (val instanceof Array) {
 		val.forEach(v => walk(nodes, v));
 	}
 	if (val instanceof Object) {
-		let start, end: Position;
+		var start, end: Position;
+		end = new Position(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER) /* @kexi fixme */
 		if (val.hasOwnProperty('start')) start = val.start;
 		if (val.hasOwnProperty('end')) end = val.end;
 		if (val.hasOwnProperty('value')) {
@@ -60,9 +62,9 @@ export function walk(nodes: Node[], val: any) {
 }
 
 export function parse(code: string): Node[] {
-	let ast: Parsimmon.Result<string> = parser.parse(code);
+	let ast: Parsimmon.Result<any> = parser.parse(code);
 	if (!ast.status) {
-		throw new Error(ast.expected);
+		throw new Error("ast.expected.");
 	}
 	let nodes: Node[] = [];
 	walk(nodes, ast.value);
