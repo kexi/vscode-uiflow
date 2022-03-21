@@ -6,8 +6,10 @@ import { languages, Position, RenameProvider, TextDocument, CancellationToken, R
 import { parse, Node } from './parser';
 import { selector } from './mode';
 
+export var renameCancellationToken: CancellationToken;
 export class UiflowRenameProvider implements RenameProvider {
 	provideRenameEdits(document: TextDocument, position: Position, newName: string, token: CancellationToken): Thenable<WorkspaceEdit|null> {
+		renameCancellationToken = token;
 		const nodes = parse(document.getText());
 		const filtered = nodes.filter(n => ['section', 'direction'].indexOf(n.label) >= 0);
 		const target = atSectionName(position, filtered);

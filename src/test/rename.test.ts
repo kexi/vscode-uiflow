@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { UiflowRenameProvider } from '../rename';
+import { renameCancellationToken, UiflowRenameProvider } from '../rename';
 import fs = require('fs');
 import os = require('os');
 
@@ -25,15 +25,18 @@ suite('UiFlow Rename Tests', () => {
 		const position = new vscode.Position(4, 4);
 		const newName = 'sec1';
 		const provider = new UiflowRenameProvider();
-		const we = await provider.provideRenameEdits(doc, position, newName, null);
+		const we = await provider.provideRenameEdits(doc, position, newName, renameCancellationToken);
 		const expected: vscode.Range[] = [
 			new vscode.Range(0, 1, 0, 8),
 			new vscode.Range(4, 4, 4, 11),
 			new vscode.Range(10, 4, 10, 11)
 		];
-		const edits = we.get(doc.uri);
-		expected.forEach((range, i) => {
-			assert.ok(range.isEqual(edits[i].range), `Range should be equal.`);
-		});
+		if (we) {
+			const edits = we.get(doc.uri);
+			expected.forEach((range, i) => {
+				assert.ok(range.isEqual(edits[i].range), `Range should be equal.`);
+			});
+		}
+
 	});
 });

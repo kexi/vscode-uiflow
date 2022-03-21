@@ -6,8 +6,10 @@ import { languages, Location, Position, ReferenceContext, ReferenceProvider, Tex
 import { parse, Node } from './parser';
 import { selector } from './mode';
 
+export var referenceCancellationToken: CancellationToken;
 export class UiflowReferenceProvider implements ReferenceProvider {
 	provideReferences(document: TextDocument, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<Location[]|null> {
+		referenceCancellationToken = token;
 		const nodes = parse(document.getText());
 		const sectionNode = atSection(position, nodes);
 		if (!sectionNode) {
