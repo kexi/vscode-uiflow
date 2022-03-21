@@ -8,7 +8,7 @@ import os = require('os');
 import { UiflowReferenceProvider } from '../reference';
 
 suite('UiFlow Reference Tests', () => {
-	let fixturePath;
+	let fixturePath: string;
 	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
 
 	suiteSetup(() => {
