@@ -31,7 +31,7 @@ const extensionConfig = {
     rules: [
       {
         test: /\.ts$/,
-        exclude: [/node_modules/, /test/],
+        exclude: [/node_modules/, /src\/test/],
         use: [
           {
             loader: 'ts-loader'
