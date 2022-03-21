@@ -1,7 +1,7 @@
 'use strict';
 
 import * as Parsimmon from 'parsimmon';
-import { string, regex, optWhitespace, sepBy, lazy, alt, eof, all, seq, seqMap, succeed } from 'parsimmon';
+import { string, regex, optWhitespace, sepBy, alt, seqMap } from 'parsimmon';
 
 import { Position as Pos } from 'vscode';
 
@@ -51,8 +51,8 @@ export function walk(nodes: Node[], val: any) {
 		val.forEach(v => walk(nodes, v));
 	}
 	if (val instanceof Object) {
-		var start, end: Pos;
-		end = new Pos(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER) /* @kexi fixme */
+		var start, end: Position;
+		end = {offset: Number.MAX_SAFE_INTEGER, line: Number.MAX_SAFE_INTEGER, column: Number.MAX_SAFE_INTEGER} /* @kexi fixme */
 		if (val.hasOwnProperty('start')) start = val.start;
 		if (val.hasOwnProperty('end')) end = val.end;
 		if (val.hasOwnProperty('value')) {

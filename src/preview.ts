@@ -51,7 +51,7 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(d1, d2, d3);
 }
 
-function getViewColumn(sideBySide: boolean): ViewColumn {
+function getViewColumn(sideBySide: boolean): ViewColumn|undefined {
 	const active = vscode.window.activeTextEditor;
 	if (!active) {
 		return ViewColumn.One;
@@ -61,7 +61,7 @@ function getViewColumn(sideBySide: boolean): ViewColumn {
 		return active.viewColumn;
 	}
 
-	return active.viewColumn + 1;
+	return active?.viewColumn ? active.viewColumn + 1 : undefined;
 }
 
 class UiflowPreviewManager {
