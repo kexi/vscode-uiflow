@@ -8,7 +8,7 @@ import os = require('os');
 
 suite('UiFlow Extension Tests', () => {
 	let fixturePath: string;
-	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
+	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'suite', 'fixtures');
 
 	suiteSetup(() => {
 		fixturePath = fs.mkdtempSync(path.join(

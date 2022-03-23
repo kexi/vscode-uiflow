@@ -9,7 +9,7 @@ import { referenceCancellationToken, UiflowReferenceProvider } from '../../refer
 
 suite('UiFlow Reference Tests', () => {
 	let fixturePath: string;
-	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'fixtures');
+	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'suite', 'fixtures');
 
 	suiteSetup(() => {
 		fixturePath = fs.mkdtempSync(path.join(
