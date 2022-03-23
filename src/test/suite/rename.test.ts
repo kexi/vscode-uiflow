@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { renameCancellationToken, UiflowRenameProvider } from '../rename';
+import { renameCancellationToken, UiflowRenameProvider } from '../../rename';
 import fs = require('fs');
 import os = require('os');
 

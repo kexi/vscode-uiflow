@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as diagnostic from '../diagnostic';
+import * as diagnostic from '../../diagnostic';
 import fs = require('fs');
 import os = require('os');
 

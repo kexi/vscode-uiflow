@@ -3,10 +3,10 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import * as extension from '../extension';
+import * as extension from '../../extension';
 import fs = require('fs');
 import os = require('os');
-import { setResovleExportPath, saveData } from '../export';
+import { setResovleExportPath, saveData } from '../../export';
 
 suite('UiFlow Export Tests', () => {
 	let fixturePath: string;

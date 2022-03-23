@@ -3,7 +3,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { foldingRangeCancellationToken, UiflowFoldingRangeProvider } from '../folding';
+import { foldingRangeCancellationToken, UiflowFoldingRangeProvider } from '../../folding';
 import fs = require('fs');
 import os = require('os');
 
