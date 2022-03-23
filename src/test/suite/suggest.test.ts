@@ -32,7 +32,7 @@ suite('UiFlow Suggest Tests', () => {
 		testCases.map(([pos, exp]) => {
 			const list = instance.provideCompletionItems(doc, pos, suggest.completionItemCancellationToken);
 			assert.equal(list.length, exp.length, `List length must be ${exp.length}`);
-			const items = list.map(l => l.label);
+			const items = list.map((l:any) => l.label);
 			for (const i of exp) {
 				assert.ok(items.indexOf(i) >= 0, `Item(${i}) not found in list.`);
 			}
