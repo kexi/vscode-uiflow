@@ -10,7 +10,7 @@ import { setResovleExportPath, saveData } from '../../export';
 
 suite('UiFlow Export Tests', () => {
 	let fixturePath: string;
-	let fixtureSourcePath = path.join(__dirname, '..', '..', 'test', 'suite', 'fixtures');
+	let fixtureSourcePath = path.join(__dirname, '..', '..', '..', 'src', 'test', 'suite', 'fixtures');
 
 	suiteSetup(() => {
 		fixturePath = fs.mkdtempSync(path.join(
