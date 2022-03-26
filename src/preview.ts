@@ -204,24 +204,28 @@ class UiflowPreview {
 			}, 300);
 			const doc = await vscode.workspace.openTextDocument(resource);
 			const compiler = new Compiler();
-			const svg = String(await compiler.compile(resource.fsPath, doc.getText(), 'svg'));
-			this.panel.webview.html = this.createHtml(svg);
+			const dot = String(await compiler.compile(resource.fsPath, doc.getText(), 'dot'));
+			this.panel.webview.html = this.createHtml(dot);
 		}
 	}
 
-	private createHtml(svg: string) {
+	private createHtml(dot: string) {
 		return `<!DOCTYPE html>
 			<html>
 				<head>
-					<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src vscode-resource:;">
-					<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
-					<script src="${this.getMediaPath('wasm.min.js')}"></script>
-					<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
-					<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
-					<script src="${this.getMediaPath('preview.js')}"></script>
+					
+					
 				</head>
 				<body>
-					${svg}
+				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
+				<script src="${this.getMediaPath('wasm.min.js')}"></script>
+				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
+					test
+					<div id="graph" style="text-align: center;"></div>	
+					
+					<script>
+					d3.select("#graph").graphviz().renderDot('digraph  {a -> b}');
+					</script>
 				</body>
 			</html>
 		`;
