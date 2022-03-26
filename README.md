@@ -1,6 +1,6 @@
  [![Version](https://vsmarketplacebadge.apphb.com/version/kexi.vscode-uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.vscode-uiflow) [![Installs](https://vsmarketplacebadge.apphb.com/installs/kexi.vscode-uiflow.svg)](https://marketplace.visualstudio.com/items?itemName=kexi.vscode-uiflow)
 [![Build and deploy Node.js app to Azure Web App - vscode-uiflow-production](https://github.com/kexi/vscode-uiflow/actions/workflows/azure-ci_vscode-uiflow-production.yml/badge.svg?branch=master)](https://github.com/kexi/vscode-uiflow/actions/workflows/azure-ci_vscode-uiflow-production.yml)
-# UiFlow for Visual Studio Code
+# VSCode-UIFlow is UiFlow for Visual Studio Code
 This extension adds support for the UiFlow to Visual Studio Code (vscode), including:
 
 * Diagram Preview
@@ -22,11 +22,6 @@ This extension adds support for the UiFlow to Visual Studio Code (vscode), inclu
 ## Screenshot
 ![preview](img/preview.gif)
 
-## Installation
-Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
-
-`ext install vscode-uiflow`
-
 ## Using
 Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 
@@ -36,5 +31,7 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Export SVG `Alt+U S`
 
 ## Patreon
-* [@hirokidaichi](https://hirokidaichi.github.io)
+* [Daichi Hiroki](https://hirokidaichi.github.io) 
 
+
+[Become a Patreon?](https://patreon.com/kexi_)
