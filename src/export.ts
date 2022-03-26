@@ -109,9 +109,9 @@ async function openExport(uri: vscode.Uri) {
 
 	const doc = await vscode.workspace.openTextDocument(uri);
 	const compiler = new Compiler();
-	const svg = await compiler.compile(path.basename(uri.fsPath), doc.getText(), 'svg');
+	const dot = await compiler.compile(path.basename(uri.fsPath), doc.getText(), 'dot');
 
-	panel.webview.html = createHtml(svg);
+	panel.webview.html = createHtml(dot);
 
 	return panel;
 }
@@ -120,32 +120,50 @@ function mediaPath(p: any) {
 	return vscode.Uri.file(path.join(ctx.extensionPath, 'media', p)).with({scheme: 'vscode-resource'});
 }
 
-function createHtml(svg: Buffer): string {
+function createHtml(dot: Buffer): string {
 	const html = `<!DOCTYPE html>
 	<html>
 		<head>
-			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src vscode-resource:; script-src vscode-resource:; img-src data:;">
 			<link href="${mediaPath('core.css')}" rel="stylesheet" type="text/css" media="all">
 			<link href="${mediaPath('button.css')}" rel="stylesheet" type="text/css" media="all">
-			<script src="${mediaPath('jquery-3.3.1.min.js')}"></script>
+			<script src="${mediaPath('d3.v5.min.js')}"></script>
+		<script src="${mediaPath('wasm.min.js')}"></script>
+		<script src="${mediaPath('d3-graphviz.js')}"></script>
+		<script src="${mediaPath('jquery-3.3.1.min.js')}"></script>
 			<script src="${mediaPath('export.js')}"></script>
 		</head>
 	<body>
+		
 		<h1>Export Uiflow Diagram</h1>
 		<a id="export" href="#" class="btn">Export PNG</a>
 		<h1>Preview</h1>
+		<div id="graph"></div>
 		<div id="img_cnt">
 			<h2>img</h2>
-			<img id="img" src="data:image/svg+xml;base64,${Base64.encode(svg.toString().replace(/\u0008/g, ''))}">
+			<img id="img" src="">
 			</div>
-		<div id="svg_cnt">
-			<h2>svg</h2>
-			${svg}
-		</div>
 		<div id="canvas_cnt">
 			<h2>canvas</h2>
-			<canvas></canvas>
+			<canvas id="canva"></canvas>
 		</div>
+		<script>
+					d3.select("#graph").graphviz().renderDot(\`${dot}\`).on('end', function() {
+						const imgstart = 'data:image/svg+xml;base64,';
+						const vscode = acquireVsCodeApi();
+						let cnv = $('#canva'), img = $('#img'), svg = $('#graph');
+						let svgCode = svg.html();
+						let imgSrc = imgstart + btoa(unescape(encodeURIComponent(svgCode.toString().replace(/\u0008/g, ''))));
+						img.width = '400px';
+						img.height = '400px';
+						img.src = imgSrc;
+						let w = svg.naturalWidth, h = svg.naturalHeight;
+						cnv.attr({width: w, height: h});
+						let ctx = cnv[0].getContext('2d');
+						ctx.fillStyle ='#fff';
+						ctx.fillRect(0, 0, w, h);
+						ctx.drawImage(img, 0, 0, w, h);
+					});
+					</script>
 		</body>
 	</html>`;
 	return html;

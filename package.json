@@ -4,7 +4,7 @@
   "description": "UiFlow support For Visual Studio Code.",
   "author": "Kei Nakayama (https://github.com/kexi/)",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "publisher": "kexi",
   "galleryBanner": {
     "color": "#79b74a",
@@ -26,7 +26,7 @@
     "Other",
     "Snippets"
   ],
-  "homepage": "https://github.com/kexi/vscode-uiflow/blob/master/README.md",
+  "homepage": "https://github.com/kexi/vscode-uiflow",
   "activationEvents": [
     "onLanguage:uiflow",
     "onCommand:uiflow.openPreviewSideBySide",

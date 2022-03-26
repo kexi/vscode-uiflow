@@ -219,7 +219,7 @@ class UiflowPreview {
 				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
 				<script src="${this.getMediaPath('wasm.min.js')}"></script>
 				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
-					<div id="graph" style="text-align: center;"></div>	
+					<div id="graph"></div>	
 					
 					<script>
 					d3.select("#graph").graphviz().renderDot(\`${dot}\`);
