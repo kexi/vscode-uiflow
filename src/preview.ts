@@ -214,6 +214,9 @@ class UiflowPreview {
 			<html>
 				<head>
 					<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src vscode-resource:;">
+					<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
+					<script src="${this.getMediaPath('wasm.min.js')}"></script>
+					<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
 					<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
 					<script src="${this.getMediaPath('preview.js')}"></script>
 				</head>
