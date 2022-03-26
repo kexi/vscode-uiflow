@@ -1,8 +1,8 @@
 {
   "name": "vscode-uiflow",
-  "displayName": "Vscode UiFlow",
+  "displayName": "VSCode UIFlow",
   "description": "UiFlow support For Visual Studio Code.",
-  "author": "Kei Nakayama",
+  "author": "Kei Nakayama (https://github.com/kexi/)",
   "license": "MIT",
   "version": "1.0.0",
   "publisher": "kexi",
