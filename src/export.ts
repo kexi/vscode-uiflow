@@ -153,16 +153,20 @@ function createHtml(dot: Buffer): string {
 						let image = new Image();
 						image.onload = () => {
 						
-						let canvas = document.createElement('canvas');
+							let canvas = document.createElement('canvas');
 						
-						canvas.widht = width;
+							canvas.widht = width;
 						
-						canvas.height = height;
-						let context = canvas.getContext('2d');
-						context.drawImage(image, 0, 0, width, height );
+							canvas.height = height;
+							let context = canvas.getContext('2d');
+							context.fillStyle ='#fff';
+							context.fillRect(0, 0, w, h);
+							context.drawImage(image, 0, 0, width, height );
+							document.write(canvas.toDataURL('image/png'))
 						//  downloadImage(canvas); need to implement
 						};
 						image.src = blobURL;
+						
 					});
 					</script>
 		</body>
