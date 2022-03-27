@@ -43,6 +43,6 @@ steps:
     echo ">>> Publish"
     yarn deploy
   displayName: Publish
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'main'), eq(variables['Agent.OS'], 'Windows'))
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'master'), eq(variables['Agent.OS'], 'Windows'))
   env:
     VSCE_PAT: $(VSCE_PAT)
