@@ -138,30 +138,32 @@ function createHtml(dot: Buffer): string {
 		<a id="export" href="#" class="btn">Export PNG</a>
 		<h1>Preview</h1>
 		<div id="graph"></div>
-		<div id="img_cnt">
-			<h2>img</h2>
-			<img id="img" src="">
-			</div>
-		<div id="canvas_cnt">
-			<h2>canvas</h2>
-			<canvas id="canva"></canvas>
-		</div>
+		<input id="data_url" type="hidden" value="">
 		<script>
 					d3.select("#graph").graphviz().renderDot(\`${dot}\`).on('end', function() {
 						const imgstart = 'data:image/svg+xml;base64,';
-						const vscode = acquireVsCodeApi();
-						let cnv = $('#canva'), img = $('#img'), svg = $('#graph');
-						let svgCode = svg.html();
-						let imgSrc = imgstart + btoa(unescape(encodeURIComponent(svgCode.toString().replace(/\u0008/g, ''))));
-						img.width = '400px';
-						img.height = '400px';
-						img.src = imgSrc;
-						let w = svg.naturalWidth, h = svg.naturalHeight;
-						cnv.attr({width: w, height: h});
-						let ctx = cnv[0].getContext('2d');
-						ctx.fillStyle ='#fff';
-						ctx.fillRect(0, 0, w, h);
-						ctx.drawImage(img, 0, 0, w, h);
+						
+						let cnv = $('#canva'), img = $('#img'), svg = $('#graph svg')[0];
+						
+						let {width, height} = svg.getBBox(); 
+						let clonedSVG = svg.cloneNode(true);
+						let outerHTML = clonedSVG.outerHTML;
+  						let blob = new Blob([outerHTML],{type:'image/svg+xml;charset=utf-8'});
+						let URL = window.URL || window.webkitURL || window;
+						let blobURL = URL.createObjectURL(blob);
+						let image = new Image();
+						image.onload = () => {
+							let canvas = document.createElement('canvas');
+							canvas.widht = width;
+							canvas.height = height;
+							let context = canvas.getContext('2d');
+							context.fillStyle ='#fff';
+							context.fillRect(0, 0, width, height);
+							context.drawImage(image, 0, 0, width, height );
+							$('#data_url').val(canvas.toDataURL('image/png'));
+						};
+						image.src = blobURL;
+						
 					});
 					</script>
 		</body>
