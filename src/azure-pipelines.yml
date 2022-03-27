@@ -41,5 +41,3 @@ steps:
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
-
-    
