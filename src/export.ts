@@ -138,6 +138,7 @@ function createHtml(dot: Buffer): string {
 		<a id="export" href="#" class="btn">Export PNG</a>
 		<h1>Preview</h1>
 		<div id="graph"></div>
+		<input id="data_url" type="hidden" value="">
 		<script>
 					d3.select("#graph").graphviz().renderDot(\`${dot}\`).on('end', function() {
 						const imgstart = 'data:image/svg+xml;base64,';
@@ -152,18 +153,14 @@ function createHtml(dot: Buffer): string {
 						let blobURL = URL.createObjectURL(blob);
 						let image = new Image();
 						image.onload = () => {
-						
 							let canvas = document.createElement('canvas');
-						
 							canvas.widht = width;
-						
 							canvas.height = height;
 							let context = canvas.getContext('2d');
 							context.fillStyle ='#fff';
-							context.fillRect(0, 0, w, h);
+							context.fillRect(0, 0, width, height);
 							context.drawImage(image, 0, 0, width, height );
-							document.write(canvas.toDataURL('image/png'))
-						//  downloadImage(canvas); need to implement
+							$('#data_url').val(canvas.toDataURL('image/png'));
 						};
 						image.src = blobURL;
 						
