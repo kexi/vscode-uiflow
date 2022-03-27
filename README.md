@@ -30,6 +30,9 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * Export PNG `Alt+U E` (also `Alt+U N`)
 * Export SVG `Alt+U S`
 
+## Contributing
+[Read Me](CONTRIBUTING.md)
+
 ## Patreon
 * [Daichi Hiroki](https://hirokidaichi.github.io) [@hiroki_daichi](https://twitter.com/hiroki_daichi)
 
