@@ -13,6 +13,7 @@ const commandOpenSource = 'uiflow.openSource';
 
 let ctx: vscode.ExtensionContext;
 
+// @todo fix
 export function escapeDot(source: string) {
     return String(source).replace(/[\\]/g, '\\\\');
 }

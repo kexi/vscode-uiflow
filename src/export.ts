@@ -120,6 +120,11 @@ function mediaPath(p: any) {
 	return vscode.Uri.file(path.join(ctx.extensionPath, 'media', p)).with({scheme: 'vscode-resource'});
 }
 
+// @todo fix
+export function escapeDot(source: string) {
+    return String(source).replace(/[\\]/g, '\\\\');
+}
+
 function createHtml(dot: Buffer): string {
 	const html = `<!DOCTYPE html>
 	<html>
@@ -140,7 +145,7 @@ function createHtml(dot: Buffer): string {
 		<div id="graph"></div>
 		<input id="data_url" type="hidden" value="">
 		<script>
-					d3.select("#graph").graphviz().renderDot(\`${dot}\`).on('end', function() {
+					d3.select("#graph").graphviz().renderDot(\`${escapeDot(dot.toString())}\`).on('end', function() {
 						const imgstart = 'data:image/svg+xml;base64,';
 						
 						let cnv = $('#canva'), img = $('#img'), svg = $('#graph svg')[0];
