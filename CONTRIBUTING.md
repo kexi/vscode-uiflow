@@ -1,5 +1,9 @@
-# コントリビュート方法
-* テストコードは不要
-* 誰でもOK
-* ドキュメント修正歓迎!!1
+# How to contribute VSCode-UIFlow
+* Language is either Japanese or English.
+* Test code is not required.
+* Anyone can send PR.
+* Document corrections are welcome.
+* The commit message is fine.
+* Code reviews are welcome.
+
 
