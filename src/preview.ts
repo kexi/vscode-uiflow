@@ -13,6 +13,10 @@ const commandOpenSource = 'uiflow.openSource';
 
 let ctx: vscode.ExtensionContext;
 
+export function escapeDot(source: string) {
+    return String(source).replace(/[\\]/g, '\\\\');
+}
+
 export function activate(context: ExtensionContext) {
 	ctx = context;
 	const manager = new UiflowPreviewManager();
@@ -209,6 +213,7 @@ class UiflowPreview {
 		}
 	}
 
+
 	private createHtml(dot: string) {
 		return `<!DOCTYPE html>
 			<html>
@@ -219,10 +224,11 @@ class UiflowPreview {
 				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
 				<script src="${this.getMediaPath('wasm.min.js')}"></script>
 				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
-					<div id="graph"></div>	
+					<div id="graph"></div>
+					
 					
 					<script>
-					d3.select("#graph").graphviz().renderDot(\`${dot}\`);
+					d3.select("#graph").graphviz().renderDot(\`${escapeDot(dot)}\`);
 					</script>
 				</body>
 			</html>
