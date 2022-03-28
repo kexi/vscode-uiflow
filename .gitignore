@@ -6,4 +6,5 @@ __test
 .envrc
 dist
 ./dist
+.DS_Store
 
