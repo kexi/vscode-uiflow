@@ -8,3 +8,4 @@ dist
 ./dist
 .DS_Store
 
+media/js
