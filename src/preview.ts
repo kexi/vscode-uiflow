@@ -222,48 +222,21 @@ class UiflowPreview {
 					
 				</head>
 				<body>
+				preview
 				<input id="data_url_png" type="text" value="">
 				<input id="svg_src" type="text" value="">
 				<input id="data_url_jpg" type="text" value="">
 				<input id="data_url_webp" type="text" value="">
-				<script src="node_modules/@bendera/vscode-webview-elements/dist/bundled.js" type="module"></script>
-				<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
 				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
 				<script src="${this.getMediaPath('wasm.min.js')}"></script>
 				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
-					<p>Lorem ispum dolor</p>
-					<vscode-button>Hello World!</vscode-button>
+				<script src="${this.getMediaPath('js/index.js')}"></script>
 					<div id="graph"></div>
+					<a id="btn_svg" href="#">svg</a>
+					<a id="btn_png" href="#">png</a>
 					
 					<script>
-					d3.select("#graph").graphviz().renderDot(\`${escapeDot(dot.toString())}\`).on('end', function() {
-						const imgstart = 'data:image/svg+xml;base64,';
-						
-						let cnv = $('#canva'), img = $('#img'), svg = $('#graph svg')[0];
-						
-						let {width, height} = svg.getBBox(); 
-						let clonedSVG = svg.cloneNode(true);
-						let outerHTML = clonedSVG.outerHTML;
-  						let blob = new Blob([outerHTML],{type:'image/svg+xml;charset=utf-8'});
-						let URL = window.URL || window.webkitURL || window;
-						let blobURL = URL.createObjectURL(blob);
-						let image = new Image();
-						image.onload = () => {
-							let canvas = document.createElement('canvas');
-							canvas.widht = width;
-							canvas.height = height;
-							let context = canvas.getContext('2d');
-							context.fillStyle ='#fff';
-							context.fillRect(0, 0, width, height);
-							context.drawImage(image, 0, 0, width, height );
-							$('#data_url_png').val(canvas.toDataURL('image/png'));
-							$('#data_url_jpg').val(canvas.toDataURL('image/jpeg'));
-							$('#data_url_webp').val(canvas.toDataURL('image/webp'));
-							$('#svg_src').val(outerHTML);
-						};
-						image.src = blobURL;
-						
-					});
+						render(\`${escapeDot(dot.toString())}\`)
 					</script>
 				</body>
 			</html>
