@@ -1,0 +1,10 @@
+out
+node_modules
+.vscode-test
+*.vsix
+__test
+.envrc
+dist
+./dist
+.DS_Store
+

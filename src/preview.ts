@@ -226,10 +226,13 @@ class UiflowPreview {
 				<input id="svg_src" type="text" value="">
 				<input id="data_url_jpg" type="text" value="">
 				<input id="data_url_webp" type="text" value="">
+				<script src="node_modules/@bendera/vscode-webview-elements/dist/bundled.js" type="module"></script>
 				<script src="${this.getMediaPath('jquery-3.3.1.min.js')}"></script>
 				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
 				<script src="${this.getMediaPath('wasm.min.js')}"></script>
 				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
+					<p>Lorem ispum dolor</p>
+					<vscode-button>Hello World!</vscode-button>
 					<div id="graph"></div>
 					
 					<script>
