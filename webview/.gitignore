@@ -7,4 +7,6 @@ __test
 dist
 ./dist
 .DS_Store
+src/*.js
+src/*.map
 
