@@ -40,4 +40,3 @@ Click Select Langage Mode at the right bottom of the window and choose `UiFlow`.
 * [Daichi Hiroki](https://hirokidaichi.github.io) [@hiroki_daichi](https://twitter.com/hiroki_daichi)
 
 
-[Become a Patreon?](https://patreon.com/kexi_)
