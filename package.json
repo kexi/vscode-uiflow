@@ -264,6 +264,6 @@
     "js-base64": "^3.7.2",
     "parsimmon": "^1.18.1",
     "through2": "^4.0.2",
-    "uiflow": "github:kexi/uiflow"
+    "uiflow": "git+https://github.com/kexi/uiflow.git#vscode-uiflow-0.6.2"
   }
 }
