@@ -30,4 +30,5 @@ window.render = function (dot) {
         image.src = blobURL;
         
     });
-}
+};
+
