@@ -1,8 +1,8 @@
-name: NodeJS with Webpack
-
+name: Publish package to Market Place
 on:
   push:
-    tags: [ "release/*" ]
+    tags:
+      - 'release/*'
 env:
   VSCE_PAT: ${{secrets.VSCE_PAT}}    
 jobs:
