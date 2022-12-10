@@ -223,7 +223,7 @@ class UiflowPreview {
 			<html>
 				<head>
 					<script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
-					<script src="https://d3js.org/d3.v5.min.js"></script>
+					<script src="https://unpkg.com/d3@5.16.0/dist/d3.min.js"></script>
 					<script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
 					<script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 				</head>
