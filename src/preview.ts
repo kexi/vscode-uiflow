@@ -89,7 +89,9 @@ class UiflowPreviewManager {
 
 		preview.onDispose(() => {
 			const existing = this.previews.indexOf(preview);
-			if (existing === -1) return;
+			if (existing === -1) {
+				return;
+			}
 			this.previews.splice(existing, 1);
 			if (this.activePreview === preview) {
 				this.activePreview = undefined;
@@ -201,7 +203,9 @@ class UiflowPreview {
 	}
 
 	public async update(resource: vscode.Uri) {
-		if (resource.fsPath !== this.resource.fsPath) return;
+		if (resource.fsPath !== this.resource.fsPath) {
+			return;
+		}
 		if (!this.waiting) {
 			this.waiting = true;
 			setTimeout(() => {
@@ -214,29 +218,20 @@ class UiflowPreview {
 		}
 	}
 
-
 	private createHtml(dot: string) {
 		return `<!DOCTYPE html>
 			<html>
 				<head>
-					
+					<script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+					<script src="https://d3js.org/d3.v5.min.js"></script>
+					<script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+					<script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 				</head>
 				<body>
-				preview
-				<input id="data_url_png" type="text" value="">
-				<input id="svg_src" type="text" value="">
-				<input id="data_url_jpg" type="text" value="">
-				<input id="data_url_webp" type="text" value="">
-				<script src="${this.getMediaPath('d3.v5.min.js')}"></script>
-				<script src="${this.getMediaPath('wasm.min.js')}"></script>
-				<script src="${this.getMediaPath('d3-graphviz.js')}"></script>
-				<script src="${this.getMediaPath('js/index.js')}"></script>
 					<div id="graph"></div>
-					<a id="btn_svg" href="#">svg</a>
-					<a id="btn_png" href="#">png</a>
 					
 					<script>
-						render(\`${escapeDot(dot.toString())}\`)
+						d3.select("#graph").graphviz().renderDot(\`${dot}\`);
 					</script>
 				</body>
 			</html>
