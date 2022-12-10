@@ -26,7 +26,7 @@
     "Other",
     "Snippets"
   ],
-  "homepage": "https://github.com/kexi/vscode-uiflow",
+  "homepage": "https://github.com/kexi/vscode-uiflow#README.md",
   "activationEvents": [
     "onLanguage:uiflow",
     "onCommand:uiflow.openPreviewSideBySide",
