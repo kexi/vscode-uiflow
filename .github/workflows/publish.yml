@@ -23,4 +23,5 @@ jobs:
 
     - name: Publish
       run: |
+        yarn
         npx vsce publish
