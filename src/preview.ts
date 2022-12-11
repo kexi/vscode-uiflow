@@ -235,7 +235,6 @@ class UiflowPreview {
 					<script>
 						d3.select("#graph").graphviz().renderDot(\`${dot}\`);
 					</script>
-					<pre>${dot}</pre>
 				</body>
 			</html>
 		`;
