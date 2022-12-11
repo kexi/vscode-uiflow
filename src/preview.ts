@@ -214,7 +214,9 @@ class UiflowPreview {
 			const doc = await vscode.workspace.openTextDocument(resource);
 			const compiler = new Compiler();
 			const dot = String(await compiler.compile(resource.fsPath, doc.getText(), 'dot'));
-			this.panel.webview.html = this.createHtml(dot);
+			console.log(dot);
+			
+			this.panel.webview.html = this.createHtml(dot.replaceAll('\\', '\\\\'));
 		}
 	}
 
@@ -233,6 +235,7 @@ class UiflowPreview {
 					<script>
 						d3.select("#graph").graphviz().renderDot(\`${dot}\`);
 					</script>
+					<pre>${dot}</pre>
 				</body>
 			</html>
 		`;
