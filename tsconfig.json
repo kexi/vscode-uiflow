@@ -6,7 +6,7 @@
 			"ES2021"
 		],
 		"sourceMap": true,
-		"rootDirs": ["src", "webview/src"],
+		"rootDirs": ["src"],
 		"strict": true   /* enable all strict type-checking options */
 		/* Additional Checks */
 		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
