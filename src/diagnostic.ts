@@ -1,12 +1,10 @@
 'use strict'
 
 import * as vscode from 'vscode'
-import * as uiflow from 'uiflow'
+import uiflow, {ParseError} from '@kexi/uiflow'
 import {
-  CancellationToken,
   Diagnostic,
   DiagnosticSeverity,
-  ExtensionContext,
   Range,
   Position,
   TextDocument,
@@ -14,10 +12,11 @@ import {
 } from 'vscode'
 import { checkUiFlow } from './util'
 
+
 const diagnosticCollection =
   vscode.languages.createDiagnosticCollection('uiflow')
 
-export function activate() {
+export function activate(): void {
   vscode.workspace.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
     if (!checkUiFlow(event.document)) return
     validateTextDocument(event.document)
@@ -32,14 +31,16 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
   const diagnostics: Diagnostic[] = []
   try {
     uiflow.parser.parse(document.getText().replace(/\r\n/g, '\n'), '')
-  } catch (e: any) {
-    const info = e.message.split(/:/g)
-    const start = new Position(e.lineNumber, 0)
-    const end = new Position(e.lineNumber, 1000)
-    const range = new Range(start, end)
-    const message = info[3] + info[4]
-    const diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error)
-    diagnostics.push(diagnostic)
+  } catch (e) {
+    if (e instanceof ParseError) {
+      const info: string[] = e.message.split(/:/g)
+      const start = new Position(e.lineNumber, 0)
+      const end = new Position(e.lineNumber, 1000)
+      const range = new Range(start, end)
+      const message = info[3] + info[4]
+      const diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error)
+      diagnostics.push(diagnostic)
+    }
   }
   return diagnostics
 }

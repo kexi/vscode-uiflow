@@ -264,6 +264,7 @@
   },
   "dependencies": {
     "@bendera/vscode-webview-elements": "^0.7.0",
+    "@kexi/uiflow": "^2.0.10",
     "js-base64": "^3.7.2",
     "parsimmon": "^1.18.1",
     "through2": "^4.0.2",
