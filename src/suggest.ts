@@ -1,10 +1,10 @@
 'use strict'
 
 import * as vscode from 'vscode'
-import * as uiflow from 'uiflow'
+import uiflow from '@kexi/uiflow'
 import { selector } from './mode'
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
   const provider = new UiflowCompletionItemProvider()
   const registration = vscode.languages.registerCompletionItemProvider(
     selector,
@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(registration)
 }
 
-export var completionItemCancellationToken: vscode.CancellationToken
+export let completionItemCancellationToken: vscode.CancellationToken
 export class UiflowCompletionItemProvider
   implements vscode.CompletionItemProvider
 {
@@ -26,7 +26,7 @@ export class UiflowCompletionItemProvider
   ): vscode.CompletionItem[] {
     completionItemCancellationToken = token
     const lineText = document.lineAt(position.line)
-    if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
+    if (lineText.text.substring(0, position.character).match(/=.*=>/) == null) {
       return []
     }
     const json = uiflow.parser.parse(document.getText(), '')

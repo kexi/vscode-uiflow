@@ -1,6 +1,6 @@
 'use strict'
 
-import * as uiflow from 'uiflow'
+import uiflow from '@kexi/uiflow'
 
 import {
   languages,
@@ -31,13 +31,13 @@ export function codeToSections(code: string): Thenable<Section[]> {
 
 export var documentSymbolCancellationToken: CancellationToken
 export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
-  public provideDocumentSymbols(
+  public async provideDocumentSymbols(
     document: TextDocument,
     token: CancellationToken
-  ): Thenable<SymbolInformation[]> {
+  ): Promise<SymbolInformation[]> {
     documentSymbolCancellationToken = token
-    const promise = new Promise<SymbolInformation[]>((ok, ng) => {
-      codeToSections(document.getText()).then((sections) => {
+    const promise = new Promise<SymbolInformation[]>((_resolve, _reject) => {
+      void codeToSections(document.getText()).then((sections) => {
         const info: SymbolInformation[] = []
         sections.forEach((section) => {
           const pos = new Position(section.lines, 0)
@@ -50,14 +50,14 @@ export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
           )
           info.push(si)
         })
-        ok(info)
+        _resolve(info)
       })
     })
-    return promise
+    return await promise
   }
 }
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): void {
   const providor = new UiflowDocumentSymbolProvider()
   const registration = languages.registerDocumentSymbolProvider(
     selector,

@@ -1,10 +1,9 @@
 'use strict'
 
 import * as vscode from 'vscode'
-import * as uiflow from 'uiflow'
+import uiflow from '@kexi/uiflow'
 import {
   CancellationToken,
-  CompletionList,
   Definition,
   DefinitionProvider,
   ExtensionContext,
@@ -14,7 +13,7 @@ import {
 } from 'vscode'
 import { selector } from './mode'
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): void {
   const provider = new UiflowDefinitionProvider()
   const registration = vscode.languages.registerDefinitionProvider(
     selector,
@@ -23,7 +22,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(registration)
 }
 
-export var definitionCancellationToken: CancellationToken
+export let definitionCancellationToken: CancellationToken
 
 export class UiflowDefinitionProvider implements DefinitionProvider {
   public provideDefinition(
