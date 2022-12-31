@@ -1,1 +1,1 @@
-declare module 'through2';
+declare module 'through2'

@@ -1,2 +1,1 @@
-declare module 'uiflow';
-
+declare module 'uiflow'
