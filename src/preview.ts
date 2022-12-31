@@ -2,11 +2,7 @@
 
 import path = require('path')
 import vscode = require('vscode')
-import {
-  ExtensionContext,
-  Uri,
-  ViewColumn,
-} from 'vscode'
+import { ExtensionContext, Uri, ViewColumn } from 'vscode'
 import { Compiler } from './compiler'
 import { checkUiFlow } from './util'
 import * as parser from './parser'
@@ -34,7 +30,9 @@ export function activate(context: ExtensionContext): void {
         return
       }
       if (
-        !(vscode.workspace.getConfiguration('uiflow').get('enableAutoPreview') as boolean)
+        !(vscode.workspace
+          .getConfiguration('uiflow')
+          .get('enableAutoPreview') as boolean)
       ) {
         return
       }

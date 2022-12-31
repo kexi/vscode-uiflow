@@ -1,9 +1,8 @@
 'use strict'
 
-import uiflow, {ErrorHandler} from '@kexi/uiflow'
+import uiflow, { ErrorHandler } from '@kexi/uiflow'
 import * as through2 from 'through2'
-import {Format} from "@kexi/uiflow/dist/cjs/app/interfaces"
-
+import { Format } from '@kexi/uiflow/dist/cjs/app/interfaces'
 
 export class Compiler {
   public buildWithCode(
@@ -15,7 +14,7 @@ export class Compiler {
     return uiflow.buildWithCode(
       fileName,
       code.replace(/\r\n/g, '\n'),
-        format,
+      format,
       errorHandler
     )
   }

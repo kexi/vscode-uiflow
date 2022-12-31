@@ -4,8 +4,8 @@ import fs = require('fs')
 import path = require('path')
 import { Compiler } from './compiler'
 import * as vscode from 'vscode'
-import {Format} from "@kexi/uiflow/dist/cjs/app/interfaces"
-import {Uri, WebviewPanel} from "vscode"
+import { Format } from '@kexi/uiflow/dist/cjs/app/interfaces'
+import { Uri, WebviewPanel } from 'vscode'
 
 const commandOpenExport = 'uiflow.openExport'
 const commandExportSVG = 'uiflow.exportSVG'
@@ -19,17 +19,21 @@ let ctx: vscode.ExtensionContext
 
 export function activate(context: vscode.ExtensionContext): void {
   ctx = context
-  const d2 = vscode.commands.registerCommand(commandOpenExport, async (uri) =>
-    await openExport(uri)
+  const d2 = vscode.commands.registerCommand(
+    commandOpenExport,
+    async (uri) => await openExport(uri)
   )
-  const d4 = vscode.commands.registerCommand(commandExportSVG, async (uri) =>
-    await exportAs(uri, 'svg')
+  const d4 = vscode.commands.registerCommand(
+    commandExportSVG,
+    async (uri) => await exportAs(uri, 'svg')
   )
-  const d5 = vscode.commands.registerCommand(commandExportJSON, async (uri) =>
-    await exportAs(uri, 'json')
+  const d5 = vscode.commands.registerCommand(
+    commandExportJSON,
+    async (uri) => await exportAs(uri, 'json')
   )
-  const d6 = vscode.commands.registerCommand(commandExportDOT, async (uri) =>
-    await exportAs(uri, 'dot')
+  const d6 = vscode.commands.registerCommand(
+    commandExportDOT,
+    async (uri) => await exportAs(uri, 'dot')
   )
   context.subscriptions.push(d2, d4, d5, d6)
 }
@@ -52,9 +56,7 @@ export async function exportAs(uri: vscode.Uri, format: Format): Promise<void> {
     await vscode.window.showInformationMessage(
       `Successfully Exported ${format.toUpperCase()}.`
     )
-  } catch (_) {
-
-  }
+  } catch (_) {}
 }
 
 export async function resolveDocument(uri: any): Promise<vscode.TextDocument> {
@@ -62,7 +64,9 @@ export async function resolveDocument(uri: any): Promise<vscode.TextDocument> {
     if (vscode.window.activeTextEditor != null) {
       uri = vscode.window.activeTextEditor.document.uri
     } else {
-      await vscode.window.showWarningMessage('Open UiFlow document before export.')
+      await vscode.window.showWarningMessage(
+        'Open UiFlow document before export.'
+      )
       throw Error('Open UiFlow document before export.')
     }
   }

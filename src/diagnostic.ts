@@ -1,7 +1,7 @@
 'use strict'
 
 import * as vscode from 'vscode'
-import uiflow, {ParseError} from '@kexi/uiflow'
+import uiflow, { ParseError } from '@kexi/uiflow'
 import {
   Diagnostic,
   DiagnosticSeverity,
@@ -11,7 +11,6 @@ import {
   TextDocumentChangeEvent,
 } from 'vscode'
 import { checkUiFlow } from './util'
-
 
 const diagnosticCollection =
   vscode.languages.createDiagnosticCollection('uiflow')
@@ -38,7 +37,11 @@ export function createDiagnostics(document: TextDocument): Diagnostic[] {
       const end = new Position(e.lineNumber, 1000)
       const range = new Range(start, end)
       const message = info[3] + info[4]
-      const diagnostic = new Diagnostic(range, message, DiagnosticSeverity.Error)
+      const diagnostic = new Diagnostic(
+        range,
+        message,
+        DiagnosticSeverity.Error
+      )
       diagnostics.push(diagnostic)
     }
   }
