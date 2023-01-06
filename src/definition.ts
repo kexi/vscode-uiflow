@@ -32,20 +32,20 @@ export class UiflowDefinitionProvider implements DefinitionProvider {
   ): Definition | undefined {
     definitionCancellationToken = token
     const lineText = document.lineAt(position.line)
-    if (!lineText.text.substring(0, position.character).match(/=.*=>/)) {
+    if (lineText.text.substring(0, position.character).match(/=.*=>/) == null) {
       return undefined
     }
     const match = lineText.text.match(/=.*=>+\s*([^:\]]*)/)
-    if (!match) {
+    if (match == null) {
       return undefined
     }
     const name = match[1]
     const json = uiflow.parser.parse(document.getText(), '')
     const section = json[name]
-    if (!section) {
+    if (section === undefined ) {
       return undefined
     }
-    const pos = new Position(section.lines, 0)
+    const pos = new Position(section.lines ?? 0, 0)
     const location = new Location(document.uri, pos)
     return location
   }

@@ -29,7 +29,7 @@ export function codeToSections(code: string): Thenable<Section[]> {
   return Promise.resolve(segs)
 }
 
-export var documentSymbolCancellationToken: CancellationToken
+export let documentSymbolCancellationToken: CancellationToken
 export class UiflowDocumentSymbolProvider implements DocumentSymbolProvider {
   public async provideDocumentSymbols(
     document: TextDocument,
