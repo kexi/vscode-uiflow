@@ -24,7 +24,11 @@ export function codeToSections(code: string): Thenable<Section[]> {
   const json = uiflow.parser.parse(code, '')
   const segs: Section[] = []
   Object.keys(json).forEach((key) => {
-    segs.push(json[key])
+    const j = json[key]
+    segs.push({
+      name: j.name,
+      lines: j.lines ?? 0
+    })
   })
   return Promise.resolve(segs)
 }
