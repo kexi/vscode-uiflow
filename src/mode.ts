@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-import * as vscode from 'vscode';
+import * as vscode from 'vscode'
 
 export const selector: vscode.DocumentFilter[] = [
-	{scheme: 'file', language: 'uiflow'},
-	{scheme: 'untitled', language: 'uiflow'}
-];
+  { scheme: 'file', language: 'uiflow' },
+  { scheme: 'untitled', language: 'uiflow' },
+]

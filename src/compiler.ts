@@ -1,37 +1,46 @@
-'use strict';
+'use strict'
 
-import * as uiflow from 'uiflow';
-import * as through2 from 'through2';
-
-export class CompileFormat {
-	public static SVG = 'svg';
-	public static PNG = 'png';
-	public static JSON = 'json';
-	public static DOT = 'dot';
-}
+import uiflow, {ErrorHandler} from '@kexi/uiflow'
+import * as through2 from 'through2'
+import {Format} from '@kexi/uiflow/dist/cjs/app/interfaces'
 
 export class Compiler {
-	public buildWithCode(fileName: string, code: string, format: string, errorHandler: Function): NodeJS.ReadableStream {
-		return uiflow.buildWithCode(fileName, code.replace(/\r\n/g, '\n'), format, errorHandler);
-	}
+  public buildWithCode(
+    fileName: string,
+    code: string,
+    format: Format,
+    errorHandler: ErrorHandler
+  ): NodeJS.ReadableStream {
+    return uiflow.buildWithCode(
+      fileName,
+      code.replace(/\r\n/g, '\n'),
+      format,
+      errorHandler
+    )
+  }
 
-	public compile(fileName: string, code: string, format: string): Promise<Buffer> {
-		let promise = new Promise<Buffer>((resolve, rejected) => {
-			let buff: any = [];
-			let output = through2((chunk: any, enc: string, callback: Function) => {
-				buff.push(chunk);
-				callback();
-			});
-			let stream = this.buildWithCode(fileName, code, format, (e :any) => {
-				rejected(e);
-			});
-			stream.pipe(output);
-			stream.on('end', () => {
-				let all = Buffer.concat(buff);
-				resolve(all);
-				output.end();
-			});
-		});
-		return promise;
-	}
+  public async compile(
+    fileName: string,
+    code: string,
+    format: Format
+  ): Promise<Buffer> {
+    const promise = new Promise<Buffer>((_resolve, _reject) => {
+      const buff: Uint8Array[] = []
+      const output = through2((chunk: Uint8Array, enc: string, callback: Function) => {
+        buff.push(chunk)
+        callback()
+      })
+
+      const stream = this.buildWithCode(fileName, code, format, (e: any) => {
+        _reject(e)
+      })
+      stream.pipe(output)
+      stream.on('end', () => {
+        const all = Buffer.concat(buff)
+        _resolve(all)
+        output.end()
+      })
+    })
+    return await promise
+  }
 }
