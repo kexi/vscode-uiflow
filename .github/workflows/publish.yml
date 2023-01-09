@@ -2,7 +2,7 @@ name: Publish package to Market Place
 on:
   push:
     tags:
-      - 'release/*'
+      - 'release/v*'
 env:
   VSCE_PAT: ${{secrets.VSCE_PAT}}    
 jobs:
@@ -25,3 +25,15 @@ jobs:
       run: |
         yarn
         npx vsce publish
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: ""
+        draft: false
+        prerelease: false
