@@ -2,7 +2,7 @@
 
 import uiflow, {ErrorHandler} from '@kexi/uiflow'
 import * as through2 from 'through2'
-import {Format} from '@kexi/uiflow/dist/cjs/app/interfaces'
+import {Format} from '@kexi/uiflow/dist/cjs/src/app/interfaces'
 
 export class Compiler {
   public buildWithCode(

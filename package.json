@@ -4,7 +4,7 @@
   "description": "UiFlow support For Visual Studio Code.",
   "author": "Kei Nakayama (https://github.com/kexi/)",
   "license": "MIT",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "publisher": "kexi",
   "galleryBanner": {
     "color": "#79b74a",
