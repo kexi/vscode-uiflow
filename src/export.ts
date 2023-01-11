@@ -4,7 +4,7 @@ import fs = require('fs')
 import path = require('path')
 import { Compiler } from './compiler'
 import * as vscode from 'vscode'
-import { Format } from '@kexi/uiflow/dist/cjs/app/interfaces'
+import { Format } from '@kexi/uiflow/dist/cjs/src/app/interfaces'
 import { Uri, WebviewPanel } from 'vscode'
 
 const commandOpenExport = 'uiflow.openExport'
