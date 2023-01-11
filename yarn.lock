@@ -88,10 +88,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kexi/uiflow@^2.0.15":
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/@kexi/uiflow/-/uiflow-2.0.15.tgz#5d776d6f7359e60a486e2fde9621efa65478d85d"
-  integrity sha512-j6p2is1Pd7HYcA2JkwwqUatnXjOLAJ81jaqnWkaNcvSNt3yY0BRm43joFsFSD+hCPcfMXIPsenEXqCfRyxyZxQ==
+"@kexi/uiflow@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@kexi/uiflow/-/uiflow-2.1.1.tgz#7d4af7602addd2881bd145a76de5eb677d1fa9e8"
+  integrity sha512-yVXyphckA5UKsHnhBqWDO5j1DB8cjBlQ82JknMyW4DZ4dm7u8sMisOmG3sOJFgg3SXZaOYkH5DD8ULnofh25vg==
   dependencies:
     marron-glace "^0.0.3"
     spawn-stream "^1.0.2"
