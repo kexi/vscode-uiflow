@@ -1,5 +1,3 @@
-'use strict'
-
 import * as vscode from 'vscode'
 import { activate as activatePreview } from './preview'
 import { activate as activateExport } from './export'

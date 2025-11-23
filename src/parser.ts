@@ -1,8 +1,5 @@
-'use strict'
-
 import * as Parsimmon from 'parsimmon'
 import { string, regex, optWhitespace, sepBy, alt, seqMap } from 'parsimmon'
-
 import { Position as Pos } from 'vscode'
 
 export interface Position {

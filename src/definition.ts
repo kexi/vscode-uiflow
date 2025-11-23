@@ -1,5 +1,3 @@
-'use strict'
-
 import * as vscode from 'vscode'
 import uiflow from '@kexi/uiflow'
 import {
@@ -42,7 +40,7 @@ export class UiflowDefinitionProvider implements DefinitionProvider {
     const name = match[1]
     const json = uiflow.parser.parse(document.getText(), '')
     const section = json[name]
-    if (section === undefined ) {
+    if (section === undefined) {
       return undefined
     }
     const pos = new Position(section.lines ?? 0, 0)
