@@ -1,7 +1,5 @@
-'use strict'
-
-import path = require('path')
-import vscode = require('vscode')
+import * as path from 'path'
+import * as vscode from 'vscode'
 import { ExtensionContext, Uri, ViewColumn } from 'vscode'
 import { Compiler } from './compiler'
 import { checkUiFlow } from './util'

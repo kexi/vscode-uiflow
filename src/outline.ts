@@ -1,5 +1,3 @@
-'use strict'
-
 import uiflow from '@kexi/uiflow'
 
 import {
@@ -27,7 +25,7 @@ export function codeToSections(code: string): Thenable<Section[]> {
     const j = json[key]
     segs.push({
       name: j.name,
-      lines: j.lines ?? 0
+      lines: j.lines ?? 0,
     })
   })
   return Promise.resolve(segs)

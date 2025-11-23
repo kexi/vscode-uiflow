@@ -1,7 +1,5 @@
-'use strict'
-
-import fs = require('fs')
-import path = require('path')
+import * as fs from 'fs'
+import * as path from 'path'
 import { Compiler } from './compiler'
 import * as vscode from 'vscode'
 import { Format } from '@kexi/uiflow/dist/cjs/src/app/interfaces'
@@ -116,6 +114,8 @@ async function openExport(uri: vscode.Uri): Promise<WebviewPanel | undefined> {
     switch (msg.command) {
       case 'save-png':
         return saveData(msg.url)
+      default:
+        return
     }
   })
 
